@@ -1,0 +1,240 @@
+openapi: 3.1.0
+info:
+  title: OpenStack Placement API
+  description: 'This is a reference for the OpenStack Placement API. To learn more
+    about
+
+    OpenStack Placement API concepts, please refer to the
+
+    [Placement Introduction](https://docs.openstack.org/placement/latest/).'
+  version: '1.39'
+paths:
+  /resource_classes/{name}:
+    parameters:
+    - $ref: '#/components/parameters/resource_classes_name'
+    delete:
+      description: 'Delete the resource class identified by {name}.
+
+
+        Normal Response Codes: 204
+
+
+        Error response codes: badRequest(400), itemNotFound(404), conflict(409)
+
+
+        A 400 BadRequest response code will be returned if trying
+
+        to delete a standard resource class.
+
+
+        A 409 Conflict response code will be returned if there exist
+
+        inventories for the resource class.'
+      operationId: resource_classes/name:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - resource_classes
+      x-openstack:
+        min-ver: '1.2'
+      summary: Delete resource class
+  /resource_providers/{uuid}:
+    parameters:
+    - $ref: '#/components/parameters/resource_providers_uuid'
+    delete:
+      description: 'Delete the resource provider identified by {uuid}.
+
+        This will also disassociate aggregates and delete inventories.
+
+
+        Normal Response Codes: 204
+
+
+        Error response codes: itemNotFound(404), conflict(409)
+
+
+        A 409 Conflict response code will be returned if there exist
+
+        allocations records for any of the inventories that would be deleted
+
+        as a result of removing the resource provider.
+
+
+        This error code will be also returned if there are existing child resource
+
+        providers under the parent resource provider being deleted.'
+      operationId: resource_providers/uuid:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - resource_providers
+      summary: Delete resource provider
+  /resource_providers/{uuid}/inventories:
+    parameters:
+    - $ref: '#/components/parameters/resource_providers_inventories_uuid'
+    delete:
+      description: "Deletes all inventory records for the resource provider identified\
+        \ by {uuid}.\n\n**Troubleshooting**\n\nThe request returns an HTTP 409 when\
+        \ there are allocations against\nthe provider or if the provider\u2019s inventory\
+        \ is updated by another\nthread while attempting the operation.\n\nNormal\
+        \ Response Codes: 204\n\nError response codes: itemNotFound(404), conflict(409)"
+      operationId: resource_providers/uuid/inventories:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - resource_providers
+      x-openstack:
+        min-ver: '1.5'
+      summary: Delete resource provider inventories
+  /resource_providers/{uuid}/inventories/{resource_class}:
+    parameters:
+    - $ref: '#/components/parameters/resource_providers_inventories_uuid'
+    - $ref: '#/components/parameters/resource_providers_inventories_resource_class'
+    delete:
+      description: 'Delete the inventory record of the {resource_class} for
+
+        the resource provider identified by {uuid}.
+
+
+        See [Troubleshooting](?expanded=delete-resource-provider-inventories-detail#delete-resource-provider-inventories)
+        section in `Delete resource provider
+
+        inventories` for a description. In addition, the request returns
+
+        HTTP 409 when there are allocations for the specified resource
+
+        provider and resource class.
+
+
+        Normal Response Codes: 204
+
+
+        Error response codes: itemNotFound(404), conflict(409)'
+      operationId: resource_providers/uuid/inventories/resource_class:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - resource_providers
+      summary: Delete resource provider inventory
+  /allocations/{consumer_uuid}:
+    parameters:
+    - $ref: '#/components/parameters/allocations_consumer_uuid'
+    delete:
+      description: 'Delete all allocation records for the consumer identified by
+
+        {consumer_uuid} on all resource providers it is consuming.
+
+
+        Normal Response Codes: 204
+
+
+        Error response codes: itemNotFound(404)'
+      operationId: allocations/consumer_uuid:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - allocations
+      summary: Delete allocations
+  /traits/{name}:
+    parameters:
+    - $ref: '#/components/parameters/traits_name'
+    delete:
+      description: 'Delete the trait specified be {name}. Note that only custom traits
+        can be
+
+        deleted.
+
+
+        Normal Response Codes: 204
+
+
+        Error response codes: badRequest(400), itemNotFound(404), conflict(409)'
+      operationId: traits/name:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - traits
+      x-openstack:
+        min-ver: '1.6'
+      summary: Delete traits
+  /resource_providers/{uuid}/traits:
+    parameters:
+    - $ref: '#/components/parameters/resource_providers_traits_uuid'
+    delete:
+      description: 'Dissociate all the traits from the resource provider identified
+        by {uuid}.
+
+
+        Normal Response Codes: 204
+
+
+        Error response codes: itemNotFound(404), conflict(409)'
+      operationId: resource_providers/uuid/traits:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - resource_providers
+      x-openstack:
+        min-ver: '1.6'
+      summary: Delete resource provider traits
+components:
+  schemas: {}
+  parameters:
+    resource_classes_name:
+      in: path
+      name: name
+      description: name parameter for /resource_classes/{name} API
+      schema:
+        type: string
+      required: true
+    resource_providers_uuid:
+      in: path
+      name: uuid
+      description: uuid parameter for /resource_providers/{uuid} API
+      schema:
+        type: string
+      required: true
+    resource_providers_inventories_uuid:
+      in: path
+      name: uuid
+      description: uuid parameter for /resource_providers/{uuid}/inventories/{resource_class}
+        API
+      schema:
+        type: string
+      required: true
+    resource_providers_inventories_resource_class:
+      in: path
+      name: resource_class
+      description: resource_class parameter for /resource_providers/{uuid}/inventories/{resource_class}
+        API
+      schema:
+        type: string
+      required: true
+    allocations_consumer_uuid:
+      in: path
+      name: consumer_uuid
+      description: consumer_uuid parameter for /allocations/{consumer_uuid} API
+      schema:
+        type: string
+      required: true
+    traits_name:
+      in: path
+      name: name
+      description: name parameter for /traits/{name} API
+      schema:
+        type: string
+      required: true
+    resource_providers_traits_uuid:
+      in: path
+      name: uuid
+      description: uuid parameter for /resource_providers/{uuid}/traits API
+      schema:
+        type: string
+      required: true

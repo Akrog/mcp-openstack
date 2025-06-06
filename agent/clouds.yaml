@@ -1,0 +1,9 @@
+clouds:
+    default:
+        auth:
+            auth_url: <KEYSTONE_PUBLIC_URL>
+            project_name: admin
+            username: admin
+            user_domain_name: Default
+            project_domain_name: Default
+        region_name: regionOne

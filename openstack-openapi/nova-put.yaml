@@ -1,0 +1,4103 @@
+openapi: 3.1.0
+info:
+  title: OpenStack Compute API
+  description: 'This is a reference for the OpenStack Compute API which is provided
+    by the Nova
+
+    project. To learn more about the OpenStack Compute API concepts, please refer
+    to
+
+    the [API guide](https://docs.openstack.org/api-guide/compute/index.html).'
+  version: '2.100'
+paths:
+  /v2.1/flavors/{id}:
+    parameters:
+    - $ref: '#/components/parameters/flavors_id'
+    put:
+      description: 'Updates a flavor description.
+
+
+        This API is available starting with microversion 2.55.
+
+
+        Policy defaults enable only users with the administrative role to
+
+        perform this operation. Cloud providers can change these permissions
+
+        through the `policy.json` file.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404)'
+      operationId: flavors/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlavorUpdate_255'
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlavorUpdateResponse'
+      tags:
+      - flavors
+      x-openstack:
+        min-ver: '2.55'
+      summary: Update Flavor Description
+  /v2.1/flavors/{flavor_id}/os-extra_specs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/flavors_os_extra_specs_flavor_id'
+    - $ref: '#/components/parameters/flavors_os_extra_specs_id'
+    put:
+      description: 'Updates an extra spec, by key, for a flavor, by ID.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403)
+
+        itemNotFound(404), conflict(409)'
+      operationId: flavors/flavor_id/os-extra_specs/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FlavorsOs_Extra_SpecUpdate'
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlavorsOs_Extra_SpecUpdateResponse'
+      tags:
+      - flavors
+      summary: Update An Extra Spec For A Flavor
+  /v2.1/images/{image_id}/metadata:
+    parameters:
+    - $ref: '#/components/parameters/images_metadata_image_id'
+    put:
+      description: 'Update an image metadata
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404)'
+      operationId: images/image_id/metadata:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImagesMetadataUpdate_All'
+      responses:
+        '400':
+          description: Error
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesMetadataUpdate_AllResponse'
+      tags:
+      - images
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.38'
+      summary: Update Image Metadata
+  /v2.1/images/{image_id}/metadata/{id}:
+    parameters:
+    - $ref: '#/components/parameters/images_metadata_image_id'
+    - $ref: '#/components/parameters/images_metadata_id'
+    put:
+      description: 'Creates or updates a metadata item, by key, for an image.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: images/image_id/metadata/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImagesMetadataUpdate'
+      responses:
+        '400':
+          description: Error
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesMetadataUpdateResponse'
+      tags:
+      - images
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.38'
+      summary: Create Or Update Image Metadata Item
+  /v2.1/os-agents/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_agents_id'
+    put:
+      description: 'Updates an agent build.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), gone(410)'
+      operationId: os-agents/id:put
+      responses:
+        '410':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_AgentUpdateResponse'
+      tags:
+      - os-agents
+      deprecated: true
+      summary: Update Agent Build
+  /v2.1/os-aggregates/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_aggregates_id'
+    put:
+      description: 'Updates either or both the name and availability zone for an aggregate.
+
+        If the aggregate to be updated has host that already in the given
+
+        availability zone, the request will fail with 400 error.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), conflict(409)'
+      operationId: os-aggregates/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Os_AggregateUpdateRequest'
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_AggregateUpdateResponse'
+      tags:
+      - os-aggregates
+      summary: Update Aggregate
+  /v2.1/os-cells/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_cells_id'
+    put:
+      description: 'Update an existing cell.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), gone(410), notImplemented(501)'
+      operationId: os-cells/id:put
+      responses:
+        '410':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_CellUpdateResponse'
+      tags:
+      - os-cells
+      deprecated: true
+      summary: Update a Cell
+  /v2.1/os-cloudpipe/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_cloudpipe_id'
+    put:
+      description: Configure cloudpipe parameters for the project.
+      operationId: os-cloudpipe/id:put
+      responses:
+        '410':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_CloudpipeUpdateResponse'
+      tags:
+      - os-cloudpipe
+      deprecated: true
+  /v2.1/os-floating-ip-dns/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_floating_ip_dns_id'
+    put:
+      description: 'Creates or updates a DNS domain.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        gone(410), notImplemented(501)'
+      operationId: os-floating-ip-dns/id:put
+      responses:
+        '410':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_Floating_Ip_DnUpdateResponse'
+      tags:
+      - os-floating-ip-dns
+      deprecated: true
+      summary: Create Or Update DNS Domain
+  /v2.1/os-floating-ip-dns/{domain_id}/entries/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_floating_ip_dns_entries_domain_id'
+    - $ref: '#/components/parameters/os_floating_ip_dns_entries_id'
+    put:
+      description: 'Creates or updates a DNS entry.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: unauthorized(401), forbidden(403), gone(410),
+
+        notImplemented(501)'
+      operationId: os-floating-ip-dns/domain_id/entries/id:put
+      responses:
+        '410':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_Floating_Ip_DnsEntryUpdateResponse'
+      tags:
+      - os-floating-ip-dns
+      deprecated: true
+      summary: Create Or Update DNS Entry
+  /v2.1/os-floating-ips-bulk/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_floating_ips_bulk_id'
+    put:
+      operationId: os-floating-ips-bulk/id:put
+      responses:
+        '410':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_Floating_Ips_BulkUpdateResponse'
+      tags:
+      - os-floating-ips-bulk
+      deprecated: true
+  /v2.1/os-hosts/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_hosts_id'
+    put:
+      description: 'Enables, disables a host or put a host in maintenance or normal
+        mode.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), NotImplemented(501)'
+      operationId: os-hosts/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Os_HostUpdate'
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '501':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_HostUpdateResponse'
+      tags:
+      - os-hosts
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.42'
+      summary: Update Host status
+  /v2.1/os-quota-class-sets/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_quota_class_sets_id'
+    put:
+      description: "Update the quotas for the Quota Class.\n\nIf the requested Quota\
+        \ Class is not found in the DB, then the API will create the one.\nOnly \u2018\
+        default\u2019 quota class is valid and used to set the default quotas, all\
+        \ other quota class\nwould not be used anywhere.\n\nNormal response codes:\
+        \ 200\n\nError response codes: badRequest(400), unauthorized(401), forbidden(403)"
+      operationId: os-quota-class-sets/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Os_Quota_Class_SetUpdate'
+      responses:
+        '400':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_Quota_Class_SetUpdateResponse'
+      tags:
+      - quota-class-sets-os-quota-class-sets
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.56'
+      summary: Create or Update Quotas for Quota Class
+  /v2.1/os-quota-sets/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_quota_sets_id'
+    put:
+      parameters:
+      - $ref: '#/components/parameters/os_quota_set_user_id'
+      description: 'Update the quotas for a project or a project and a user.
+
+
+        Users can force the update even if the quota has already been used and
+
+        the reserved quota exceeds the new quota. To force the update, specify
+
+        the `"force": True` attribute in the request body, the default value
+
+        is `false`.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403)'
+      operationId: os-quota-sets/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Os_Quota_SetUpdate'
+      responses:
+        '400':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_Quota_SetUpdateResponse'
+      tags:
+      - quota-sets-os-quota-sets
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.56'
+      summary: Update Quotas
+  /v2.1/os-security-groups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_security_groups_id'
+    put:
+      description: 'Updates a security group.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404)'
+      operationId: os-security-groups/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Os_Security_GroupUpdate'
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_Security_GroupUpdateResponse'
+      tags:
+      - os-security-groups
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      summary: Update Security Group
+  /v2.1/os-services/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_services_id'
+    put:
+      description: 'Update a compute service to enable or disable scheduling, including
+        recording a
+
+        reason why a compute service was disabled from scheduling. Set or unset the
+
+        `forced_down` flag for the service. This operation is only allowed on
+
+        services whose `binary` is `nova-compute`.
+
+
+        This API is available starting with microversion 2.53.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404)'
+      operationId: os-services/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Os_ServiceUpdateRequest'
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_ServiceUpdateResponse'
+      tags:
+      - os-services
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.52'
+      summary: Update Compute Service
+  /v2.1/os-volumes_boot/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_volumes_boot_id'
+    put:
+      description: Update server then pass on to version-specific controller.
+      operationId: os-volumes_boot/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Os_Volumes_BootUpdateRequest'
+      responses:
+        '404':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Os_Volumes_BootUpdateResponse'
+      tags:
+      - os-volumes_boot
+  /v2.1/servers/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_id'
+    put:
+      description: 'Updates the editable attributes of an existing server.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401),
+
+        forbidden(403), itemNotFound(404)'
+      operationId: servers/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServerUpdateRequest'
+      responses:
+        '404':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerUpdateResponse'
+      tags:
+      - servers
+      summary: Update Server
+  /v2.1/servers/{server_id}/metadata:
+    parameters:
+    - $ref: '#/components/parameters/servers_metadata_server_id'
+    put:
+      description: 'Replaces one or more metadata items for a server.
+
+
+        Creates any metadata items that do not already exist in the server. Removes
+        and completely replaces any metadata items that already exist in the server
+        with the metadata items in the request.
+
+
+        Policy defaults enable only users with the administrative role or the owner
+        of the server to perform this operation. Cloud providers can change these
+        permissions through the `policy.json` file.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), conflict(409)'
+      operationId: servers/server_id/metadata:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServersMetadataUpdate_All'
+      responses:
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServersMetadataUpdate_AllResponse'
+      tags:
+      - servers
+      summary: Replace Metadata Items
+  /v2.1/servers/{server_id}/metadata/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_metadata_server_id'
+    - $ref: '#/components/parameters/servers_metadata_id'
+    put:
+      description: 'Creates or replaces a metadata item, by key, for a server.
+
+
+        Creates a metadata item that does not already exist in the server. Replaces
+
+        existing metadata items that match keys with the metadata item in the request.
+
+
+        Policy defaults enable only users with the administrative role or the owner
+        of the server to perform this operation. Cloud providers can change these
+        permissions through the `policy.json` file.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), conflict(409)'
+      operationId: servers/server_id/metadata/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServersMetadataUpdate'
+      responses:
+        '400':
+          description: Error
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServersMetadataUpdateResponse'
+      tags:
+      - servers
+      summary: Create Or Update Metadata Item
+  /v2.1/servers/{server_id}/os-volume_attachments/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_os_volume_attachments_server_id'
+    - $ref: '#/components/parameters/servers_os_volume_attachments_id'
+    put:
+      description: "Update a volume attachment.\n\nPolicy default role is \u2018rule:system_admin_or_owner\u2019\
+        , its scope is\n[system, project], which allow project members or system admins\
+        \ to\nchange the fields of an attached volume of a server. Policy defaults\n\
+        enable only users with the administrative role to change `volumeId`\nvia this\
+        \ operation. Cloud providers can change these permissions\nthrough the `policy.json`\
+        \ file.\n\nUpdating, or what is commonly referred to as \u201Cswapping\u201D\
+        , volume attachments\nwith volumes that have more than one read/write attachment,\
+        \ is not supported.\n\nNormal response codes: 202\n\nError response codes:\
+        \ badRequest(400), unauthorized(401), forbidden(403), itemNotFound(404), conflict(409)"
+      operationId: servers/server_id/os-volume_attachments/id:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServersOs_Volume_AttachmentUpdateRequest'
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServersOs_Volume_AttachmentUpdateResponse'
+      tags:
+      - servers
+      summary: Update a volume attachment
+  /v2.1/servers/{server_id}/tags:
+    parameters:
+    - $ref: '#/components/parameters/servers_tags_server_id'
+    put:
+      description: 'Replaces all tags on specified server with the new set of tags.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404)'
+      operationId: servers/server_id/tags:put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServersTagsUpdate_All'
+      responses:
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServersTagsUpdate_AllResponse'
+      tags:
+      - server-tags
+      x-openstack:
+        min-ver: '2.26'
+      summary: Replace Tags
+  /v2.1/servers/{server_id}/tags/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_tags_server_id'
+    - $ref: '#/components/parameters/servers_tags_id'
+    put:
+      description: 'Adds a single tag to the server if server has no specified tag.
+        Response code
+
+        in this case is 201.
+
+
+        If the server has specified tag just returns 204.
+
+
+        Normal response codes: 201, 204
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404)'
+      operationId: servers/server_id/tags/id:put
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '200':
+          description: Ok
+      tags:
+      - server-tags
+      x-openstack:
+        min-ver: '2.26'
+      summary: Add a Single Tag
+components:
+  schemas:
+    FlavorUpdateResponse:
+      type: object
+      properties:
+        flavor:
+          type: object
+          properties:
+            disk:
+              type: integer
+              description: 'The size of the root disk that will be created in GiB.
+                If 0 the
+
+                root disk will be set to exactly the size of the image used to
+
+                deploy the instance. However, in this case the scheduler cannot
+
+                select the compute host based on the virtual image size. Therefore,
+
+                0 should only be used for volume booted instances or for testing
+
+                purposes. Volume-backed instances can be enforced for flavors with
+
+                zero root disk via the `os_compute_api:servers:create:zero_disk_flavor`
+
+                policy rule.'
+            id:
+              type: string
+              description: 'The ID of the flavor. While people often make this look
+                like
+
+                an int, this is really a string.'
+            links:
+              type: array
+              items:
+                type: object
+                properties:
+                  href:
+                    type: string
+                    format: uri
+                  rel:
+                    type: string
+                required:
+                - href
+                - rel
+              description: 'Links to the resources in question. See [API Guide / Links
+                and
+
+                References](https://docs.openstack.org/api-guide/compute/links_and_references.html)
+
+                for more info.'
+            name:
+              type: string
+              description: The display name of a flavor.
+            os-flavor-access:is_public: {}
+            ram:
+              type: integer
+              description: The amount of RAM a flavor has, in MiB.
+            rxtx_factor: {}
+            swap:
+              type: integer
+              description: "The size of a dedicated swap disk that will be allocated,\
+                \ in\nMiB. If 0 (the default), no dedicated swap disk will be created.\n\
+                Currently, the empty string (\u2018\u2019) is used to represent 0.\n\
+                As of microversion 2.75 default return value of swap is 0\ninstead\
+                \ of empty string."
+            vcpus:
+              type: integer
+              description: The number of virtual CPUs that will be allocated to the
+                server.
+            OS-FLV-EXT-DATA:ephemeral:
+              type: integer
+              description: 'The size of the ephemeral disk that will be created, in
+
+                GiB. Ephemeral disks may be written over on server state
+
+                changes. So should only be used as a scratch space for
+
+                applications that are aware of its limitations. Defaults to 0.'
+            OS-FLV-DISABLED:disabled:
+              type: boolean
+              description: 'Whether or not the flavor has been administratively disabled.
+
+                This is an artifact of the legacy v2 API and will always be set to
+
+                `false`. There is currently no way to disable a flavor and set this
+                to
+
+                `true`.'
+            description:
+              type:
+              - string
+              - 'null'
+              description: The description of the flavor.
+            extra_specs:
+              type: object
+              patternProperties:
+                ^[a-zA-Z0-9-_:. ]{1,255}$:
+                  type: string
+                  maxLength: 255
+              additionalProperties: false
+              description: "A dictionary of the flavor\u2019s extra-specs key-and-value\
+                \ pairs. This will\nonly be included if the user is allowed by policy\
+                \ to index flavor\nextra_specs.\n\n**New in version 2.61**"
+          required:
+          - disk
+          - id
+          - links
+          - name
+          - os-flavor-access:is_public
+          - ram
+          - rxtx_factor
+          - swap
+          - vcpus
+          - OS-FLV-DISABLED:disabled
+          - OS-FLV-EXT-DATA:ephemeral
+          - description
+          additionalProperties: false
+          description: 'The ID and links for the flavor for your server instance.
+            A flavor is a combination
+
+            of memory, disk size, and CPUs.'
+      additionalProperties: false
+      required:
+      - flavor
+    FlavorUpdate_255:
+      type: object
+      properties:
+        flavor:
+          type: object
+          description: 'The ID and links for the flavor for your server instance.
+            A flavor is a combination
+
+            of memory, disk size, and CPUs.'
+          properties:
+            description:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 65535
+              pattern: "^[\\ -\\~\_-\xAC\xAE-\u0377\u037A-\u037F\u0384-\u038A\u038C\
+                \u038E-\u03A1\u03A3-\u052F\u0531-\u0556\u0559-\u058A\u058D-\u058F\u0591\
+                -\u05C7\u05D0-\u05EA\u05EF-\u05F4\u0606-\u061B\u061D-\u06DC\u06DE\
+                -\u070D\u0710-\u074A\u074D-\u07B1\u07C0-\u07FA\u07FD-\u082D\u0830\
+                -\u083E\u0840-\u085B\u085E\u0860-\u086A\u0870-\u088E\u0898-\u08E1\u08E3\
+                -\u0983\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6\
+                -\u09B9\u09BC-\u09C4\u09C7-\u09C8\u09CB-\u09CE\u09D7\u09DC-\u09DD\u09DF\
+                -\u09E3\u09E6-\u09FE\u0A01-\u0A03\u0A05-\u0A0A\u0A0F-\u0A10\u0A13\
+                -\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A3C\u0A3E\
+                -\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A76\
+                \u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\
+                -\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0\
+                -\u0AE3\u0AE6-\u0AF1\u0AF9-\u0AFF\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\
+                -\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3C\
+                -\u0B44\u0B47-\u0B48\u0B4B-\u0B4D\u0B55-\u0B57\u0B5C-\u0B5D\u0B5F\
+                -\u0B63\u0B66-\u0B77\u0B82-\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92\
+                -\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE\
+                -\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BFA\
+                \u0C00-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3C-\u0C44\u0C46\
+                -\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C58-\u0C5A\u0C5D\u0C60-\u0C63\u0C66\
+                -\u0C6F\u0C77-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5\
+                -\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5-\u0CD6\u0CDD\
+                -\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1-\u0CF3\u0D00-\u0D0C\u0D0E\
+                -\u0D10\u0D12-\u0D44\u0D46-\u0D48\u0D4A-\u0D4F\u0D54-\u0D63\u0D66\
+                -\u0D7F\u0D81-\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0\
+                -\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2-\u0DF4\
+                \u0E01-\u0E3A\u0E3F-\u0E5B\u0E81-\u0E82\u0E84\u0E86-\u0E8A\u0E8C-\u0EA3\
+                \u0EA5\u0EA7-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECE\u0ED0-\u0ED9\u0EDC\
+                -\u0EDF\u0F00-\u0F47\u0F49-\u0F6C\u0F71-\u0F97\u0F99-\u0FBC\u0FBE\
+                -\u0FCC\u0FCE-\u0FDA\u1000-\u10C5\u10C7\u10CD\u10D0-\u1248\u124A-\u124D\
+                \u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\
+                \u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\
+                \u1312-\u1315\u1318-\u135A\u135D-\u137C\u1380-\u1399\u13A0-\u13F5\u13F8\
+                -\u13FD\u1400-\u169C\u16A0-\u16F8\u1700-\u1715\u171F-\u1736\u1740\
+                -\u1753\u1760-\u176C\u176E-\u1770\u1772-\u1773\u1780-\u17DD\u17E0\
+                -\u17E9\u17F0-\u17F9\u1800-\u180D\u180F-\u1819\u1820-\u1878\u1880\
+                -\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1940\u1944\
+                -\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u19DE\
+                -\u1A1B\u1A1E-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA0\
+                -\u1AAD\u1AB0-\u1ACE\u1B00-\u1B4C\u1B50-\u1B7E\u1B80-\u1BF3\u1BFC\
+                -\u1C37\u1C3B-\u1C49\u1C4D-\u1C88\u1C90-\u1CBA\u1CBD-\u1CC7\u1CD0\
+                -\u1CFA\u1D00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50\
+                -\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FC4\u1FC6\
+                -\u1FD3\u1FD6-\u1FDB\u1FDD-\u1FEF\u1FF2-\u1FF4\u1FF6-\u1FFE\u2000\
+                -\u200A\u2010-\u2027\u202F-\u205F\u2070-\u2071\u2074-\u208E\u2090\
+                -\u209C\u20A0-\u20C0\u20D0-\u20F0\u2100-\u218B\u2190-\u2426\u2440\
+                -\u244A\u2460-\u2B73\u2B76-\u2B95\u2B97-\u2CF3\u2CF9-\u2D25\u2D27\u2D2D\
+                \u2D30-\u2D67\u2D6F-\u2D70\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0\
+                -\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8\
+                -\u2DDE\u2DE0-\u2E5D\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0\
+                -\u303F\u3041-\u3096\u3099-\u30FF\u3105-\u312F\u3131-\u318E\u3190\
+                -\u31E3\u31EF-\u321E\u3220-\uA48C\uA490-\uA4C6\uA4D0-\uA62B\uA640\
+                -\uA6F7\uA700-\uA7CA\uA7D0-\uA7D1\uA7D3\uA7D5-\uA7D9\uA7F2-\uA82C\uA830\
+                -\uA839\uA840-\uA877\uA880-\uA8C5\uA8CE-\uA8D9\uA8E0-\uA953\uA95F\
+                -\uA97C\uA980-\uA9CD\uA9CF-\uA9D9\uA9DE-\uA9FE\uAA00-\uAA36\uAA40\
+                -\uAA4D\uAA50-\uAA59\uAA5C-\uAAC2\uAADB-\uAAF6\uAB01-\uAB06\uAB09\
+                -\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB6B\uAB70\
+                -\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900\
+                -\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB36\uFB38\
+                -\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBC2\uFBD3-\uFD8F\uFD92\
+                -\uFDC7\uFDCF\uFDF0-\uFE19\uFE20-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFE70\
+                -\uFE74\uFE76-\uFEFC\uFF01-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2\
+                -\uFFD7\uFFDA-\uFFDC\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC-\uFFFD]*$"
+              description: 'A free form description of the flavor. Limited to 65535
+                characters
+
+                in length. Only printable characters are allowed.'
+          additionalProperties: false
+          required:
+          - description
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.55'
+      required:
+      - flavor
+    FlavorsOs_Extra_SpecUpdateResponse:
+      type: object
+      additionalProperties: false
+      patternProperties:
+        ^[a-zA-Z0-9-_:. ]{1,255}$:
+          type:
+          - string
+          - number
+          maxLength: 255
+      minProperties: 1
+      maxProperties: 1
+    FlavorsOs_Extra_SpecUpdate:
+      type: object
+      additionalProperties: false
+      patternProperties:
+        ^[a-zA-Z0-9-_:. ]{1,255}$:
+          type:
+          - string
+          - number
+          maxLength: 255
+      minProperties: 1
+      maxProperties: 1
+    ImagesMetadataUpdate_AllResponse:
+      type: object
+      description: Response of the images/image_id/metadata:put operation
+    ImagesMetadataUpdate_All:
+      type: object
+      properties:
+        metadata:
+          type: object
+          description: 'Metadata key and value pairs. The maximum size for each metadata
+            key and value
+
+            pair is 255 bytes.'
+          additionalProperties: false
+          patternProperties:
+            ^[a-zA-Z0-9-_:. ]{1,255}$:
+              type: string
+              maxLength: 255
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.38'
+      required:
+      - metadata
+    ImagesMetadataUpdateResponse:
+      type: object
+      description: Response of the images/image_id/metadata/id:put operation
+    ImagesMetadataUpdate:
+      type: object
+      properties:
+        meta:
+          type: object
+          description: The object of detailed key metadata items.
+          additionalProperties: false
+          patternProperties:
+            ^[a-zA-Z0-9-_:. ]{1,255}$:
+              type: string
+              maxLength: 255
+          minProperties: 1
+          maxProperties: 1
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.38'
+      required:
+      - meta
+    Os_AgentUpdateResponse:
+      type: object
+      description: Response of the os-agents/id:put operation
+    Os_AggregateUpdateResponse:
+      type: object
+      properties:
+        aggregate:
+          type: object
+          properties:
+            availability_zone:
+              type:
+              - 'null'
+              - string
+              description: The availability zone of the host aggregate.
+            created_at:
+              type: string
+              format: date-time
+              description: "The date and time when the resource was created. The date\
+                \ and time\nstamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\n\
+                \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\
+                \ The `\xB1hh:mm`\nvalue, if included, is the time zone as an offset\
+                \ from UTC. In\nthe previous example, the offset value is `-05:00`."
+            deleted:
+              type: boolean
+              description: 'A boolean indicates whether this aggregate is deleted
+                or not, if it has
+
+                not been deleted, `false` will appear.'
+            deleted_at:
+              oneOf:
+              - type: 'null'
+              - type: string
+                format: date-time
+              description: "The date and time when the resource was deleted. If the\
+                \ resource has\nnot been deleted yet, this field will be `null`, The\
+                \ date and time\nstamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\n\
+                \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\
+                \ The `\xB1hh:mm`\nvalue, if included, is the time zone as an offset\
+                \ from UTC. In\nthe previous example, the offset value is `-05:00`."
+            hosts:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+              description: An array of host information.
+            id:
+              type: integer
+              description: The ID of the host aggregate.
+            metadata:
+              type:
+              - 'null'
+              - object
+              properties: {}
+              additionalProperties: true
+              description: Metadata key and value pairs associated with the aggregate.
+            name:
+              type: string
+              description: The name of the host aggregate.
+            updated_at:
+              oneOf:
+              - type: 'null'
+              - type: string
+                format: date-time
+              description: "The date and time when the resource was updated, if the\
+                \ resource has\nnot been updated, this field will show as `null`.\
+                \ The date and time\nstamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\n\
+                \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\
+                \ The `\xB1hh:mm`\nvalue, if included, is the time zone as an offset\
+                \ from UTC. In\nthe previous example, the offset value is `-05:00`."
+            uuid:
+              type: string
+              format: uuid
+              description: 'The UUID of the host aggregate.
+
+
+                **New in version 2.41**'
+          required:
+          - availability_zone
+          - created_at
+          - deleted
+          - deleted_at
+          - hosts
+          - id
+          - metadata
+          - name
+          - updated_at
+          - uuid
+          additionalProperties: false
+          description: The host aggregate object.
+      additionalProperties: false
+      required:
+      - aggregate
+    Os_AggregateUpdateRequest:
+      oneOf:
+      - $ref: '#/components/schemas/Os_AggregateUpdate_20'
+      - $ref: '#/components/schemas/Os_AggregateUpdate_21'
+      x-openstack:
+        discriminator: microversion
+    Os_AggregateUpdate_20:
+      type: object
+      properties:
+        aggregate:
+          type: object
+          description: The host aggregate object.
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name_with_leading_trailing_spaces
+              description: The name of the host aggregate.
+            availability_zone:
+              oneOf:
+              - type: string
+                minLength: 1
+                maxLength: 255
+                format: az_name_with_leading_trailing_spaces
+              - type: 'null'
+              description: "The availability zone of the host aggregate. You should\
+                \ use a custom\navailability zone rather than the default returned\
+                \ by the\nos-availability-zone API. The availability zone must not\
+                \ include \u2018:\u2019\nin its name.\n\nWarning\n\nYou should not\
+                \ change or unset the availability zone of an\naggregate when that\
+                \ aggregate has hosts which contain servers in it\nsince that may\
+                \ impact the ability for those servers to move to another\nhost."
+          additionalProperties: false
+          anyOf:
+          - required:
+            - name
+          - required:
+            - availability_zone
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.0'
+        max-ver: '2.0'
+      required:
+      - aggregate
+    Os_AggregateUpdate_21:
+      type: object
+      properties:
+        aggregate:
+          type: object
+          description: The host aggregate object.
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name_with_leading_trailing_spaces
+              description: The name of the host aggregate.
+            availability_zone:
+              oneOf:
+              - type: string
+                minLength: 1
+                maxLength: 255
+                format: az_name
+              - type: 'null'
+              description: "The availability zone of the host aggregate. You should\
+                \ use a custom\navailability zone rather than the default returned\
+                \ by the\nos-availability-zone API. The availability zone must not\
+                \ include \u2018:\u2019\nin its name.\n\nWarning\n\nYou should not\
+                \ change or unset the availability zone of an\naggregate when that\
+                \ aggregate has hosts which contain servers in it\nsince that may\
+                \ impact the ability for those servers to move to another\nhost."
+          additionalProperties: false
+          anyOf:
+          - required:
+            - name
+          - required:
+            - availability_zone
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.1'
+      required:
+      - aggregate
+    Os_CellUpdateResponse:
+      type: object
+      description: Response of the os-cells/id:put operation
+    Os_CloudpipeUpdateResponse:
+      type: object
+      description: Response of the os-cloudpipe/id:put operation
+    Os_Floating_Ip_DnUpdateResponse:
+      type: object
+      description: Response of the os-floating-ip-dns/id:put operation
+    Os_Floating_Ip_DnsEntryUpdateResponse:
+      type: object
+      description: Response of the os-floating-ip-dns/domain_id/entries/id:put operation
+    Os_Floating_Ips_BulkUpdateResponse:
+      type: object
+      description: Response of the os-floating-ips-bulk/id:put operation
+    Os_HostUpdateResponse:
+      type: object
+      description: Response of the os-hosts/id:put operation
+    Os_HostUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - enable
+          - disable
+          - Enable
+          - Disable
+          - ENABLE
+          - DISABLE
+          description: The status of the host, either `enable` or `disable`.
+        maintenance_mode:
+          type: string
+          enum:
+          - enable
+          - disable
+          - Enable
+          - Disable
+          - ENABLE
+          - DISABLE
+          description: Mode of maintenance state, either `enable` or `disable`.
+      additionalProperties: false
+      anyOf:
+      - required:
+        - status
+      - required:
+        - maintenance_mode
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.42'
+    Os_Quota_Class_SetUpdateResponse:
+      type: object
+      description: Response of the os-quota-class-sets/id:put operation
+    Os_Quota_Class_SetUpdate:
+      type: object
+      properties:
+        quota_class_set:
+          type: object
+          description: A `quota_class_set` object.
+          properties:
+            instances:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed servers for the quota class.
+            cores:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed server cores for the quota class.
+            ram:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The amount of allowed instance RAM, in MiB, for the quota
+                class.
+            floating_ips:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed floating IP addresses for the quota
+                class.
+
+
+                **Available until version 2.49**'
+            fixed_ips:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed fixed IP addresses for the quota
+                class. Must be
+
+                equal to or greater than the number of allowed servers.
+
+
+                **Available until version 2.49**'
+            metadata_items:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed metadata items for each server.
+            key_pairs:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed key pairs for the quota class.
+            security_groups:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed security groups for the quota class.
+
+
+                **Available until version 2.49**'
+            security_group_rules:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed rules for each security group.
+
+
+                **Available until version 2.49**'
+            injected_files:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed injected files for the quota class.
+
+
+                **Available until version 2.56**'
+            injected_file_content_bytes:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed bytes of content for each injected
+                file.
+
+
+                **Available until version 2.56**'
+            injected_file_path_bytes:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed bytes for each injected file path.
+
+
+                **Available until version 2.56**'
+            server_groups:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed server groups for the quota class.
+            server_group_members:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed members for each server group.
+            networks:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of private networks that can be created per
+                project.
+
+
+                **Available until version 2.49**'
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.49'
+      required:
+      - quota_class_set
+    Os_Quota_SetUpdateResponse:
+      type: object
+      properties:
+        quota_set:
+          type: object
+          description: A `quota_set` object.
+          properties:
+            id:
+              type: string
+              format: uuid
+              description: The UUID of the tenant/user the quotas listed for.
+            instances:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed servers for each tenant.
+            cores:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed server cores for each tenant.
+            ram:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The amount of allowed server RAM, in MiB, for each tenant.
+            floating_ips:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed floating IP addresses for each tenant.
+
+
+                **Available until version 2.35**'
+            fixed_ips:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed fixed IP addresses for each tenant.
+                Must be equal to or
+
+                greater than the number of allowed servers.
+
+
+                **Available until version 2.35**'
+            metadata_items:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed metadata items for each server.
+            key_pairs:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed key pairs for each user.
+            security_groups:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed security groups for each tenant.
+
+
+                **Available until version 2.35**'
+            security_group_rules:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed rules for each security group.
+
+
+                **Available until version 2.35**'
+            injected_files:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed injected files for each tenant.
+
+
+                **Available until version 2.56**'
+            injected_file_content_bytes:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed bytes of content for each injected
+                file.
+
+
+                **Available until version 2.56**'
+            injected_file_path_bytes:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed bytes for each injected file path.
+
+
+                **Available until version 2.56**'
+            server_groups:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed server groups for each tenant.
+            server_group_members:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed members for each server group.
+            networks:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of private networks that can be created per
+                project.
+
+
+                **Available until version 2.35**'
+    Os_Quota_SetUpdate:
+      type: object
+      properties:
+        quota_set:
+          type: object
+          description: A `quota_set` object.
+          properties:
+            instances:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed servers for each tenant.
+            cores:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed server cores for each tenant.
+            ram:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The amount of allowed server RAM, in MiB, for each tenant.
+            floating_ips:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed floating IP addresses for each tenant.
+
+
+                **Available until version 2.35**'
+            fixed_ips:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed fixed IP addresses for each tenant.
+                Must be equal to or
+
+                greater than the number of allowed servers.
+
+
+                **Available until version 2.35**'
+            metadata_items:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed metadata items for each server.
+            key_pairs:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed key pairs for each user.
+            security_groups:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed security groups for each tenant.
+
+
+                **Available until version 2.35**'
+            security_group_rules:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed rules for each security group.
+
+
+                **Available until version 2.35**'
+            injected_files:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed injected files for each tenant.
+
+
+                **Available until version 2.56**'
+            injected_file_content_bytes:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed bytes of content for each injected
+                file.
+
+
+                **Available until version 2.56**'
+            injected_file_path_bytes:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of allowed bytes for each injected file path.
+
+
+                **Available until version 2.56**'
+            server_groups:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed server groups for each tenant.
+            server_group_members:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: The number of allowed members for each server group.
+            networks:
+              type:
+              - integer
+              - string
+              pattern: ^-?[0-9]+$
+              minimum: -1
+              maximum: 2147483647
+              description: 'The number of private networks that can be created per
+                project.
+
+
+                **Available until version 2.35**'
+            force:
+              type:
+              - boolean
+              - string
+              enum:
+              - true
+              - 'True'
+              - 'TRUE'
+              - 'true'
+              - '1'
+              - 'ON'
+              - 'On'
+              - 'on'
+              - 'YES'
+              - 'Yes'
+              - 'yes'
+              - false
+              - 'False'
+              - 'FALSE'
+              - 'false'
+              - '0'
+              - 'OFF'
+              - 'Off'
+              - 'off'
+              - 'NO'
+              - 'No'
+              - 'no'
+              description: 'You can force the update even if the quota has already
+                been used and the reserved
+
+                quota exceeds the new quota. To force the update, specify the `"force":
+                "True"`.
+
+                Default is `False`.'
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      required:
+      - quota_set
+    Os_Security_GroupUpdateResponse:
+      type: object
+      description: Response of the os-security-groups/id:put operation
+    Os_Security_GroupUpdate:
+      type: object
+      properties:
+        security_group:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 0
+              maxLength: 255
+              description: The security group name.
+            description:
+              type: string
+              minLength: 0
+              maxLength: 255
+              description: Security group description.
+          additionalProperties: true
+          required:
+          - name
+          - description
+      additionalProperties: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      required:
+      - security_group
+    Os_ServiceUpdateResponse:
+      type: object
+      properties:
+        service:
+          type: object
+          properties:
+            zone:
+              type: string
+              description: The availability zone name.
+              x-openstack-sdk-name: availability_zone
+            binary:
+              type: string
+              description: The binary name of the service.
+            disabled_reason:
+              type: string
+              description: The reason for disabling a service.
+            host:
+              type: string
+              description: The name of the host.
+            id:
+              type:
+              - integer
+              - string
+              format: uuid
+              description: The id of the service as a uuid.
+              readOnly: true
+            forced_down:
+              type: boolean
+              description: 'Whether or not this service was forced down manually by
+                an
+
+                administrator after the service was fenced. This value is useful
+
+                to know that some 3rd party has verified the service should be
+
+                marked down.'
+              x-openstack:
+                min-ver: '2.11'
+            name:
+              type: string
+              description: Service name
+            state:
+              type: string
+              description: The state of the service. One of `up` or `down`.
+            status:
+              type: string
+              description: The status of the service. One of `enabled` or `disabled`.
+              enum:
+              - disabled
+              - enabled
+              readOnly: true
+            updated_at:
+              type: string
+              description: "The date and time when the resource was updated. The date\
+                \ and time\nstamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\n\
+                \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\
+                \ The `\xB1hh:mm`\nvalue, if included, is the time zone as an offset\
+                \ from UTC. In\nthe previous example, the offset value is `-05:00`."
+              readOnly: true
+          required:
+          - zone
+          - id
+          - host
+          - state
+          - status
+          description: Object representing a compute service.
+    Os_ServiceUpdateRequest:
+      oneOf:
+      - $ref: '#/components/schemas/Os_ServiceUpdate_20'
+      - $ref: '#/components/schemas/Os_ServiceUpdate_211'
+      - $ref: '#/components/schemas/Os_ServiceUpdate_253'
+      x-openstack:
+        discriminator: microversion
+    Os_ServiceUpdate_20:
+      type: object
+      properties:
+        host:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: ^[a-zA-Z0-9-._]*$
+        binary:
+          type: string
+          minLength: 1
+          maxLength: 255
+        disabled_reason:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: 'The reason for disabling a service. The minimum length is
+            1 and the
+
+            maximum length is 255. This may only be requested with `status=disabled`.'
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.0'
+        max-ver: '2.10'
+      required:
+      - host
+      - binary
+    Os_ServiceUpdate_211:
+      type: object
+      properties:
+        host:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: ^[a-zA-Z0-9-._]*$
+        binary:
+          type: string
+          minLength: 1
+          maxLength: 255
+        disabled_reason:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: 'The reason for disabling a service. The minimum length is
+            1 and the
+
+            maximum length is 255. This may only be requested with `status=disabled`.'
+        forced_down:
+          type:
+          - boolean
+          - string
+          enum:
+          - true
+          - 'True'
+          - 'TRUE'
+          - 'true'
+          - '1'
+          - 'ON'
+          - 'On'
+          - 'on'
+          - 'YES'
+          - 'Yes'
+          - 'yes'
+          - false
+          - 'False'
+          - 'FALSE'
+          - 'false'
+          - '0'
+          - 'OFF'
+          - 'Off'
+          - 'off'
+          - 'NO'
+          - 'No'
+          - 'no'
+          description: '`forced_down` is a manual override to tell nova that the service
+            in
+
+            question has been fenced manually by the operations team (either hard
+
+            powered off, or network unplugged). That signals that it is safe to proceed
+
+            with `evacuate` or other operations that nova has safety checks to
+
+            prevent for hosts that are up.
+
+
+            Warning
+
+
+            Setting a service forced down without completely fencing it will likely
+
+            result in the corruption of VMs on that host.'
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.11'
+        max-ver: '2.52'
+      required:
+      - host
+      - binary
+    Os_ServiceUpdate_253:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - enabled
+          - disabled
+          description: The status of the service. One of `enabled` or `disabled`.
+        disabled_reason:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: 'The reason for disabling a service. The minimum length is
+            1 and the
+
+            maximum length is 255. This may only be requested with `status=disabled`.'
+        forced_down:
+          type:
+          - boolean
+          - string
+          enum:
+          - true
+          - 'True'
+          - 'TRUE'
+          - 'true'
+          - '1'
+          - 'ON'
+          - 'On'
+          - 'on'
+          - 'YES'
+          - 'Yes'
+          - 'yes'
+          - false
+          - 'False'
+          - 'FALSE'
+          - 'false'
+          - '0'
+          - 'OFF'
+          - 'Off'
+          - 'off'
+          - 'NO'
+          - 'No'
+          - 'no'
+          description: '`forced_down` is a manual override to tell nova that the service
+            in
+
+            question has been fenced manually by the operations team (either hard
+
+            powered off, or network unplugged). That signals that it is safe to proceed
+
+            with `evacuate` or other operations that nova has safety checks to
+
+            prevent for hosts that are up.
+
+
+            Warning
+
+
+            Setting a service forced down without completely fencing it will likely
+
+            result in the corruption of VMs on that host.'
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.53'
+    Os_Volumes_BootUpdateResponse:
+      type: object
+      description: Response of the os-volumes_boot/id:put operation
+    Os_Volumes_BootUpdateRequest:
+      oneOf:
+      - $ref: '#/components/schemas/Os_Volumes_BootUpdate_20'
+      - $ref: '#/components/schemas/Os_Volumes_BootUpdate_21'
+      - $ref: '#/components/schemas/Os_Volumes_BootUpdate_219'
+      - $ref: '#/components/schemas/Os_Volumes_BootUpdate_290'
+      - $ref: '#/components/schemas/Os_Volumes_BootUpdate_294'
+      x-openstack:
+        discriminator: microversion
+    Os_Volumes_BootUpdate_20:
+      type: object
+      properties:
+        server:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name_with_leading_trailing_spaces
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+            accessIPv4:
+              type: string
+              format: ipv4
+            accessIPv6:
+              type: string
+              format: ipv6
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.0'
+        max-ver: '2.0'
+      required:
+      - server
+    Os_Volumes_BootUpdate_21:
+      type: object
+      properties:
+        server:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+            accessIPv4:
+              type: string
+              format: ipv4
+            accessIPv6:
+              type: string
+              format: ipv6
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.18'
+      required:
+      - server
+    Os_Volumes_BootUpdate_219:
+      type: object
+      properties:
+        server:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+            accessIPv4:
+              type: string
+              format: ipv4
+            accessIPv6:
+              type: string
+              format: ipv6
+            description:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 255
+              pattern: "^[\\ -\\~\_-\xAC\xAE-\u0377\u037A-\u037F\u0384-\u038A\u038C\
+                \u038E-\u03A1\u03A3-\u052F\u0531-\u0556\u0559-\u058A\u058D-\u058F\u0591\
+                -\u05C7\u05D0-\u05EA\u05EF-\u05F4\u0606-\u061B\u061D-\u06DC\u06DE\
+                -\u070D\u0710-\u074A\u074D-\u07B1\u07C0-\u07FA\u07FD-\u082D\u0830\
+                -\u083E\u0840-\u085B\u085E\u0860-\u086A\u0870-\u088E\u0898-\u08E1\u08E3\
+                -\u0983\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6\
+                -\u09B9\u09BC-\u09C4\u09C7-\u09C8\u09CB-\u09CE\u09D7\u09DC-\u09DD\u09DF\
+                -\u09E3\u09E6-\u09FE\u0A01-\u0A03\u0A05-\u0A0A\u0A0F-\u0A10\u0A13\
+                -\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A3C\u0A3E\
+                -\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A76\
+                \u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\
+                -\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0\
+                -\u0AE3\u0AE6-\u0AF1\u0AF9-\u0AFF\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\
+                -\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3C\
+                -\u0B44\u0B47-\u0B48\u0B4B-\u0B4D\u0B55-\u0B57\u0B5C-\u0B5D\u0B5F\
+                -\u0B63\u0B66-\u0B77\u0B82-\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92\
+                -\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE\
+                -\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BFA\
+                \u0C00-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3C-\u0C44\u0C46\
+                -\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C58-\u0C5A\u0C5D\u0C60-\u0C63\u0C66\
+                -\u0C6F\u0C77-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5\
+                -\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5-\u0CD6\u0CDD\
+                -\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1-\u0CF3\u0D00-\u0D0C\u0D0E\
+                -\u0D10\u0D12-\u0D44\u0D46-\u0D48\u0D4A-\u0D4F\u0D54-\u0D63\u0D66\
+                -\u0D7F\u0D81-\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0\
+                -\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2-\u0DF4\
+                \u0E01-\u0E3A\u0E3F-\u0E5B\u0E81-\u0E82\u0E84\u0E86-\u0E8A\u0E8C-\u0EA3\
+                \u0EA5\u0EA7-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECE\u0ED0-\u0ED9\u0EDC\
+                -\u0EDF\u0F00-\u0F47\u0F49-\u0F6C\u0F71-\u0F97\u0F99-\u0FBC\u0FBE\
+                -\u0FCC\u0FCE-\u0FDA\u1000-\u10C5\u10C7\u10CD\u10D0-\u1248\u124A-\u124D\
+                \u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\
+                \u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\
+                \u1312-\u1315\u1318-\u135A\u135D-\u137C\u1380-\u1399\u13A0-\u13F5\u13F8\
+                -\u13FD\u1400-\u169C\u16A0-\u16F8\u1700-\u1715\u171F-\u1736\u1740\
+                -\u1753\u1760-\u176C\u176E-\u1770\u1772-\u1773\u1780-\u17DD\u17E0\
+                -\u17E9\u17F0-\u17F9\u1800-\u180D\u180F-\u1819\u1820-\u1878\u1880\
+                -\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1940\u1944\
+                -\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u19DE\
+                -\u1A1B\u1A1E-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA0\
+                -\u1AAD\u1AB0-\u1ACE\u1B00-\u1B4C\u1B50-\u1B7E\u1B80-\u1BF3\u1BFC\
+                -\u1C37\u1C3B-\u1C49\u1C4D-\u1C88\u1C90-\u1CBA\u1CBD-\u1CC7\u1CD0\
+                -\u1CFA\u1D00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50\
+                -\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FC4\u1FC6\
+                -\u1FD3\u1FD6-\u1FDB\u1FDD-\u1FEF\u1FF2-\u1FF4\u1FF6-\u1FFE\u2000\
+                -\u200A\u2010-\u2027\u202F-\u205F\u2070-\u2071\u2074-\u208E\u2090\
+                -\u209C\u20A0-\u20C0\u20D0-\u20F0\u2100-\u218B\u2190-\u2426\u2440\
+                -\u244A\u2460-\u2B73\u2B76-\u2B95\u2B97-\u2CF3\u2CF9-\u2D25\u2D27\u2D2D\
+                \u2D30-\u2D67\u2D6F-\u2D70\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0\
+                -\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8\
+                -\u2DDE\u2DE0-\u2E5D\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0\
+                -\u303F\u3041-\u3096\u3099-\u30FF\u3105-\u312F\u3131-\u318E\u3190\
+                -\u31E3\u31EF-\u321E\u3220-\uA48C\uA490-\uA4C6\uA4D0-\uA62B\uA640\
+                -\uA6F7\uA700-\uA7CA\uA7D0-\uA7D1\uA7D3\uA7D5-\uA7D9\uA7F2-\uA82C\uA830\
+                -\uA839\uA840-\uA877\uA880-\uA8C5\uA8CE-\uA8D9\uA8E0-\uA953\uA95F\
+                -\uA97C\uA980-\uA9CD\uA9CF-\uA9D9\uA9DE-\uA9FE\uAA00-\uAA36\uAA40\
+                -\uAA4D\uAA50-\uAA59\uAA5C-\uAAC2\uAADB-\uAAF6\uAB01-\uAB06\uAB09\
+                -\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB6B\uAB70\
+                -\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900\
+                -\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB36\uFB38\
+                -\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBC2\uFBD3-\uFD8F\uFD92\
+                -\uFDC7\uFDCF\uFDF0-\uFE19\uFE20-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFE70\
+                -\uFE74\uFE76-\uFEFC\uFF01-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2\
+                -\uFFD7\uFFDA-\uFFDC\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC-\uFFFD]*$"
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.19'
+        max-ver: '2.89'
+      required:
+      - server
+    Os_Volumes_BootUpdate_290:
+      type: object
+      properties:
+        server:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+            accessIPv4:
+              type: string
+              format: ipv4
+            accessIPv6:
+              type: string
+              format: ipv6
+            description:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 255
+              pattern: "^[\\ -\\~\_-\xAC\xAE-\u0377\u037A-\u037F\u0384-\u038A\u038C\
+                \u038E-\u03A1\u03A3-\u052F\u0531-\u0556\u0559-\u058A\u058D-\u058F\u0591\
+                -\u05C7\u05D0-\u05EA\u05EF-\u05F4\u0606-\u061B\u061D-\u06DC\u06DE\
+                -\u070D\u0710-\u074A\u074D-\u07B1\u07C0-\u07FA\u07FD-\u082D\u0830\
+                -\u083E\u0840-\u085B\u085E\u0860-\u086A\u0870-\u088E\u0898-\u08E1\u08E3\
+                -\u0983\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6\
+                -\u09B9\u09BC-\u09C4\u09C7-\u09C8\u09CB-\u09CE\u09D7\u09DC-\u09DD\u09DF\
+                -\u09E3\u09E6-\u09FE\u0A01-\u0A03\u0A05-\u0A0A\u0A0F-\u0A10\u0A13\
+                -\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A3C\u0A3E\
+                -\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A76\
+                \u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\
+                -\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0\
+                -\u0AE3\u0AE6-\u0AF1\u0AF9-\u0AFF\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\
+                -\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3C\
+                -\u0B44\u0B47-\u0B48\u0B4B-\u0B4D\u0B55-\u0B57\u0B5C-\u0B5D\u0B5F\
+                -\u0B63\u0B66-\u0B77\u0B82-\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92\
+                -\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE\
+                -\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BFA\
+                \u0C00-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3C-\u0C44\u0C46\
+                -\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C58-\u0C5A\u0C5D\u0C60-\u0C63\u0C66\
+                -\u0C6F\u0C77-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5\
+                -\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5-\u0CD6\u0CDD\
+                -\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1-\u0CF3\u0D00-\u0D0C\u0D0E\
+                -\u0D10\u0D12-\u0D44\u0D46-\u0D48\u0D4A-\u0D4F\u0D54-\u0D63\u0D66\
+                -\u0D7F\u0D81-\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0\
+                -\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2-\u0DF4\
+                \u0E01-\u0E3A\u0E3F-\u0E5B\u0E81-\u0E82\u0E84\u0E86-\u0E8A\u0E8C-\u0EA3\
+                \u0EA5\u0EA7-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECE\u0ED0-\u0ED9\u0EDC\
+                -\u0EDF\u0F00-\u0F47\u0F49-\u0F6C\u0F71-\u0F97\u0F99-\u0FBC\u0FBE\
+                -\u0FCC\u0FCE-\u0FDA\u1000-\u10C5\u10C7\u10CD\u10D0-\u1248\u124A-\u124D\
+                \u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\
+                \u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\
+                \u1312-\u1315\u1318-\u135A\u135D-\u137C\u1380-\u1399\u13A0-\u13F5\u13F8\
+                -\u13FD\u1400-\u169C\u16A0-\u16F8\u1700-\u1715\u171F-\u1736\u1740\
+                -\u1753\u1760-\u176C\u176E-\u1770\u1772-\u1773\u1780-\u17DD\u17E0\
+                -\u17E9\u17F0-\u17F9\u1800-\u180D\u180F-\u1819\u1820-\u1878\u1880\
+                -\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1940\u1944\
+                -\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u19DE\
+                -\u1A1B\u1A1E-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA0\
+                -\u1AAD\u1AB0-\u1ACE\u1B00-\u1B4C\u1B50-\u1B7E\u1B80-\u1BF3\u1BFC\
+                -\u1C37\u1C3B-\u1C49\u1C4D-\u1C88\u1C90-\u1CBA\u1CBD-\u1CC7\u1CD0\
+                -\u1CFA\u1D00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50\
+                -\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FC4\u1FC6\
+                -\u1FD3\u1FD6-\u1FDB\u1FDD-\u1FEF\u1FF2-\u1FF4\u1FF6-\u1FFE\u2000\
+                -\u200A\u2010-\u2027\u202F-\u205F\u2070-\u2071\u2074-\u208E\u2090\
+                -\u209C\u20A0-\u20C0\u20D0-\u20F0\u2100-\u218B\u2190-\u2426\u2440\
+                -\u244A\u2460-\u2B73\u2B76-\u2B95\u2B97-\u2CF3\u2CF9-\u2D25\u2D27\u2D2D\
+                \u2D30-\u2D67\u2D6F-\u2D70\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0\
+                -\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8\
+                -\u2DDE\u2DE0-\u2E5D\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0\
+                -\u303F\u3041-\u3096\u3099-\u30FF\u3105-\u312F\u3131-\u318E\u3190\
+                -\u31E3\u31EF-\u321E\u3220-\uA48C\uA490-\uA4C6\uA4D0-\uA62B\uA640\
+                -\uA6F7\uA700-\uA7CA\uA7D0-\uA7D1\uA7D3\uA7D5-\uA7D9\uA7F2-\uA82C\uA830\
+                -\uA839\uA840-\uA877\uA880-\uA8C5\uA8CE-\uA8D9\uA8E0-\uA953\uA95F\
+                -\uA97C\uA980-\uA9CD\uA9CF-\uA9D9\uA9DE-\uA9FE\uAA00-\uAA36\uAA40\
+                -\uAA4D\uAA50-\uAA59\uAA5C-\uAAC2\uAADB-\uAAF6\uAB01-\uAB06\uAB09\
+                -\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB6B\uAB70\
+                -\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900\
+                -\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB36\uFB38\
+                -\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBC2\uFBD3-\uFD8F\uFD92\
+                -\uFDC7\uFDCF\uFDF0-\uFE19\uFE20-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFE70\
+                -\uFE74\uFE76-\uFEFC\uFF01-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2\
+                -\uFFD7\uFFDA-\uFFDC\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC-\uFFFD]*$"
+            hostname:
+              type: string
+              minLength: 2
+              maxLength: 63
+              pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9-]*[a-zA-Z0-9]+$
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.90'
+        max-ver: '2.93'
+      required:
+      - server
+    Os_Volumes_BootUpdate_294:
+      type: object
+      properties:
+        server:
+          type: object
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+            accessIPv4:
+              type: string
+              format: ipv4
+            accessIPv6:
+              type: string
+              format: ipv6
+            description:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 255
+              pattern: "^[\\ -\\~\_-\xAC\xAE-\u0377\u037A-\u037F\u0384-\u038A\u038C\
+                \u038E-\u03A1\u03A3-\u052F\u0531-\u0556\u0559-\u058A\u058D-\u058F\u0591\
+                -\u05C7\u05D0-\u05EA\u05EF-\u05F4\u0606-\u061B\u061D-\u06DC\u06DE\
+                -\u070D\u0710-\u074A\u074D-\u07B1\u07C0-\u07FA\u07FD-\u082D\u0830\
+                -\u083E\u0840-\u085B\u085E\u0860-\u086A\u0870-\u088E\u0898-\u08E1\u08E3\
+                -\u0983\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6\
+                -\u09B9\u09BC-\u09C4\u09C7-\u09C8\u09CB-\u09CE\u09D7\u09DC-\u09DD\u09DF\
+                -\u09E3\u09E6-\u09FE\u0A01-\u0A03\u0A05-\u0A0A\u0A0F-\u0A10\u0A13\
+                -\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A3C\u0A3E\
+                -\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A76\
+                \u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\
+                -\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0\
+                -\u0AE3\u0AE6-\u0AF1\u0AF9-\u0AFF\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\
+                -\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3C\
+                -\u0B44\u0B47-\u0B48\u0B4B-\u0B4D\u0B55-\u0B57\u0B5C-\u0B5D\u0B5F\
+                -\u0B63\u0B66-\u0B77\u0B82-\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92\
+                -\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE\
+                -\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BFA\
+                \u0C00-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3C-\u0C44\u0C46\
+                -\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C58-\u0C5A\u0C5D\u0C60-\u0C63\u0C66\
+                -\u0C6F\u0C77-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5\
+                -\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5-\u0CD6\u0CDD\
+                -\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1-\u0CF3\u0D00-\u0D0C\u0D0E\
+                -\u0D10\u0D12-\u0D44\u0D46-\u0D48\u0D4A-\u0D4F\u0D54-\u0D63\u0D66\
+                -\u0D7F\u0D81-\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0\
+                -\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2-\u0DF4\
+                \u0E01-\u0E3A\u0E3F-\u0E5B\u0E81-\u0E82\u0E84\u0E86-\u0E8A\u0E8C-\u0EA3\
+                \u0EA5\u0EA7-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECE\u0ED0-\u0ED9\u0EDC\
+                -\u0EDF\u0F00-\u0F47\u0F49-\u0F6C\u0F71-\u0F97\u0F99-\u0FBC\u0FBE\
+                -\u0FCC\u0FCE-\u0FDA\u1000-\u10C5\u10C7\u10CD\u10D0-\u1248\u124A-\u124D\
+                \u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\
+                \u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\
+                \u1312-\u1315\u1318-\u135A\u135D-\u137C\u1380-\u1399\u13A0-\u13F5\u13F8\
+                -\u13FD\u1400-\u169C\u16A0-\u16F8\u1700-\u1715\u171F-\u1736\u1740\
+                -\u1753\u1760-\u176C\u176E-\u1770\u1772-\u1773\u1780-\u17DD\u17E0\
+                -\u17E9\u17F0-\u17F9\u1800-\u180D\u180F-\u1819\u1820-\u1878\u1880\
+                -\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1940\u1944\
+                -\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u19DE\
+                -\u1A1B\u1A1E-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA0\
+                -\u1AAD\u1AB0-\u1ACE\u1B00-\u1B4C\u1B50-\u1B7E\u1B80-\u1BF3\u1BFC\
+                -\u1C37\u1C3B-\u1C49\u1C4D-\u1C88\u1C90-\u1CBA\u1CBD-\u1CC7\u1CD0\
+                -\u1CFA\u1D00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50\
+                -\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FC4\u1FC6\
+                -\u1FD3\u1FD6-\u1FDB\u1FDD-\u1FEF\u1FF2-\u1FF4\u1FF6-\u1FFE\u2000\
+                -\u200A\u2010-\u2027\u202F-\u205F\u2070-\u2071\u2074-\u208E\u2090\
+                -\u209C\u20A0-\u20C0\u20D0-\u20F0\u2100-\u218B\u2190-\u2426\u2440\
+                -\u244A\u2460-\u2B73\u2B76-\u2B95\u2B97-\u2CF3\u2CF9-\u2D25\u2D27\u2D2D\
+                \u2D30-\u2D67\u2D6F-\u2D70\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0\
+                -\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8\
+                -\u2DDE\u2DE0-\u2E5D\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0\
+                -\u303F\u3041-\u3096\u3099-\u30FF\u3105-\u312F\u3131-\u318E\u3190\
+                -\u31E3\u31EF-\u321E\u3220-\uA48C\uA490-\uA4C6\uA4D0-\uA62B\uA640\
+                -\uA6F7\uA700-\uA7CA\uA7D0-\uA7D1\uA7D3\uA7D5-\uA7D9\uA7F2-\uA82C\uA830\
+                -\uA839\uA840-\uA877\uA880-\uA8C5\uA8CE-\uA8D9\uA8E0-\uA953\uA95F\
+                -\uA97C\uA980-\uA9CD\uA9CF-\uA9D9\uA9DE-\uA9FE\uAA00-\uAA36\uAA40\
+                -\uAA4D\uAA50-\uAA59\uAA5C-\uAAC2\uAADB-\uAAF6\uAB01-\uAB06\uAB09\
+                -\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB6B\uAB70\
+                -\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900\
+                -\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB36\uFB38\
+                -\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBC2\uFBD3-\uFD8F\uFD92\
+                -\uFDC7\uFDCF\uFDF0-\uFE19\uFE20-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFE70\
+                -\uFE74\uFE76-\uFEFC\uFF01-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2\
+                -\uFFD7\uFFDA-\uFFDC\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC-\uFFFD]*$"
+            hostname:
+              type: string
+              minLength: 1
+              maxLength: 255
+              pattern: ^[a-zA-Z0-9-._]*$
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.94'
+      required:
+      - server
+    ServerUpdateResponse:
+      type: object
+      properties:
+        server:
+          type: object
+          description: A `server` object.
+          properties:
+            accessIPv4:
+              description: 'IPv4 address that should be used to access this server.
+                May be
+
+                automatically set by the provider.'
+              type: string
+              format: ipv4
+            accessIPv6:
+              description: 'IPv6 address that should be used to access this server.
+                May be
+
+                automatically set by the provider.'
+              type: string
+              format: ipv6
+            addresses:
+              type: object
+              description: 'The addresses for the server. Servers with status `BUILD`
+                hide their
+
+                addresses information.
+
+                This view is not updated immediately.
+
+                Please consult with OpenStack Networking API for up-to-date information.'
+              additionalProperties: true
+            os-extended-volumes:volumes_attached:
+              type: array
+              items:
+                type: object
+              description: 'The attached volumes, if any.
+
+
+                **New in version 2.75**'
+            OS-EXT-AZ:availability_zone:
+              type: string
+              description: 'The availability zone name.
+
+
+                **New in version 2.75**'
+            OS-EXT-SRV-ATTR:host:
+              type: string
+              description: 'The name of the compute host on which this instance is
+                running.
+
+                Appears in the response for administrative users only.
+
+
+                **New in version 2.75**'
+            config_drive:
+              type: string
+              description: 'Indicates whether or not a config drive was used for this
+                server.
+
+                The value is `True` or an empty string. An empty string stands for
+
+                `False`.
+
+
+                **New in version 2.75**'
+            created:
+              type: string
+              format: date-time
+              description: "The date and time when the resource was created. The date\
+                \ and time\nstamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\n\
+                \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\
+                \ The `\xB1hh:mm`\nvalue, if included, is the time zone as an offset\
+                \ from UTC. In\nthe previous example, the offset value is `-05:00`."
+              readOnly: true
+            description:
+              type: string
+              description: 'The description of the server.
+
+                Before microversion 2.19 this was set to the server name.
+
+
+                **New in version 2.19**'
+            OS-DCF:diskConfig:
+              type: string
+              description: "Disk configuration. The value is either:\n\n* `AUTO`.\
+                \ The API builds the server with a single partition the size of\n\
+                \  the target flavor disk. The API automatically adjusts the file\
+                \ system to\n  fit the entire partition.\n* `MANUAL`. The API builds\
+                \ the server by using the partition scheme and\n  file system that\
+                \ is in the source image. If the target flavor disk is\n  larger,\
+                \ The API does not partition the remaining disk space."
+              enum:
+              - AUTO
+              - MANUAL
+            fault:
+              type: object
+              description: 'A fault object. Only displayed when the server status
+                is `ERROR` or
+
+                `DELETED` and a fault occurred.'
+              properties:
+                code:
+                  type: integer
+                  description: The error response code.
+                created:
+                  type: string
+                  format: date-time
+                  description: "The date and time when the exception was raised. The\
+                    \ date and time\nstamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\n\
+                    \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\
+                    \ The `\xB1hh:mm`\nvalue, if included, is the time zone as an\
+                    \ offset from UTC. In\nthe previous example, the offset value\
+                    \ is `-05:00`."
+                message:
+                  type: string
+                  description: The error message.
+                details:
+                  type: string
+                  description: 'The stack trace. It is available if the response code
+                    is not 500 or
+
+                    you have the administrator privilege'
+              additionalProperties: false
+            flavor:
+              type: object
+              description: 'Before microversion 2.47 this contains the ID and links
+                for the flavor
+
+                used to boot the server instance. This can be an empty object in case
+
+                flavor information is no longer present in the system.
+
+
+                As of microversion 2.47 this contains a subset of the actual flavor
+
+                information used to create the server instance, represented as a nested
+
+                dictionary.'
+              properties:
+                id:
+                  type: string
+                  description: The UUID of the server.
+                  x-openstack:
+                    max-ver: '2.46'
+                links:
+                  description: 'Links to the resources in question. See [API Guide
+                    / Links and
+
+                    References](https://docs.openstack.org/api-guide/compute/links_and_references.html)
+
+                    for more info.'
+                  x-openstack:
+                    max-ver: '2.46'
+                  type: array
+                  items:
+                    type: object
+                    description: Links to the resources in question. See [API Guide
+                      / Links and References](https://docs.openstack.org/api-guide/compute/links_and_references.html)
+                      for more info.
+                    properties:
+                      href:
+                        type: string
+                        format: uri
+                      rel:
+                        type: string
+                vcpus:
+                  type: integer
+                  description: 'The number of virtual CPUs that were allocated to
+                    the server.
+
+
+                    **New in version 2.47**'
+                  x-openstack:
+                    min-ver: '2.47'
+                ram:
+                  type: integer
+                  description: 'The amount of RAM a flavor has, in MiB.
+
+
+                    **New in version 2.47**'
+                  x-openstack:
+                    min-ver: '2.47'
+                disk:
+                  type: integer
+                  description: 'The size of the root disk that was created in GiB.
+
+
+                    **New in version 2.47**'
+                  x-openstack:
+                    min-ver: '2.47'
+                ephemeral:
+                  type: integer
+                  description: 'The size of the ephemeral disk that was created, in
+                    GiB.
+
+
+                    **New in version 2.47**'
+                  x-openstack:
+                    min-ver: '2.47'
+                swap:
+                  type: integer
+                  description: 'The size of a dedicated swap disk that was allocated,
+                    in MiB.
+
+
+                    **New in version 2.47**'
+                  x-openstack:
+                    min-ver: '2.47'
+                original_name:
+                  type: string
+                  description: 'The display name of a flavor.
+
+
+                    **New in version 2.47**'
+                  x-openstack:
+                    min-ver: '2.47'
+                extra_specs:
+                  description: "A dictionary of the flavor\u2019s extra-specs key-and-value\
+                    \ pairs. This will\nonly be included if the user is allowed by\
+                    \ policy to index flavor\nextra_specs.\n\n**New in version 2.47**"
+                  x-openstack:
+                    min-ver: '2.47'
+                  type: object
+                  patternProperties:
+                    ^[a-zA-Z0-9-_:. ]{1,255}$:
+                      type: string
+                      maxLength: 255
+                  additionalProperties: false
+            hostId:
+              type: string
+              description: 'An ID string representing the host. This is a hashed value
+                so will not actually look like
+
+                a hostname, and is hashed with data from the project_id, so the same
+                physical host as seen
+
+                by two different project_ids, will be different. It is useful when
+                within the same project you
+
+                need to determine if two instances are on the same or different physical
+                hosts for the
+
+                purposes of availability or performance.'
+            host_status:
+              type:
+              - string
+              - 'null'
+              description: 'The host status. Values where next value in list can override
+                the previous:
+
+
+                * `UP` if nova-compute up.
+
+                * `UNKNOWN` if nova-compute not reported by servicegroup driver.
+
+                * `DOWN` if nova-compute forced down.
+
+                * `MAINTENANCE` if nova-compute is disabled.
+
+                * Empty string indicates there is no host for server.
+
+
+                This attribute appears in the response only if the policy permits.
+
+                By default, only administrators can get this parameter.
+
+
+                **New in version 2.75**'
+              enum:
+              - UP
+              - DOWN
+              - MAINTENANCE
+              - UNKNOWN
+              - ''
+              - 'null'
+              x-openstack:
+                min-ver: '2.16'
+            OS-EXT-SRV-ATTR:hostname:
+              type: string
+              description: 'The hostname of the instance reported in the metadata
+                service.
+
+                This parameter only appears in responses for administrators until
+
+                microversion 2.90, after which it is shown for all users.
+
+
+                Note
+
+
+                This information is published via the metadata service and requires
+
+                application such as `cloud-init` to propagate it through to the
+
+                instance.
+
+
+                **New in version 2.75**'
+              x-openstack:
+                min-ver: '2.3'
+            OS-EXT-SRV-ATTR:hypervisor_hostname:
+              type: string
+              description: 'The hypervisor host name provided by the Nova virt driver.
+                For the Ironic driver,
+
+                it is the Ironic node uuid. Appears in the response for administrative
+                users only.
+
+
+                **New in version 2.75**'
+              x-openstack-sdk-name: hypervisor_hostname
+            id:
+              type: string
+              format: uuid
+              description: Id of the server
+              readOnly: true
+            image:
+              oneOf:
+              - type: object
+                description: The image property as returned from server.
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: The image ID
+                  links:
+                    description: Links to the resources in question. See [API Guide
+                      / Links and References](https://docs.openstack.org/api-guide/compute/links_and_references.html)
+                      for more info.
+                    type: array
+                    items:
+                      type: object
+                      description: Links to the resources in question. See [API Guide
+                        / Links and References](https://docs.openstack.org/api-guide/compute/links_and_references.html)
+                        for more info.
+                      properties:
+                        href:
+                          type: string
+                          format: uri
+                        rel:
+                          type: string
+                  properties:
+                    type: object
+                    x-openstack:
+                      min-ver: '2.98'
+                required:
+                - id
+              - type: string
+                enum:
+                - ''
+              description: 'The UUID and links for the image for your server instance.
+                The `image` object
+
+                will be an empty string when you boot the server from a volume.'
+            OS-EXT-SRV-ATTR:instance_name:
+              type: string
+              description: 'The instance name. The Compute API generates the instance
+                name from the instance
+
+                name template. Appears in the response for administrative users only.
+
+
+                **New in version 2.75**'
+            locked:
+              type: boolean
+              description: 'True if the instance is locked otherwise False.
+
+
+                **New in version 2.9**'
+              x-openstack:
+                min-ver: '2.9'
+            OS-EXT-SRV-ATTR:kernel_id:
+              type: string
+              description: 'The UUID of the kernel image when using an AMI. Will be
+                null if not.
+
+                By default, it appears in the response for administrative users only.
+
+
+                **New in version 2.75**'
+              x-openstack:
+                min-ver: '2.3'
+            key_name:
+              type: string
+              description: 'The name of associated key pair, if any.
+
+
+                **New in version 2.75**'
+            OS-EXT-SRV-ATTR:launch_index:
+              type: integer
+              description: 'When servers are launched via multiple create, this is
+                the
+
+                sequence in which the servers were launched.
+
+                By default, it appears in the response for administrative users only.
+
+
+                **New in version 2.75**'
+              x-openstack:
+                min-ver: '2.3'
+            OS-SRV-USG:launched_at:
+              type: string
+              description: "The date and time when the server was launched.\n\nThe\
+                \ date and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601):\n\
+                \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\n\
+                \nThe `hh\xB1:mm` value, if included, is the time zone as an offset\
+                \ from UTC.\nIf the `deleted_at` date and time stamp is not set, its\
+                \ value is `null`.\n\n**New in version 2.75**"
+            links:
+              description: Links to the resources in question. See [API Guide / Links
+                and References](https://docs.openstack.org/api-guide/compute/links_and_references.html)
+                for more info.
+              type: array
+              items:
+                type: object
+                description: Links to the resources in question. See [API Guide /
+                  Links and References](https://docs.openstack.org/api-guide/compute/links_and_references.html)
+                  for more info.
+                properties:
+                  href:
+                    type: string
+                    format: uri
+                  rel:
+                    type: string
+            metadata:
+              type: object
+              description: 'A dictionary of metadata key-and-value pairs, which is
+                maintained for backward
+
+                compatibility.'
+              patternProperties:
+                ^[a-zA-Z0-9-_:. ]{1,255}$:
+                  type: string
+                  maxLength: 255
+              additionalProperties: false
+            name:
+              type: string
+              description: The server name.
+            OS-EXT-STS:power_state:
+              type: integer
+              description: 'The power state of the instance. This is an enum value
+                that is mapped as:
+
+
+                ```
+
+                0: NOSTATE
+
+                1: RUNNING
+
+                3: PAUSED
+
+                4: SHUTDOWN
+
+                6: CRASHED
+
+                7: SUSPENDED
+
+
+                ```
+
+
+                **New in version 2.75**'
+            progress:
+              type: integer
+              description: 'A percentage value of the operation progress.
+
+                This parameter only appears when the server status is `ACTIVE`,
+
+                `BUILD`, `REBUILD`, `RESIZE`, `VERIFY_RESIZE` or `MIGRATING`.'
+            tenant_id:
+              type: string
+              format: uuid
+              description: The UUID of the tenant in a multi-tenancy cloud.
+            OS-EXT-SRV-ATTR:ramdisk_id:
+              type: string
+              description: 'The UUID of the ramdisk image when using an AMI. Will
+                be null if not.
+
+                By default, it appears in the response for administrative users only.
+
+
+                **New in version 2.75**'
+              x-openstack:
+                min-ver: '2.3'
+            OS-EXT-SRV-ATTR:reservation_id:
+              type: string
+              description: 'The reservation id for the server. This is an id that
+                can
+
+                be useful in tracking groups of servers created with multiple
+
+                create, that will all have the same reservation_id.
+
+                By default, it appears in the response for administrative users only.
+
+
+                **New in version 2.75**'
+              x-openstack:
+                min-ver: '2.3'
+            OS-EXT-SRV-ATTR:root_device_name:
+              type: string
+              description: 'The root device name for the instance
+
+                By default, it appears in the response for administrative users only.
+
+
+                **New in version 2.75**'
+              x-openstack:
+                min-ver: '2.3'
+            security_groups:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    description: The security group name
+              description: 'One or more security groups objects.
+
+
+                **New in version 2.75**'
+            server_groups:
+              type: array
+              items:
+                type: string
+              description: 'The UUIDs of the server groups to which the server belongs.
+                Currently
+
+                this can contain at most one entry.
+
+
+                **New in version 2.71**'
+              x-openstack:
+                min-ver: '2.71'
+            status:
+              type: string
+              description: The server status.
+              readOnly: true
+            tags:
+              type: array
+              items:
+                type: string
+              description: 'A list of tags. The maximum count of tags in this list
+                is 50.
+
+
+                **New in version 2.26**'
+              x-openstack:
+                min-ver: '2.26'
+            OS-EXT-STS:task_state:
+              type: string
+              description: 'The task state of the instance.
+
+
+                **New in version 2.75**'
+            OS-SRV-USG:terminated_at:
+              type: string
+              description: "The date and time when the server was deleted.\n\nThe\
+                \ date and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601):\n\
+                \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\n\
+                The `\xB1hh:mm` value, if included, is the time zone as an offset\
+                \ from UTC.\nIf the `deleted_at` date and time stamp is not set, its\
+                \ value is `null`.\n\n**New in version 2.75**"
+            trusted_image_certificates:
+              type:
+              - array
+              - 'null'
+              items:
+                type: string
+              description: 'A list of trusted certificate IDs, that were used during
+                image signature
+
+                verification to verify the signing certificate. The list is restricted
+
+                to a maximum of 50 IDs. The value is `null` if trusted certificate
+                IDs
+
+                are not set.
+
+
+                **New in version 2.63**'
+              x-openstack:
+                min-ver: '2.63'
+            updated:
+              type: string
+              format: date-time
+              description: "The date and time when the resource was updated. The date\
+                \ and time\nstamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)\n\
+                \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\
+                \ The `\xB1hh:mm`\nvalue, if included, is the time zone as an offset\
+                \ from UTC. In\nthe previous example, the offset value is `-05:00`."
+              readOnly: true
+            OS-EXT-SRV-ATTR:user_data:
+              type: string
+              description: 'The user_data the instance was created with.
+
+                By default, it appears in the response for administrative users only.
+
+
+                **New in version 2.75**'
+              x-openstack:
+                min-ver: '2.3'
+            user_id:
+              type: string
+              description: The user ID of the user who owns the server.
+            OS-EXT-STS:vm_state:
+              type: string
+              description: 'The VM state.
+
+
+                **New in version 2.75**'
+          required:
+          - id
+          - name
+          - flavor
+          - image
+    ServerUpdateRequest:
+      oneOf:
+      - $ref: '#/components/schemas/ServerUpdate_20'
+      - $ref: '#/components/schemas/ServerUpdate_21'
+      - $ref: '#/components/schemas/ServerUpdate_219'
+      - $ref: '#/components/schemas/ServerUpdate_290'
+      - $ref: '#/components/schemas/ServerUpdate_294'
+      x-openstack:
+        discriminator: microversion
+    ServerUpdate_20:
+      type: object
+      properties:
+        server:
+          type: object
+          description: A `server` object.
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name_with_leading_trailing_spaces
+              description: The server name.
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+              description: "Controls how the API partitions the disk when you create,\
+                \ rebuild, or resize servers.\nA server inherits the `OS-DCF:diskConfig`\
+                \ value from the image from which it\nwas created, and an image inherits\
+                \ the `OS-DCF:diskConfig` value from the server\nfrom which it was\
+                \ created. To override the inherited setting, you can include\nthis\
+                \ attribute in the request body of a server create, rebuild, or resize\
+                \ request. If\nthe `OS-DCF:diskConfig` value for an image is `MANUAL`,\
+                \ you cannot create\na server from that image and set its `OS-DCF:diskConfig`\
+                \ value to `AUTO`.\nA valid value is:\n\n* `AUTO`. The API builds\
+                \ the server with a single partition the size of the\n  target flavor\
+                \ disk. The API automatically adjusts the file system to fit the\n\
+                \  entire partition.\n* `MANUAL`. The API builds the server by using\
+                \ whatever partition scheme and\n  file system is in the source image.\
+                \ If the target flavor disk is larger, the API\n  does not partition\
+                \ the remaining disk space."
+            accessIPv4:
+              type: string
+              format: ipv4
+              description: IPv4 address that should be used to access this server.
+            accessIPv6:
+              type: string
+              format: ipv6
+              description: IPv6 address that should be used to access this server.
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.0'
+        max-ver: '2.0'
+      required:
+      - server
+    ServerUpdate_21:
+      type: object
+      properties:
+        server:
+          type: object
+          description: A `server` object.
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name
+              description: The server name.
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+              description: "Controls how the API partitions the disk when you create,\
+                \ rebuild, or resize servers.\nA server inherits the `OS-DCF:diskConfig`\
+                \ value from the image from which it\nwas created, and an image inherits\
+                \ the `OS-DCF:diskConfig` value from the server\nfrom which it was\
+                \ created. To override the inherited setting, you can include\nthis\
+                \ attribute in the request body of a server create, rebuild, or resize\
+                \ request. If\nthe `OS-DCF:diskConfig` value for an image is `MANUAL`,\
+                \ you cannot create\na server from that image and set its `OS-DCF:diskConfig`\
+                \ value to `AUTO`.\nA valid value is:\n\n* `AUTO`. The API builds\
+                \ the server with a single partition the size of the\n  target flavor\
+                \ disk. The API automatically adjusts the file system to fit the\n\
+                \  entire partition.\n* `MANUAL`. The API builds the server by using\
+                \ whatever partition scheme and\n  file system is in the source image.\
+                \ If the target flavor disk is larger, the API\n  does not partition\
+                \ the remaining disk space."
+            accessIPv4:
+              type: string
+              format: ipv4
+              description: IPv4 address that should be used to access this server.
+            accessIPv6:
+              type: string
+              format: ipv6
+              description: IPv6 address that should be used to access this server.
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.18'
+      required:
+      - server
+    ServerUpdate_219:
+      type: object
+      properties:
+        server:
+          type: object
+          description: A `server` object.
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name
+              description: The server name.
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+              description: "Controls how the API partitions the disk when you create,\
+                \ rebuild, or resize servers.\nA server inherits the `OS-DCF:diskConfig`\
+                \ value from the image from which it\nwas created, and an image inherits\
+                \ the `OS-DCF:diskConfig` value from the server\nfrom which it was\
+                \ created. To override the inherited setting, you can include\nthis\
+                \ attribute in the request body of a server create, rebuild, or resize\
+                \ request. If\nthe `OS-DCF:diskConfig` value for an image is `MANUAL`,\
+                \ you cannot create\na server from that image and set its `OS-DCF:diskConfig`\
+                \ value to `AUTO`.\nA valid value is:\n\n* `AUTO`. The API builds\
+                \ the server with a single partition the size of the\n  target flavor\
+                \ disk. The API automatically adjusts the file system to fit the\n\
+                \  entire partition.\n* `MANUAL`. The API builds the server by using\
+                \ whatever partition scheme and\n  file system is in the source image.\
+                \ If the target flavor disk is larger, the API\n  does not partition\
+                \ the remaining disk space."
+            accessIPv4:
+              type: string
+              format: ipv4
+              description: IPv4 address that should be used to access this server.
+            accessIPv6:
+              type: string
+              format: ipv6
+              description: IPv6 address that should be used to access this server.
+            description:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 255
+              pattern: "^[\\ -\\~\_-\xAC\xAE-\u0377\u037A-\u037F\u0384-\u038A\u038C\
+                \u038E-\u03A1\u03A3-\u052F\u0531-\u0556\u0559-\u058A\u058D-\u058F\u0591\
+                -\u05C7\u05D0-\u05EA\u05EF-\u05F4\u0606-\u061B\u061D-\u06DC\u06DE\
+                -\u070D\u0710-\u074A\u074D-\u07B1\u07C0-\u07FA\u07FD-\u082D\u0830\
+                -\u083E\u0840-\u085B\u085E\u0860-\u086A\u0870-\u088E\u0898-\u08E1\u08E3\
+                -\u0983\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6\
+                -\u09B9\u09BC-\u09C4\u09C7-\u09C8\u09CB-\u09CE\u09D7\u09DC-\u09DD\u09DF\
+                -\u09E3\u09E6-\u09FE\u0A01-\u0A03\u0A05-\u0A0A\u0A0F-\u0A10\u0A13\
+                -\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A3C\u0A3E\
+                -\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A76\
+                \u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\
+                -\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0\
+                -\u0AE3\u0AE6-\u0AF1\u0AF9-\u0AFF\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\
+                -\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3C\
+                -\u0B44\u0B47-\u0B48\u0B4B-\u0B4D\u0B55-\u0B57\u0B5C-\u0B5D\u0B5F\
+                -\u0B63\u0B66-\u0B77\u0B82-\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92\
+                -\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE\
+                -\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BFA\
+                \u0C00-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3C-\u0C44\u0C46\
+                -\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C58-\u0C5A\u0C5D\u0C60-\u0C63\u0C66\
+                -\u0C6F\u0C77-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5\
+                -\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5-\u0CD6\u0CDD\
+                -\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1-\u0CF3\u0D00-\u0D0C\u0D0E\
+                -\u0D10\u0D12-\u0D44\u0D46-\u0D48\u0D4A-\u0D4F\u0D54-\u0D63\u0D66\
+                -\u0D7F\u0D81-\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0\
+                -\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2-\u0DF4\
+                \u0E01-\u0E3A\u0E3F-\u0E5B\u0E81-\u0E82\u0E84\u0E86-\u0E8A\u0E8C-\u0EA3\
+                \u0EA5\u0EA7-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECE\u0ED0-\u0ED9\u0EDC\
+                -\u0EDF\u0F00-\u0F47\u0F49-\u0F6C\u0F71-\u0F97\u0F99-\u0FBC\u0FBE\
+                -\u0FCC\u0FCE-\u0FDA\u1000-\u10C5\u10C7\u10CD\u10D0-\u1248\u124A-\u124D\
+                \u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\
+                \u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\
+                \u1312-\u1315\u1318-\u135A\u135D-\u137C\u1380-\u1399\u13A0-\u13F5\u13F8\
+                -\u13FD\u1400-\u169C\u16A0-\u16F8\u1700-\u1715\u171F-\u1736\u1740\
+                -\u1753\u1760-\u176C\u176E-\u1770\u1772-\u1773\u1780-\u17DD\u17E0\
+                -\u17E9\u17F0-\u17F9\u1800-\u180D\u180F-\u1819\u1820-\u1878\u1880\
+                -\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1940\u1944\
+                -\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u19DE\
+                -\u1A1B\u1A1E-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA0\
+                -\u1AAD\u1AB0-\u1ACE\u1B00-\u1B4C\u1B50-\u1B7E\u1B80-\u1BF3\u1BFC\
+                -\u1C37\u1C3B-\u1C49\u1C4D-\u1C88\u1C90-\u1CBA\u1CBD-\u1CC7\u1CD0\
+                -\u1CFA\u1D00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50\
+                -\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FC4\u1FC6\
+                -\u1FD3\u1FD6-\u1FDB\u1FDD-\u1FEF\u1FF2-\u1FF4\u1FF6-\u1FFE\u2000\
+                -\u200A\u2010-\u2027\u202F-\u205F\u2070-\u2071\u2074-\u208E\u2090\
+                -\u209C\u20A0-\u20C0\u20D0-\u20F0\u2100-\u218B\u2190-\u2426\u2440\
+                -\u244A\u2460-\u2B73\u2B76-\u2B95\u2B97-\u2CF3\u2CF9-\u2D25\u2D27\u2D2D\
+                \u2D30-\u2D67\u2D6F-\u2D70\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0\
+                -\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8\
+                -\u2DDE\u2DE0-\u2E5D\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0\
+                -\u303F\u3041-\u3096\u3099-\u30FF\u3105-\u312F\u3131-\u318E\u3190\
+                -\u31E3\u31EF-\u321E\u3220-\uA48C\uA490-\uA4C6\uA4D0-\uA62B\uA640\
+                -\uA6F7\uA700-\uA7CA\uA7D0-\uA7D1\uA7D3\uA7D5-\uA7D9\uA7F2-\uA82C\uA830\
+                -\uA839\uA840-\uA877\uA880-\uA8C5\uA8CE-\uA8D9\uA8E0-\uA953\uA95F\
+                -\uA97C\uA980-\uA9CD\uA9CF-\uA9D9\uA9DE-\uA9FE\uAA00-\uAA36\uAA40\
+                -\uAA4D\uAA50-\uAA59\uAA5C-\uAAC2\uAADB-\uAAF6\uAB01-\uAB06\uAB09\
+                -\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB6B\uAB70\
+                -\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900\
+                -\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB36\uFB38\
+                -\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBC2\uFBD3-\uFD8F\uFD92\
+                -\uFDC7\uFDCF\uFDF0-\uFE19\uFE20-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFE70\
+                -\uFE74\uFE76-\uFEFC\uFF01-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2\
+                -\uFFD7\uFFDA-\uFFDC\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC-\uFFFD]*$"
+              description: 'A free form description of the server. Limited to 255
+                characters
+
+                in length. Before microversion 2.19 this was set to the server
+
+                name.
+
+
+                **New in version 2.19**'
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.19'
+        max-ver: '2.89'
+      required:
+      - server
+    ServerUpdate_290:
+      type: object
+      properties:
+        server:
+          type: object
+          description: A `server` object.
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name
+              description: The server name.
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+              description: "Controls how the API partitions the disk when you create,\
+                \ rebuild, or resize servers.\nA server inherits the `OS-DCF:diskConfig`\
+                \ value from the image from which it\nwas created, and an image inherits\
+                \ the `OS-DCF:diskConfig` value from the server\nfrom which it was\
+                \ created. To override the inherited setting, you can include\nthis\
+                \ attribute in the request body of a server create, rebuild, or resize\
+                \ request. If\nthe `OS-DCF:diskConfig` value for an image is `MANUAL`,\
+                \ you cannot create\na server from that image and set its `OS-DCF:diskConfig`\
+                \ value to `AUTO`.\nA valid value is:\n\n* `AUTO`. The API builds\
+                \ the server with a single partition the size of the\n  target flavor\
+                \ disk. The API automatically adjusts the file system to fit the\n\
+                \  entire partition.\n* `MANUAL`. The API builds the server by using\
+                \ whatever partition scheme and\n  file system is in the source image.\
+                \ If the target flavor disk is larger, the API\n  does not partition\
+                \ the remaining disk space."
+            accessIPv4:
+              type: string
+              format: ipv4
+              description: IPv4 address that should be used to access this server.
+            accessIPv6:
+              type: string
+              format: ipv6
+              description: IPv6 address that should be used to access this server.
+            description:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 255
+              pattern: "^[\\ -\\~\_-\xAC\xAE-\u0377\u037A-\u037F\u0384-\u038A\u038C\
+                \u038E-\u03A1\u03A3-\u052F\u0531-\u0556\u0559-\u058A\u058D-\u058F\u0591\
+                -\u05C7\u05D0-\u05EA\u05EF-\u05F4\u0606-\u061B\u061D-\u06DC\u06DE\
+                -\u070D\u0710-\u074A\u074D-\u07B1\u07C0-\u07FA\u07FD-\u082D\u0830\
+                -\u083E\u0840-\u085B\u085E\u0860-\u086A\u0870-\u088E\u0898-\u08E1\u08E3\
+                -\u0983\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6\
+                -\u09B9\u09BC-\u09C4\u09C7-\u09C8\u09CB-\u09CE\u09D7\u09DC-\u09DD\u09DF\
+                -\u09E3\u09E6-\u09FE\u0A01-\u0A03\u0A05-\u0A0A\u0A0F-\u0A10\u0A13\
+                -\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A3C\u0A3E\
+                -\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A76\
+                \u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\
+                -\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0\
+                -\u0AE3\u0AE6-\u0AF1\u0AF9-\u0AFF\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\
+                -\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3C\
+                -\u0B44\u0B47-\u0B48\u0B4B-\u0B4D\u0B55-\u0B57\u0B5C-\u0B5D\u0B5F\
+                -\u0B63\u0B66-\u0B77\u0B82-\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92\
+                -\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE\
+                -\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BFA\
+                \u0C00-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3C-\u0C44\u0C46\
+                -\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C58-\u0C5A\u0C5D\u0C60-\u0C63\u0C66\
+                -\u0C6F\u0C77-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5\
+                -\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5-\u0CD6\u0CDD\
+                -\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1-\u0CF3\u0D00-\u0D0C\u0D0E\
+                -\u0D10\u0D12-\u0D44\u0D46-\u0D48\u0D4A-\u0D4F\u0D54-\u0D63\u0D66\
+                -\u0D7F\u0D81-\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0\
+                -\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2-\u0DF4\
+                \u0E01-\u0E3A\u0E3F-\u0E5B\u0E81-\u0E82\u0E84\u0E86-\u0E8A\u0E8C-\u0EA3\
+                \u0EA5\u0EA7-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECE\u0ED0-\u0ED9\u0EDC\
+                -\u0EDF\u0F00-\u0F47\u0F49-\u0F6C\u0F71-\u0F97\u0F99-\u0FBC\u0FBE\
+                -\u0FCC\u0FCE-\u0FDA\u1000-\u10C5\u10C7\u10CD\u10D0-\u1248\u124A-\u124D\
+                \u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\
+                \u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\
+                \u1312-\u1315\u1318-\u135A\u135D-\u137C\u1380-\u1399\u13A0-\u13F5\u13F8\
+                -\u13FD\u1400-\u169C\u16A0-\u16F8\u1700-\u1715\u171F-\u1736\u1740\
+                -\u1753\u1760-\u176C\u176E-\u1770\u1772-\u1773\u1780-\u17DD\u17E0\
+                -\u17E9\u17F0-\u17F9\u1800-\u180D\u180F-\u1819\u1820-\u1878\u1880\
+                -\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1940\u1944\
+                -\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u19DE\
+                -\u1A1B\u1A1E-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA0\
+                -\u1AAD\u1AB0-\u1ACE\u1B00-\u1B4C\u1B50-\u1B7E\u1B80-\u1BF3\u1BFC\
+                -\u1C37\u1C3B-\u1C49\u1C4D-\u1C88\u1C90-\u1CBA\u1CBD-\u1CC7\u1CD0\
+                -\u1CFA\u1D00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50\
+                -\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FC4\u1FC6\
+                -\u1FD3\u1FD6-\u1FDB\u1FDD-\u1FEF\u1FF2-\u1FF4\u1FF6-\u1FFE\u2000\
+                -\u200A\u2010-\u2027\u202F-\u205F\u2070-\u2071\u2074-\u208E\u2090\
+                -\u209C\u20A0-\u20C0\u20D0-\u20F0\u2100-\u218B\u2190-\u2426\u2440\
+                -\u244A\u2460-\u2B73\u2B76-\u2B95\u2B97-\u2CF3\u2CF9-\u2D25\u2D27\u2D2D\
+                \u2D30-\u2D67\u2D6F-\u2D70\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0\
+                -\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8\
+                -\u2DDE\u2DE0-\u2E5D\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0\
+                -\u303F\u3041-\u3096\u3099-\u30FF\u3105-\u312F\u3131-\u318E\u3190\
+                -\u31E3\u31EF-\u321E\u3220-\uA48C\uA490-\uA4C6\uA4D0-\uA62B\uA640\
+                -\uA6F7\uA700-\uA7CA\uA7D0-\uA7D1\uA7D3\uA7D5-\uA7D9\uA7F2-\uA82C\uA830\
+                -\uA839\uA840-\uA877\uA880-\uA8C5\uA8CE-\uA8D9\uA8E0-\uA953\uA95F\
+                -\uA97C\uA980-\uA9CD\uA9CF-\uA9D9\uA9DE-\uA9FE\uAA00-\uAA36\uAA40\
+                -\uAA4D\uAA50-\uAA59\uAA5C-\uAAC2\uAADB-\uAAF6\uAB01-\uAB06\uAB09\
+                -\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB6B\uAB70\
+                -\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900\
+                -\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB36\uFB38\
+                -\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBC2\uFBD3-\uFD8F\uFD92\
+                -\uFDC7\uFDCF\uFDF0-\uFE19\uFE20-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFE70\
+                -\uFE74\uFE76-\uFEFC\uFF01-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2\
+                -\uFFD7\uFFDA-\uFFDC\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC-\uFFFD]*$"
+              description: 'A free form description of the server. Limited to 255
+                characters
+
+                in length. Before microversion 2.19 this was set to the server
+
+                name.
+
+
+                **New in version 2.19**'
+            hostname:
+              type: string
+              minLength: 2
+              maxLength: 63
+              pattern: ^[a-zA-Z0-9]+[a-zA-Z0-9-]*[a-zA-Z0-9]+$
+              description: 'The hostname to configure for the instance in the metadata
+                service.
+
+
+                Starting with microversion 2.94, this can be a Fully Qualified Domain
+                Name
+
+                (FQDN) of up to 255 characters in length.
+
+
+                Note
+
+
+                This information is published via the metadata service and requires
+
+                application such as `cloud-init` to propagate it through to the
+
+                instance.
+
+
+                **New in version 2.90**'
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.90'
+        max-ver: '2.93'
+      required:
+      - server
+    ServerUpdate_294:
+      type: object
+      properties:
+        server:
+          type: object
+          description: A `server` object.
+          properties:
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              format: name
+              description: The server name.
+            OS-DCF:diskConfig:
+              type: string
+              enum:
+              - AUTO
+              - MANUAL
+              description: "Controls how the API partitions the disk when you create,\
+                \ rebuild, or resize servers.\nA server inherits the `OS-DCF:diskConfig`\
+                \ value from the image from which it\nwas created, and an image inherits\
+                \ the `OS-DCF:diskConfig` value from the server\nfrom which it was\
+                \ created. To override the inherited setting, you can include\nthis\
+                \ attribute in the request body of a server create, rebuild, or resize\
+                \ request. If\nthe `OS-DCF:diskConfig` value for an image is `MANUAL`,\
+                \ you cannot create\na server from that image and set its `OS-DCF:diskConfig`\
+                \ value to `AUTO`.\nA valid value is:\n\n* `AUTO`. The API builds\
+                \ the server with a single partition the size of the\n  target flavor\
+                \ disk. The API automatically adjusts the file system to fit the\n\
+                \  entire partition.\n* `MANUAL`. The API builds the server by using\
+                \ whatever partition scheme and\n  file system is in the source image.\
+                \ If the target flavor disk is larger, the API\n  does not partition\
+                \ the remaining disk space."
+            accessIPv4:
+              type: string
+              format: ipv4
+              description: IPv4 address that should be used to access this server.
+            accessIPv6:
+              type: string
+              format: ipv6
+              description: IPv6 address that should be used to access this server.
+            description:
+              type:
+              - string
+              - 'null'
+              minLength: 0
+              maxLength: 255
+              pattern: "^[\\ -\\~\_-\xAC\xAE-\u0377\u037A-\u037F\u0384-\u038A\u038C\
+                \u038E-\u03A1\u03A3-\u052F\u0531-\u0556\u0559-\u058A\u058D-\u058F\u0591\
+                -\u05C7\u05D0-\u05EA\u05EF-\u05F4\u0606-\u061B\u061D-\u06DC\u06DE\
+                -\u070D\u0710-\u074A\u074D-\u07B1\u07C0-\u07FA\u07FD-\u082D\u0830\
+                -\u083E\u0840-\u085B\u085E\u0860-\u086A\u0870-\u088E\u0898-\u08E1\u08E3\
+                -\u0983\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6\
+                -\u09B9\u09BC-\u09C4\u09C7-\u09C8\u09CB-\u09CE\u09D7\u09DC-\u09DD\u09DF\
+                -\u09E3\u09E6-\u09FE\u0A01-\u0A03\u0A05-\u0A0A\u0A0F-\u0A10\u0A13\
+                -\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A3C\u0A3E\
+                -\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A51\u0A59-\u0A5C\u0A5E\u0A66-\u0A76\
+                \u0A81-\u0A83\u0A85-\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2\
+                -\u0AB3\u0AB5-\u0AB9\u0ABC-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0AD0\u0AE0\
+                -\u0AE3\u0AE6-\u0AF1\u0AF9-\u0AFF\u0B01-\u0B03\u0B05-\u0B0C\u0B0F\
+                -\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B35-\u0B39\u0B3C\
+                -\u0B44\u0B47-\u0B48\u0B4B-\u0B4D\u0B55-\u0B57\u0B5C-\u0B5D\u0B5F\
+                -\u0B63\u0B66-\u0B77\u0B82-\u0B83\u0B85-\u0B8A\u0B8E-\u0B90\u0B92\
+                -\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE\
+                -\u0BB9\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD0\u0BD7\u0BE6-\u0BFA\
+                \u0C00-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C39\u0C3C-\u0C44\u0C46\
+                -\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C58-\u0C5A\u0C5D\u0C60-\u0C63\u0C66\
+                -\u0C6F\u0C77-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5\
+                -\u0CB9\u0CBC-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5-\u0CD6\u0CDD\
+                -\u0CDE\u0CE0-\u0CE3\u0CE6-\u0CEF\u0CF1-\u0CF3\u0D00-\u0D0C\u0D0E\
+                -\u0D10\u0D12-\u0D44\u0D46-\u0D48\u0D4A-\u0D4F\u0D54-\u0D63\u0D66\
+                -\u0D7F\u0D81-\u0D83\u0D85-\u0D96\u0D9A-\u0DB1\u0DB3-\u0DBB\u0DBD\u0DC0\
+                -\u0DC6\u0DCA\u0DCF-\u0DD4\u0DD6\u0DD8-\u0DDF\u0DE6-\u0DEF\u0DF2-\u0DF4\
+                \u0E01-\u0E3A\u0E3F-\u0E5B\u0E81-\u0E82\u0E84\u0E86-\u0E8A\u0E8C-\u0EA3\
+                \u0EA5\u0EA7-\u0EBD\u0EC0-\u0EC4\u0EC6\u0EC8-\u0ECE\u0ED0-\u0ED9\u0EDC\
+                -\u0EDF\u0F00-\u0F47\u0F49-\u0F6C\u0F71-\u0F97\u0F99-\u0FBC\u0FBE\
+                -\u0FCC\u0FCE-\u0FDA\u1000-\u10C5\u10C7\u10CD\u10D0-\u1248\u124A-\u124D\
+                \u1250-\u1256\u1258\u125A-\u125D\u1260-\u1288\u128A-\u128D\u1290-\u12B0\
+                \u12B2-\u12B5\u12B8-\u12BE\u12C0\u12C2-\u12C5\u12C8-\u12D6\u12D8-\u1310\
+                \u1312-\u1315\u1318-\u135A\u135D-\u137C\u1380-\u1399\u13A0-\u13F5\u13F8\
+                -\u13FD\u1400-\u169C\u16A0-\u16F8\u1700-\u1715\u171F-\u1736\u1740\
+                -\u1753\u1760-\u176C\u176E-\u1770\u1772-\u1773\u1780-\u17DD\u17E0\
+                -\u17E9\u17F0-\u17F9\u1800-\u180D\u180F-\u1819\u1820-\u1878\u1880\
+                -\u18AA\u18B0-\u18F5\u1900-\u191E\u1920-\u192B\u1930-\u193B\u1940\u1944\
+                -\u196D\u1970-\u1974\u1980-\u19AB\u19B0-\u19C9\u19D0-\u19DA\u19DE\
+                -\u1A1B\u1A1E-\u1A5E\u1A60-\u1A7C\u1A7F-\u1A89\u1A90-\u1A99\u1AA0\
+                -\u1AAD\u1AB0-\u1ACE\u1B00-\u1B4C\u1B50-\u1B7E\u1B80-\u1BF3\u1BFC\
+                -\u1C37\u1C3B-\u1C49\u1C4D-\u1C88\u1C90-\u1CBA\u1CBD-\u1CC7\u1CD0\
+                -\u1CFA\u1D00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50\
+                -\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FC4\u1FC6\
+                -\u1FD3\u1FD6-\u1FDB\u1FDD-\u1FEF\u1FF2-\u1FF4\u1FF6-\u1FFE\u2000\
+                -\u200A\u2010-\u2027\u202F-\u205F\u2070-\u2071\u2074-\u208E\u2090\
+                -\u209C\u20A0-\u20C0\u20D0-\u20F0\u2100-\u218B\u2190-\u2426\u2440\
+                -\u244A\u2460-\u2B73\u2B76-\u2B95\u2B97-\u2CF3\u2CF9-\u2D25\u2D27\u2D2D\
+                \u2D30-\u2D67\u2D6F-\u2D70\u2D7F-\u2D96\u2DA0-\u2DA6\u2DA8-\u2DAE\u2DB0\
+                -\u2DB6\u2DB8-\u2DBE\u2DC0-\u2DC6\u2DC8-\u2DCE\u2DD0-\u2DD6\u2DD8\
+                -\u2DDE\u2DE0-\u2E5D\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0\
+                -\u303F\u3041-\u3096\u3099-\u30FF\u3105-\u312F\u3131-\u318E\u3190\
+                -\u31E3\u31EF-\u321E\u3220-\uA48C\uA490-\uA4C6\uA4D0-\uA62B\uA640\
+                -\uA6F7\uA700-\uA7CA\uA7D0-\uA7D1\uA7D3\uA7D5-\uA7D9\uA7F2-\uA82C\uA830\
+                -\uA839\uA840-\uA877\uA880-\uA8C5\uA8CE-\uA8D9\uA8E0-\uA953\uA95F\
+                -\uA97C\uA980-\uA9CD\uA9CF-\uA9D9\uA9DE-\uA9FE\uAA00-\uAA36\uAA40\
+                -\uAA4D\uAA50-\uAA59\uAA5C-\uAAC2\uAADB-\uAAF6\uAB01-\uAB06\uAB09\
+                -\uAB0E\uAB11-\uAB16\uAB20-\uAB26\uAB28-\uAB2E\uAB30-\uAB6B\uAB70\
+                -\uABED\uABF0-\uABF9\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900\
+                -\uFA6D\uFA70-\uFAD9\uFB00-\uFB06\uFB13-\uFB17\uFB1D-\uFB36\uFB38\
+                -\uFB3C\uFB3E\uFB40-\uFB41\uFB43-\uFB44\uFB46-\uFBC2\uFBD3-\uFD8F\uFD92\
+                -\uFDC7\uFDCF\uFDF0-\uFE19\uFE20-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFE70\
+                -\uFE74\uFE76-\uFEFC\uFF01-\uFFBE\uFFC2-\uFFC7\uFFCA-\uFFCF\uFFD2\
+                -\uFFD7\uFFDA-\uFFDC\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC-\uFFFD]*$"
+              description: 'A free form description of the server. Limited to 255
+                characters
+
+                in length. Before microversion 2.19 this was set to the server
+
+                name.
+
+
+                **New in version 2.19**'
+            hostname:
+              type: string
+              minLength: 1
+              maxLength: 255
+              pattern: ^[a-zA-Z0-9-._]*$
+              description: 'The hostname to configure for the instance in the metadata
+                service.
+
+
+                Starting with microversion 2.94, this can be a Fully Qualified Domain
+                Name
+
+                (FQDN) of up to 255 characters in length.
+
+
+                Note
+
+
+                This information is published via the metadata service and requires
+
+                application such as `cloud-init` to propagate it through to the
+
+                instance.
+
+
+                **New in version 2.90**'
+          additionalProperties: false
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.94'
+      required:
+      - server
+    ServersMetadataUpdate_AllResponse:
+      type: object
+      description: Metadata key and value pairs. The maximum size for each metadata
+        key and value pair is 255 bytes.
+      properties:
+        metadata:
+          type: object
+          patternProperties:
+            ^[a-zA-Z0-9-_:. ]{1,255}$:
+              type: string
+              maxLength: 255
+          additionalProperties: false
+          description: 'Metadata key and value pairs. The maximum size for each metadata
+            key and value
+
+            pair is 255 bytes.'
+      required:
+      - metadata
+    ServersMetadataUpdate_All:
+      type: object
+      properties:
+        metadata:
+          type: object
+          description: 'Metadata key and value pairs. The maximum size for each metadata
+            key and value
+
+            pair is 255 bytes.'
+          additionalProperties: false
+          patternProperties:
+            ^[a-zA-Z0-9-_:. ]{1,255}$:
+              type: string
+              maxLength: 255
+      additionalProperties: false
+      required:
+      - metadata
+    ServersMetadataUpdateResponse:
+      type: object
+      description: Response of the servers/server_id/metadata/id:put operation
+    ServersMetadataUpdate:
+      type: object
+      properties:
+        meta:
+          type: object
+          additionalProperties: false
+          patternProperties:
+            ^[a-zA-Z0-9-_:. ]{1,255}$:
+              type: string
+              maxLength: 255
+          minProperties: 1
+          maxProperties: 1
+      additionalProperties: false
+      required:
+      - meta
+    ServersOs_Volume_AttachmentUpdateResponse:
+      type: object
+      properties:
+        volumeAttachment:
+          type: object
+          properties:
+            device:
+              type: string
+              description: Name of the device in the attachment object, such as, `/dev/vdb`.
+            id:
+              description: 'The volume ID of the attachment.
+
+
+                **Available until version 2.88**'
+              type: string
+              format: uuid
+              x-openstack:
+                max-ver: '2.88'
+            serverId:
+              type: string
+              format: uuid
+              description: The UUID of the server.
+            volumeId:
+              type: string
+              format: uuid
+              description: The UUID of the attached volume.
+            tag:
+              type:
+              - string
+              - 'null'
+              description: "The device tag applied to the volume block device or `null`.\n\
+                \ \n**New in version 2.70**"
+              x-openstack:
+                min-ver: '2.70'
+            delete_on_termination:
+              type: boolean
+              description: 'A flag indicating if the attached volume will be deleted
+                when the server is
+
+                deleted.
+
+
+                **New in version 2.79**'
+              x-openstack:
+                min-ver: '2.79'
+            attachment_id:
+              type: string
+              format: uuid
+              description: "The UUID of the associated volume attachment in Cinder.\n\
+                \ \n**New in version 2.89**"
+              x-openstack:
+                min-ver: '2.89'
+            bdm_uuid:
+              type: string
+              format: uuid
+              description: 'The UUID of the block device mapping record in Nova for
+                the attachment.
+
+
+                **New in version 2.89**'
+              x-openstack:
+                min-ver: '2.89'
+          reuired:
+          - id
+          - serverId
+          - volumeId
+          - device
+          description: 'A dictionary representation of a volume attachment containing
+            the fields
+
+            `device`, `id`, `serverId` and `volumeId`.'
+      required:
+      - volumeAttachment
+    ServersOs_Volume_AttachmentUpdateRequest:
+      oneOf:
+      - $ref: '#/components/schemas/ServersOs_Volume_AttachmentUpdate_20'
+      - $ref: '#/components/schemas/ServersOs_Volume_AttachmentUpdate_285'
+      x-openstack:
+        discriminator: microversion
+    ServersOs_Volume_AttachmentUpdate_20:
+      type: object
+      properties:
+        volumeAttachment:
+          type: object
+          description: 'A dictionary representation of a volume attachment containing
+            the field
+
+            `volumeId` which is the UUID of the replacement volume, and other fields
+
+            to update in the attachment.'
+          properties:
+            volumeId:
+              type: string
+              format: uuid
+              description: The UUID of the volume to attach instead of the attached
+                volume.
+          additionalProperties: false
+          required:
+          - volumeId
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.0'
+        max-ver: '2.84'
+      required:
+      - volumeAttachment
+    ServersOs_Volume_AttachmentUpdate_285:
+      type: object
+      properties:
+        volumeAttachment:
+          type: object
+          description: 'A dictionary representation of a volume attachment containing
+            the field
+
+            `volumeId` which is the UUID of the replacement volume, and other fields
+
+            to update in the attachment.'
+          properties:
+            volumeId:
+              type: string
+              format: uuid
+              description: The UUID of the volume to attach instead of the attached
+                volume.
+            device:
+              type:
+              - string
+              - 'null'
+              pattern: (^/dev/x{0,1}[a-z]{0,1}d{0,1})([a-z]+)[0-9]*$
+              description: 'Name of the device in the attachment object, such as,
+                `/dev/vdb`.
+
+
+                **New in version 2.85**'
+            tag:
+              type: string
+              minLength: 1
+              maxLength: 60
+              pattern: ^[^,/]*$
+              description: 'The device tag applied to the volume block device or `null`.
+
+
+                **New in version 2.85**'
+            delete_on_termination:
+              type:
+              - boolean
+              - string
+              enum:
+              - true
+              - 'True'
+              - 'TRUE'
+              - 'true'
+              - '1'
+              - 'ON'
+              - 'On'
+              - 'on'
+              - 'YES'
+              - 'Yes'
+              - 'yes'
+              - false
+              - 'False'
+              - 'FALSE'
+              - 'false'
+              - '0'
+              - 'OFF'
+              - 'Off'
+              - 'off'
+              - 'NO'
+              - 'No'
+              - 'no'
+              description: 'A flag indicating if the attached volume will be deleted
+                when the server is
+
+                deleted.
+
+
+                **New in version 2.85**'
+            serverId:
+              type: string
+              format: uuid
+              description: 'The UUID of the server.
+
+
+                **New in version 2.85**'
+            id:
+              type: string
+              format: uuid
+              description: 'The UUID of the attachment.
+
+
+                **New in version 2.85**'
+          additionalProperties: false
+          required:
+          - volumeId
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.85'
+      required:
+      - volumeAttachment
+    ServersTagsUpdate_AllResponse:
+      type: object
+      description: Server Tags
+      properties:
+        tags:
+          type: array
+          description: A list of tags. The maximum count of tags in this list is 50.
+          items:
+            type: string
+    ServersTagsUpdate_All:
+      type: object
+      properties:
+        tags:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 60
+            pattern: ^[^,/]*$
+          maxItems: 50
+          description: A list of tags. The maximum count of tags in this list is 50.
+      additionalProperties: false
+      x-openstack:
+        min-ver: '2.26'
+      required:
+      - tags
+      title: Server tags
+  parameters:
+    flavors_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/flavors/{id} API
+      schema:
+        type: string
+      required: true
+    flavors_os_extra_specs_flavor_id:
+      in: path
+      name: flavor_id
+      description: flavor_id parameter for /v2.1/flavors/{flavor_id}/os-extra_specs/{id}
+        API
+      schema:
+        type: string
+      required: true
+    flavors_os_extra_specs_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/flavors/{flavor_id}/os-extra_specs/{id}
+        API
+      schema:
+        type: string
+      required: true
+    images_metadata_image_id:
+      in: path
+      name: image_id
+      description: image_id parameter for /v2.1/images/{image_id}/metadata/{id} API
+      schema:
+        type: string
+      required: true
+    images_metadata_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/images/{image_id}/metadata/{id} API
+      schema:
+        type: string
+      required: true
+    os_agents_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-agents/{id} API
+      schema:
+        type: string
+      required: true
+    os_aggregates_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-aggregates/{id} API
+      schema:
+        type: string
+      required: true
+    os_cells_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-cells/{id} API
+      schema:
+        type: string
+      required: true
+    os_cloudpipe_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-cloudpipe/{id} API
+      schema:
+        type: string
+      required: true
+    os_floating_ip_dns_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-floating-ip-dns/{id} API
+      schema:
+        type: string
+      required: true
+    os_floating_ip_dns_entries_domain_id:
+      in: path
+      name: domain_id
+      description: domain_id parameter for /v2.1/os-floating-ip-dns/{domain_id}/entries/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/domain.id
+    os_floating_ip_dns_entries_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-floating-ip-dns/{domain_id}/entries/{id}
+        API
+      schema:
+        type: string
+      required: true
+    os_floating_ips_bulk_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-floating-ips-bulk/{id} API
+      schema:
+        type: string
+      required: true
+    os_hosts_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-hosts/{id} API
+      schema:
+        type: string
+      required: true
+    os_quota_class_sets_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-quota-class-sets/{id} API
+      schema:
+        type: string
+      required: true
+    os_quota_sets_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-quota-sets/{id} API
+      schema:
+        type: string
+      required: true
+    os_quota_set_user_id:
+      in: query
+      name: user_id
+      description: ID of user to set the quotas for.
+      schema:
+        type: string
+      x-openstack:
+        min-ver: '2.0'
+        resource_link: identity/v3/user.id
+    os_security_groups_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-security-groups/{id} API
+      schema:
+        type: string
+      required: true
+    os_services_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-services/{id} API
+      schema:
+        type: string
+      required: true
+    os_volumes_boot_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-volumes_boot/{id} API
+      schema:
+        type: string
+      required: true
+    servers_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{id} API
+      schema:
+        type: string
+      required: true
+    servers_metadata_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/metadata/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_metadata_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/metadata/{id} API
+      schema:
+        type: string
+      required: true
+    servers_os_volume_attachments_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/os-volume_attachments/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_os_volume_attachments_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/os-volume_attachments/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_tags_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/tags/{id} API
+      schema:
+        type: string
+      required: true
+    servers_tags_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/tags/{id} API
+      schema:
+        type: string
+      required: true

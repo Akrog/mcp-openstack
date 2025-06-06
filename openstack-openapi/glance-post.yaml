@@ -1,0 +1,1971 @@
+openapi: 3.1.0
+info:
+  title: OpenStack Image API
+  description: Image API provided by Glance service
+  version: '2.16'
+paths:
+  /v2/metadefs/namespaces/{namespace_name}/resource_types:
+    parameters:
+    - $ref: '#/components/parameters/metadefs_namespaces_resource_types_namespace_name'
+    post:
+      operationId: metadefs/namespaces/namespace_name/resource_types:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadefsNamespacesResource_TypesCreateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadefsNamespacesResource_TypesCreateResponse'
+      tags:
+      - metadata-definition-resource-types
+  /v2/metadefs/namespaces:
+    post:
+      operationId: metadefs/namespaces:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadefsNamespacesCreateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadefsNamespacesCreateResponse'
+      tags:
+      - metadata-definition-namespaces
+  /v2/metadefs/namespaces/{namespace_name}/properties:
+    parameters:
+    - $ref: '#/components/parameters/metadefs_namespaces_properties_namespace_name'
+    post:
+      operationId: metadefs/namespaces/namespace_name/properties:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadefsNamespacesPropertiesCreateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadefsNamespacesPropertiesCreateResponse'
+      tags:
+      - metadata-definition-properties
+  /v2/metadefs/namespaces/{namespace_name}/objects:
+    parameters:
+    - $ref: '#/components/parameters/metadefs_namespaces_objects_namespace_name'
+    post:
+      operationId: metadefs/namespaces/namespace_name/objects:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadefsNamespacesObjectsCreateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadefsNamespacesObjectsCreateResponse'
+      tags:
+      - metadata-definition-objects
+  /v2/metadefs/namespaces/{namespace_name}/tags:
+    parameters:
+    - $ref: '#/components/parameters/metadefs_namespaces_tags_namespace_name'
+    post:
+      operationId: metadefs/namespaces/namespace_name/tags:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadefsNamespacesTagsCreate_TagsRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadefsNamespacesTagsCreate_TagsResponse'
+      tags:
+      - metadata-definition-tags
+  /v2/metadefs/namespaces/{namespace_name}/tags/{tag_name}:
+    parameters:
+    - $ref: '#/components/parameters/metadefs_namespaces_tags_namespace_name'
+    - $ref: '#/components/parameters/metadefs_namespaces_tags_tag_name'
+    post:
+      operationId: metadefs/namespaces/namespace_name/tags/tag_name:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadefsNamespacesTagCreateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadefsNamespacesTagCreateResponse'
+      tags:
+      - metadata-definition-tags
+  /v2/images:
+    post:
+      description: 'Creates a catalog record for an operating system disk image.
+
+        *(Since Image API v2.0)*
+
+
+        The `Location` response header contains the URI for the image.
+
+
+        A multiple store backend support is introduced in the Rocky release
+
+        as a part of the EXPERIMENTAL Image API v2.8. Since Image API v2.8 a
+
+        new header `OpenStack-image-store-ids` which contains the list of
+
+        available stores will be included in response. This header is only
+
+        included if multiple backend stores are supported.
+
+
+        The response body contains the new image entity.
+
+
+        Synchronous Postconditions
+
+
+        Normal response codes: 201
+
+
+        Error response codes: 400, 401, 403, 409, 413, 415'
+      operationId: images:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImagesCreateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesCreateResponse'
+          headers:
+            OpenStack-image-store-ids:
+              $ref: '#/components/headers/OpenStack-image-store-ids'
+      tags:
+      - images
+      summary: Create image
+  /v2/images/{image_id}/import:
+    parameters:
+    - $ref: '#/components/parameters/images_import_image_id'
+    post:
+      description: "Signals the Image Service to complete the image import workflow\n\
+        by processing data that has been made available to the OpenStack\nimage service.\n\
+        *(Since Image API v2.6)*\n\nIn the `glance-direct` workflow, the data has\
+        \ been made available to the\nImage service via the [Stage binary image data](#image-stage-call)\
+        \ API\ncall.\n\nIn the `web-download` workflow, the data is made available\
+        \ to the Image\nservice by being posted to an accessible location with a URL\
+        \ that you know.\n\nIn the `copy-image` workflow, the data is made available\
+        \ to the Image\nservice by copying existing image data to the staging area.\n\
+        \nIn the `glance-download` workflow, the data is made available to the Image\n\
+        service by fetching an image accessible from another glance service specified\n\
+        by a region name and an image id that you know.\n\nBeginning with API version\
+        \ 2.8, an optional `stores` parameter may be added\nto the body request. When\
+        \ present, it contains the list of backing store\nidentifiers to import the\
+        \ image binary data to. If at least one store\nidentifier specified is not\
+        \ recognized, a 409 (Conflict) response is returned.\nWhen the parameter is\
+        \ not present, the image data is placed into the default\nbacking store.\n\
+        \nFor backwards compatibility, if the `stores` parameter is not specified,\
+        \ the\nheader \u2018X-Image-Meta-Store\u2019 is evaluated.\n\nTo import the\
+        \ data into the entire set of stores you may consume from this\nparticular\
+        \ deployment of Glance without specifying each one of them, you can\nuse the\
+        \ optional boolean body parameter `all_stores`.\nNote that this can\u2019\
+        t be used simultaneously with the `stores` parameter.\n\nTo set the behavior\
+        \ of the import workflow in case of error, you can use the\noptional boolean\
+        \ body parameter `all_stores_must_succeed`.\nWhen set to True (default), if\
+        \ an error occurs during the upload in at least one store,\nthe worfklow fails,\
+        \ the data is deleted from stores where copying is done and\nthe state of\
+        \ the image remains unchanged.\nWhen set to False, the workflow will fail\
+        \ only if the upload fails\non all stores specified. In case of a partial\
+        \ success, the locations added to\nthe image will be the stores where the\
+        \ data has been correctly uploaded.\n\nThe JSON request body specifies what\
+        \ import method you wish to use\nfor this image request.\n\n**Preconditions**\n\
+        \nBefore you can complete the interoperable image import workflow, you must\
+        \ meet\nthe following preconditions:\n\n**Additional Preconditions**\n\nIf\
+        \ you are using the `glance-direct` import method:\n\nIf you are using the\
+        \ `web-download` import method:\n\nIf you are using the `copy-image` import\
+        \ method:\n\nIf you are using the `glance-download` import method:\n\n**Synchronous\
+        \ Postconditions**\n\nNormal response codes: 202\n\nError response codes:\
+        \ 400, 401, 403, 404, 405, 409, 410, 413, 415, 503\n\nIf the image import\
+        \ process is not enabled in your cloud, this request\nwill result in a 404\
+        \ response code with an appropriate message."
+      operationId: images/image_id/import:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImagesImportImport_ImageRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesImportImport_ImageResponse'
+      tags:
+      - images
+      summary: Import an image
+  /v2/images/{image_id}/actions/deactivate:
+    parameters:
+    - $ref: '#/components/parameters/images_actions_deactivate_image_id'
+    post:
+      description: 'Deactivates an image.
+
+        *(Since Image API v2.3)*
+
+
+        By default, this operation is restricted to administrators only.
+
+
+        If you try to download a deactivated image, you will receive a 403 (Forbidden)
+
+        response code. Additionally, only administrative users can view image
+
+        locations for deactivated images.
+
+
+        The deactivate operation returns an error if the image status is
+
+        not `active` or `deactivated`.
+
+
+        Preconditions
+
+
+        Normal response codes: 204
+
+
+        Error response codes: 400, 403, 404'
+      operationId: images/image_id/actions/deactivate:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImagesActionsDeactivateDeactivateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesActionsDeactivateResponse'
+      tags:
+      - images
+      summary: Deactivate image
+  /v2/images/{image_id}/actions/reactivate:
+    parameters:
+    - $ref: '#/components/parameters/images_actions_reactivate_image_id'
+    post:
+      description: 'Reactivates an image.
+
+        *(Since Image API v2.3)*
+
+
+        By default, this operation is restricted to administrators only.
+
+
+        The reactivate operation returns an error if the image status is
+
+        not `active` or `deactivated`.
+
+
+        Preconditions
+
+
+        Normal response codes: 204
+
+
+        Error response codes: 400, 403, 404'
+      operationId: images/image_id/actions/reactivate:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImagesActionsReactivateReactivateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesActionsReactivateResponse'
+      tags:
+      - images
+      summary: Reactivate image
+  /v2/images/{image_id}/locations:
+    parameters:
+    - $ref: '#/components/parameters/images_locations_image_id'
+    post:
+      description: 'Add location to an image which is in `queued` state. Accepts
+
+        location url, validation_data in JSON body.
+
+
+        Adding a location to an image is only allowed for the owner or
+
+        a user with the service role. If these conditions are not met,
+
+        a 403 (Forbidden) will be returned.
+
+
+        Attempting to add a location path to an image that is not in `queued`
+
+        state will result in a 409 (Conflict) response code
+
+
+        Attempting to provide incorrect hash value in validation data(in the case
+
+        of http store) to the image will result in a 400 (Bad Request) response code.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: 400, 403, 404, 409'
+      operationId: images/image_id/locations:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImagesLocationsAdd_LocationRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesLocationsAdd_LocationResponse'
+      tags:
+      - images
+      summary: Add Location
+  /v2/images/{image_id}/members:
+    parameters:
+    - $ref: '#/components/parameters/images_members_image_id'
+    post:
+      description: 'Adds a tenant ID as an image member.
+
+        *(Since Image API v2.1)*
+
+
+        Preconditions
+
+
+        Synchronous Postconditions
+
+
+        Troubleshooting
+
+
+        Normal response codes: 200
+
+
+        Error response codes: 400, 401, 403, 404, 409, 413'
+      operationId: images/image_id/members:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImagesMembersCreateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImagesMembersCreateResponse'
+      tags:
+      - images
+      summary: Create image member
+  /v2/tasks:
+    post:
+      description: 'Creates a task.
+
+
+        Normal response codes: 201
+
+
+        Error response codes: 401, 413, 415'
+      operationId: tasks:post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TasksCreateRequest'
+      responses:
+        '201':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TasksCreateResponse'
+      tags:
+      - tasks
+      summary: Create task
+components:
+  schemas:
+    MetadefsNamespacesResource_TypesCreateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Resource type names should be aligned with Heat resource types
+            whenever possible: https://docs.openstack.org/heat/latest/template_guide/openstack.html'
+          maxLength: 80
+        prefix:
+          type: string
+          description: Specifies the prefix to use for the given resource type. Any
+            properties in the namespace should be prefixed with this prefix when being
+            applied to the specified resource type. Must include prefix separator
+            (e.g. a colon :).
+          maxLength: 80
+        properties_target:
+          type: string
+          description: Some resource types allow more than one key / value pair per
+            instance.  For example, Cinder allows user and image metadata on volumes.
+            Only the image properties metadata is evaluated by Nova (scheduling or
+            drivers). This property allows a namespace target to remove the ambiguity.
+          maxLength: 80
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of resource type association
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last resource type association modification
+          format: date-time
+      additionalProperties: false
+      required:
+      - name
+    MetadefsNamespacesResource_TypesCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: 'Resource type names should be aligned with Heat resource types
+            whenever possible: https://docs.openstack.org/heat/latest/template_guide/openstack.html'
+          maxLength: 80
+        prefix:
+          type: string
+          description: Specifies the prefix to use for the given resource type. Any
+            properties in the namespace should be prefixed with this prefix when being
+            applied to the specified resource type. Must include prefix separator
+            (e.g. a colon :).
+          maxLength: 80
+        properties_target:
+          type: string
+          description: Some resource types allow more than one key / value pair per
+            instance.  For example, Cinder allows user and image metadata on volumes.
+            Only the image properties metadata is evaluated by Nova (scheduling or
+            drivers). This property allows a namespace target to remove the ambiguity.
+          maxLength: 80
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of resource type association
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last resource type association modification
+          format: date-time
+      additionalProperties: false
+      required:
+      - name
+    MetadefsNamespacesCreateResponse:
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The unique namespace text.
+          maxLength: 80
+        display_name:
+          type: string
+          description: The user friendly name for the namespace. Used by UI if available.
+          maxLength: 80
+        description:
+          type: string
+          description: Provides a user friendly description of the namespace.
+          maxLength: 500
+        visibility:
+          type: string
+          description: Scope of namespace accessibility.
+          enum:
+          - public
+          - private
+        protected:
+          type: boolean
+          description: If true, namespace will not be deletable.
+        owner:
+          type: string
+          description: Owner of the namespace.
+          maxLength: 255
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of namespace creation
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last namespace modification
+          format: date-time
+        schema:
+          readOnly: true
+          type: string
+        self:
+          readOnly: true
+          type: string
+        resource_type_associations:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              prefix:
+                type: string
+              properties_target:
+                type: string
+        properties:
+          type: object
+          additionalProperties: true
+        objects:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              required:
+                type: array
+                items:
+                  type: string
+                uniqueItems: true
+              properties:
+                type: object
+                additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+      additionalProperties: false
+      required:
+      - namespace
+    MetadefsNamespacesCreateRequest:
+      type: object
+      properties:
+        namespace:
+          type: string
+          description: The unique namespace text.
+          maxLength: 80
+        display_name:
+          type: string
+          description: The user friendly name for the namespace. Used by UI if available.
+          maxLength: 80
+        description:
+          type: string
+          description: Provides a user friendly description of the namespace.
+          maxLength: 500
+        visibility:
+          type: string
+          description: Scope of namespace accessibility.
+          enum:
+          - public
+          - private
+        protected:
+          type: boolean
+          description: If true, namespace will not be deletable.
+        owner:
+          type: string
+          description: Owner of the namespace.
+          maxLength: 255
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of namespace creation
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last namespace modification
+          format: date-time
+        schema:
+          readOnly: true
+          type: string
+        self:
+          readOnly: true
+          type: string
+        resource_type_associations:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              prefix:
+                type: string
+              properties_target:
+                type: string
+        properties:
+          type: object
+          additionalProperties: true
+        objects:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              required:
+                type: array
+                items:
+                  type: string
+                uniqueItems: true
+              properties:
+                type: object
+                additionalProperties: true
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+      additionalProperties: false
+      required:
+      - namespace
+    MetadefsNamespacesPropertiesCreateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        title:
+          type: string
+        description:
+          type: string
+        operators:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum:
+          - array
+          - boolean
+          - integer
+          - number
+          - object
+          - string
+          - null
+        required:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          uniqueItems: true
+        minimum:
+          type: number
+        maximum:
+          type: number
+        maxLength:
+          type: integer
+          minimum: 0
+        minLength:
+          allOf:
+          - type: integer
+            minimum: 0
+          - default: 0
+        pattern:
+          type: string
+          format: regex
+        enum:
+          type: array
+        readonly:
+          type: boolean
+        default: {}
+        items:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - array
+              - boolean
+              - integer
+              - number
+              - object
+              - string
+              - null
+            enum:
+              type: array
+        maxItems:
+          type: integer
+          minimum: 0
+        minItems:
+          allOf:
+          - type: integer
+            minimum: 0
+          - default: 0
+        uniqueItems:
+          type: boolean
+          default: false
+        additionalItems:
+          type: boolean
+      additionalProperties: false
+      required:
+      - type
+      - title
+      - name
+    MetadefsNamespacesPropertiesCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        title:
+          type: string
+        description:
+          type: string
+        operators:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum:
+          - array
+          - boolean
+          - integer
+          - number
+          - object
+          - string
+          - null
+        required:
+          type: array
+          items:
+            type: string
+          minItems: 1
+          uniqueItems: true
+        minimum:
+          type: number
+        maximum:
+          type: number
+        maxLength:
+          type: integer
+          minimum: 0
+        minLength:
+          allOf:
+          - type: integer
+            minimum: 0
+          - default: 0
+        pattern:
+          type: string
+          format: regex
+        enum:
+          type: array
+        readonly:
+          type: boolean
+        default: {}
+        items:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - array
+              - boolean
+              - integer
+              - number
+              - object
+              - string
+              - null
+            enum:
+              type: array
+        maxItems:
+          type: integer
+          minimum: 0
+        minItems:
+          allOf:
+          - type: integer
+            minimum: 0
+          - default: 0
+        uniqueItems:
+          type: boolean
+          default: false
+        additionalItems:
+          type: boolean
+      additionalProperties: false
+      required:
+      - type
+      - title
+      - name
+    MetadefsNamespacesObjectsCreateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        description:
+          type: string
+        required:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        properties:
+          type: object
+          additionalProperties: true
+        schema:
+          readOnly: true
+          type: string
+        self:
+          readOnly: true
+          type: string
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of object creation
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last object modification
+          format: date-time
+      additionalProperties: false
+      required:
+      - name
+    MetadefsNamespacesObjectsCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        description:
+          type: string
+        required:
+          type: array
+          items:
+            type: string
+          uniqueItems: true
+        properties:
+          type: object
+          additionalProperties: true
+        schema:
+          readOnly: true
+          type: string
+        self:
+          readOnly: true
+          type: string
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of object creation
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last object modification
+          format: date-time
+      additionalProperties: false
+      required:
+      - name
+    MetadefsNamespacesTagsCreate_TagsResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of tag creation
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last tag modification
+          format: date-time
+      additionalProperties: false
+      required:
+      - name
+    MetadefsNamespacesTagsCreate_TagsRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of tag creation
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last tag modification
+          format: date-time
+      additionalProperties: false
+      required:
+      - name
+    MetadefsNamespacesTagCreateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of tag creation
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last tag modification
+          format: date-time
+      additionalProperties: false
+      required:
+      - name
+    MetadefsNamespacesTagCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 80
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of tag creation
+          format: date-time
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last tag modification
+          format: date-time
+      additionalProperties: false
+      required:
+      - name
+    ImagesCreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'A unique, user-defined image UUID, in the format:
+
+
+            ```
+
+            nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn
+
+
+            ```
+
+
+            Where **n** is a hexadecimal digit from 0 to f, or F.
+
+
+            For example:
+
+
+            ```
+
+            b2173dd3-7ad6-4362-baa6-a68bce3565cb
+
+
+            ```
+
+
+            If you omit this value, the API generates a UUID for the image.'
+          pattern: ^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$
+        name:
+          type:
+          - 'null'
+          - string
+          description: The name of the image. Value might be `null` (JSON null data
+            type).
+          maxLength: 255
+        status:
+          type: string
+          readOnly: true
+          description: The image status.
+          enum:
+          - queued
+          - saving
+          - active
+          - killed
+          - deleted
+          - uploading
+          - importing
+          - pending_delete
+          - deactivated
+        visibility:
+          type: string
+          description: Image visibility, that is, the access permission for the image.
+          enum:
+          - community
+          - public
+          - private
+          - shared
+        protected:
+          type: boolean
+          description: A boolean value that must be `false` or the image cannot be
+            deleted.
+        os_hidden:
+          type: boolean
+          description: "This field controls whether an image is displayed in the default\n\
+            image-list response. A \u201Chidden\u201D image is out of date somehow\
+            \ (for\nexample, it may not have the latest updates applied) and hence\
+            \ should\nnot be a user\u2019s first choice, but it\u2019s not deleted\
+            \ because it may be\nneeded for server rebuilds. By hiding it from the\
+            \ default image list,\nit\u2019s easier for end users to find and use\
+            \ a more up-to-date version of\nthis image. *(Since Image API v2.7)*"
+        checksum:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: 'An MD5 hash over the image data. The value might be `null`
+            (JSON null data type),
+
+            as this field is no longer populated by the Image Service beginning with
+            the
+
+            Victoria release. It remains present for backward compatibility with legacy
+
+            images. To validate image data, instead use the secure multihash fields
+
+            `os_hash_algo` and `os_hash_value`.'
+          maxLength: 32
+        os_hash_algo:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: 'The algorithm used to compute a secure hash of the image data
+            for this
+
+            image. The result of the computation is displayed as the value of the
+
+            `os_hash_value` property. The value might be `null` (JSON null
+
+            data type). The algorithm used is chosen by the cloud operator; it
+
+            may not be configured by end users. *(Since Image API v2.7)*'
+          maxLength: 64
+        os_hash_value:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: 'The hexdigest of the secure hash of the image data computed
+            using the
+
+            algorithm whose name is the value of the `os_hash_algo` property.
+
+            The value might be `null` (JSON null data type) if data has not
+
+            yet been associated with this image, or if the image was created using
+
+            a version of the Image Service API prior to version 2.7.
+
+            *(Since Image API v2.7)*'
+          maxLength: 128
+        owner:
+          type:
+          - 'null'
+          - string
+          description: "An identifier for the owner of the image, usually the project\
+            \ (also\ncalled the \u201Ctenant\u201D) ID.\nThe value might be `null`\
+            \ (JSON null data type)."
+          maxLength: 255
+        size:
+          type:
+          - 'null'
+          - integer
+          readOnly: true
+          description: 'The size of the image data, in bytes. The value
+
+            might be `null` (JSON null data type).'
+          format: int64
+        virtual_size:
+          type:
+          - 'null'
+          - integer
+          readOnly: true
+          description: 'The virtual size of the image. The value might
+
+            be `null` (JSON null data type).'
+          format: int64
+        container_format:
+          description: 'Format of the image container.
+
+
+            Values may vary based on the configuration available in a
+
+            particular OpenStack cloud. See the [Image Schema](#image-schema)
+
+            response from the cloud itself for the valid values available. See
+
+            [Container Format](https://docs.openstack.org/glance/latest/user/formats.html#container-format)
+
+            in the Glance documentation for more information.
+
+
+            Example formats are: `ami`, `ari`, `aki`, `bare`,
+
+            `ovf`, `ova`, `docker`, or `compressed`.
+
+
+            The value might be `null` (JSON null data type).
+
+
+            **Train changes**: The `compressed` container format is a supported
+
+            value.'
+          nullable: true
+          anyOf:
+          - enum:
+            - null
+            - ami
+            - ari
+            - aki
+            - bare
+            - ovf
+            - ova
+            - docker
+            - compressed
+          - type: string
+        disk_format:
+          description: "The format of the disk.\n\nValues may vary based on the configuration\
+            \ available in a\nparticular OpenStack cloud. See the [Image Schema](#image-schema)\n\
+            response from the cloud itself for the valid values available. See\n[Disk\
+            \ Format](https://docs.openstack.org/glance/latest/user/formats.html#disk-format)\n\
+            in the Glance documentation for more information.\n\nExample formats are:\
+            \ `ami`, `ari`, `aki`, `vhd`,\n`vhdx`, `vmdk`, `raw`, `qcow2`, `vdi`,\
+            \ `ploop` or\n`iso`.\n\nThe value might be `null` (JSON null data type).\n\
+            \n**Newton changes**: The `vhdx` disk format is a supported\nvalue.  \n\
+            **Ocata changes**: The `ploop` disk format is a supported\nvalue."
+          nullable: true
+          anyOf:
+          - enum:
+            - null
+            - ami
+            - ari
+            - aki
+            - vhd
+            - vhdx
+            - vmdk
+            - raw
+            - qcow2
+            - vdi
+            - iso
+            - ploop
+          - type: string
+        created_at:
+          type: string
+          readOnly: true
+          description: "The date and time when the resource was created.\n\nThe date\
+            \ and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601):\n\
+            \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\n\
+            \nThe `\xB1hh:mm` value, if included, is the time zone as an offset\n\
+            from UTC."
+        updated_at:
+          type: string
+          readOnly: true
+          description: "The date and time when the resource was updated.\n\nThe date\
+            \ and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601):\n\
+            \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\n\
+            \nThe `\xB1hh:mm` value, if included, is the time zone as an offset\n\
+            from UTC. In the previous example, the offset value is `-05:00`.\n\nIf\
+            \ the `updated_at` date and time stamp is not set, its value is\n`null`."
+        tags:
+          type: array
+          description: List of tags for this image, possibly an empty list.
+          items:
+            type: string
+            maxLength: 255
+        direct_url:
+          type: string
+          readOnly: true
+          description: "The URL to access the image file kept in external store. *It\
+            \ is present\nonly if the* `show_image_direct_url` *option is* `true`\
+            \ *in the Image\nservice\u2019s configuration file.* **Because it presents\
+            \ a security risk, this\noption is disabled by default.**"
+        min_ram:
+          type: integer
+          description: 'Amount of RAM in MB that is required to boot the image.
+
+            The value might be `null` (JSON null data type).'
+        min_disk:
+          type: integer
+          description: 'Amount of disk space in GB that is required to boot the image.
+
+            The value might be `null` (JSON null data type).'
+        self:
+          type: string
+          readOnly: true
+          description: The URL for the virtual machine image.
+        file:
+          type: string
+          readOnly: true
+          description: The URL for the virtual machine image file.
+        stores:
+          type: string
+          readOnly: true
+          description: Store in which image data resides.  Only present when the operator
+            has enabled multiple stores.  May be a comma-separated list of store identifiers.
+        schema:
+          type: string
+          readOnly: true
+          description: The URL for the schema describing a virtual machine image.
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                maxLength: 255
+              metadata:
+                type: object
+              validation_data:
+                description: Values to be used to populate the corresponding image
+                  properties. If the image status is not 'queued', values must exactly
+                  match those already contained in the image properties.
+                type: object
+                writeOnly: true
+                additionalProperties: false
+                properties:
+                  checksum:
+                    type: string
+                    minLength: 32
+                    maxLength: 32
+                  os_hash_algo:
+                    type: string
+                    maxLength: 64
+                  os_hash_value:
+                    type: string
+                    maxLength: 128
+                required:
+                - os_hash_algo
+                - os_hash_value
+            required:
+            - url
+            - metadata
+          description: "A list of objects, each of which describes an image location.\
+            \ Each object\ncontains a `url` key, whose value is a URL specifying a\
+            \ location, and a\n`metadata` key, whose value is a dict of key:value\
+            \ pairs containing\ninformation appropriate to the use of whatever external\
+            \ store is indicated\nby the URL. *This list appears only if the* `show_multiple_locations`\n\
+            *option is set to* `true` *in the Image service\u2019s configuration file.*\n\
+            **Because it presents a security risk, this option is disabled by\ndefault.**"
+      additionalProperties:
+        type: string
+    ImagesCreateRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'A unique, user-defined image UUID, in the format:
+
+
+            ```
+
+            nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn
+
+
+            ```
+
+
+            Where **n** is a hexadecimal digit from 0 to f, or F.
+
+
+            For example:
+
+
+            ```
+
+            b2173dd3-7ad6-4362-baa6-a68bce3565cb
+
+
+            ```
+
+
+            If you omit this value, the API generates a UUID for the image. If you
+
+            specify a value that has already been assigned, the request fails with
+
+            a `409` response code.'
+          pattern: ^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$
+        name:
+          type:
+          - 'null'
+          - string
+          description: The name of the image.
+          maxLength: 255
+        status:
+          type: string
+          readOnly: true
+          description: Status of the image
+          enum:
+          - queued
+          - saving
+          - active
+          - killed
+          - deleted
+          - uploading
+          - importing
+          - pending_delete
+          - deactivated
+        visibility:
+          type: string
+          description: 'Visibility for this image. Valid value is one of: `public`,
+            `private`,
+
+            `shared`, or `community`.
+
+            At most sites, only an administrator can make an image `public`.
+
+            Some sites may restrict what users can make an image `community`.
+
+            Some sites may restrict what users can perform member operations on
+
+            a `shared` image.
+
+            *Since the Image API v2.5, the default value is ``shared``.*'
+          enum:
+          - community
+          - public
+          - private
+          - shared
+        protected:
+          type: boolean
+          description: 'Image protection for deletion. Valid value is `true` or `false`.
+
+            Default is `false`.'
+        os_hidden:
+          type: boolean
+          description: If true, image will not appear in default image list response.
+        checksum:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: md5 hash of image contents.
+          maxLength: 32
+        os_hash_algo:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: Algorithm to calculate the os_hash_value
+          maxLength: 64
+        os_hash_value:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: Hexdigest of the image contents using the algorithm specified
+            by the os_hash_algo
+          maxLength: 128
+        owner:
+          type:
+          - 'null'
+          - string
+          description: Owner of the image
+          maxLength: 255
+        size:
+          type:
+          - 'null'
+          - integer
+          readOnly: true
+          description: Size of image file in bytes
+        virtual_size:
+          type:
+          - 'null'
+          - integer
+          readOnly: true
+          description: Virtual size of image in bytes
+        container_format:
+          type:
+          - 'null'
+          - string
+          description: 'Format of the image container.
+
+
+            Values may vary based on the configuration available in a
+
+            particular OpenStack cloud. See the [Image Schema](#image-schema)
+
+            response from the cloud itself for the valid values available. See
+
+            [Container Format](https://docs.openstack.org/glance/latest/user/formats.html#container-format)
+
+            in the Glance documentation for more information.
+
+
+            Example formats are: `ami`, `ari`, `aki`, `bare`,
+
+            `ovf`, `ova`, `docker`, or `compressed`.
+
+
+            The value might be `null` (JSON null data type).
+
+
+            **Train changes**: The `compressed` container format is a supported
+
+            value.'
+          enum:
+          - null
+          - ami
+          - ari
+          - aki
+          - bare
+          - ovf
+          - ova
+          - docker
+          - compressed
+        disk_format:
+          type:
+          - 'null'
+          - string
+          description: "The format of the disk.\n\nValues may vary based on the configuration\
+            \ available in a\nparticular OpenStack cloud. See the [Image Schema](#image-schema)\n\
+            response from the cloud itself for the valid values available. See\n[Disk\
+            \ Format](https://docs.openstack.org/glance/latest/user/formats.html#disk-format)\n\
+            in the Glance documentation for more information.\n\nExample formats are:\
+            \ `ami`, `ari`, `aki`, `vhd`,\n`vhdx`, `vmdk`, `raw`, `qcow2`, `vdi`,\
+            \ `ploop` or\n`iso`.\n\nThe value might be `null` (JSON null data type).\n\
+            \n**Newton changes**: The `vhdx` disk format is a supported\nvalue.  \n\
+            **Ocata changes**: The `ploop` disk format is a supported\nvalue."
+          enum:
+          - null
+          - ami
+          - ari
+          - aki
+          - vhd
+          - vhdx
+          - vmdk
+          - raw
+          - qcow2
+          - vdi
+          - iso
+          - ploop
+        created_at:
+          type: string
+          readOnly: true
+          description: Date and time of image registration
+        updated_at:
+          type: string
+          readOnly: true
+          description: Date and time of the last image modification
+        tags:
+          type: array
+          description: 'List of tags for this image. Each tag is a string of at most
+            255 chars.
+
+            The maximum number of tags allowed on an image is set by the operator.'
+          items:
+            type: string
+            maxLength: 255
+        direct_url:
+          type: string
+          readOnly: true
+          description: URL to access the image file kept in external store
+        min_ram:
+          type: integer
+          description: Amount of RAM in MB that is required to boot the image.
+        min_disk:
+          type: integer
+          description: Amount of disk space in GB that is required to boot the image.
+        self:
+          type: string
+          readOnly: true
+          description: An image self url
+        file:
+          type: string
+          readOnly: true
+          description: An image file url
+        stores:
+          type: string
+          readOnly: true
+          description: Store in which image data resides.  Only present when the operator
+            has enabled multiple stores.  May be a comma-separated list of store identifiers.
+        schema:
+          type: string
+          readOnly: true
+          description: An image schema url
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                maxLength: 255
+              metadata:
+                type: object
+              validation_data:
+                description: Values to be used to populate the corresponding image
+                  properties. If the image status is not 'queued', values must exactly
+                  match those already contained in the image properties.
+                type: object
+                writeOnly: true
+                additionalProperties: false
+                properties:
+                  checksum:
+                    type: string
+                    minLength: 32
+                    maxLength: 32
+                  os_hash_algo:
+                    type: string
+                    maxLength: 64
+                  os_hash_value:
+                    type: string
+                    maxLength: 128
+                required:
+                - os_hash_algo
+                - os_hash_value
+            required:
+            - url
+            - metadata
+          description: A set of URLs to access the image file kept in external store
+      additionalProperties:
+        type: string
+    ImagesImportImport_ImageResponse: {}
+    ImagesImportImport_ImageRequest:
+      type: object
+      properties:
+        method:
+          type: object
+          properties:
+            name:
+              type: string
+            uri:
+              type: string
+            glance_image_id:
+              type: string
+            glance_region:
+              type: string
+            glance_service_interface:
+              type: string
+          description: 'A JSON object indicating what import method you wish to use
+            to import
+
+            your image. The content of this JSON object is another JSON object
+
+            with a `name` field whose value is the identifier for the import
+
+            method.'
+        stores:
+          type: array
+          items:
+            type: string
+          description: 'If present contains the list of store id to import the image
+            binary data
+
+            to.'
+        all_stores:
+          type: boolean
+          description: "When set to True the data will be imported to the set of stores\
+            \ you may\nconsume from this particular deployment of Glance (ie: the\
+            \ same set of\nstores returned to a call to /v2/info/stores on the glance-api\
+            \ the request\nhits).\nThis can\u2019t be used simultaneously with the\
+            \ `stores` parameter."
+        all_stores_must_success:
+          type: boolean
+    ImagesActionsDeactivateResponse:
+      type: object
+      description: Response of the images/image_id/actions/deactivate:post operation
+    ImagesActionsDeactivateDeactivateRequest:
+      type: object
+      description: Request of the images/image_id/actions/deactivate:post operation
+    ImagesActionsReactivateResponse:
+      type: object
+      description: Response of the images/image_id/actions/reactivate:post operation
+    ImagesActionsReactivateReactivateRequest:
+      type: object
+      description: Request of the images/image_id/actions/reactivate:post operation
+    ImagesLocationsAdd_LocationResponse:
+      type: array
+      description: A set of URLs to access the image file kept in external store
+      items:
+        type: object
+        properties:
+          url:
+            type: string
+            maxLength: 255
+          metadata:
+            type: object
+          validation_data:
+            description: Values to be used to populate the corresponding image properties.
+              If the image status is not 'queued', values must exactly match those
+              already contained in the image properties.
+            type: object
+            writeOnly: true
+            additionalProperties: false
+            properties:
+              checksum:
+                type: string
+                minLength: 32
+                maxLength: 32
+              os_hash_algo:
+                type: string
+                maxLength: 64
+              os_hash_value:
+                type: string
+                maxLength: 128
+            required:
+            - os_hash_algo
+            - os_hash_value
+        required:
+        - url
+        - metadata
+    ImagesLocationsAdd_LocationRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          maxLength: 255
+          description: The URL of the new location to be added in the image.
+        metadata:
+          type: object
+        validation_data:
+          description: "An image metadata in key:value pairs containing values of\n\
+            `os_hash_value` and `os_hash_algo` to be added to the image.\nIf `do_secure_hash`\
+            \ is not passed then it is the responsiblity of\nthe consumer of location\
+            \ add API to provide the correct values in\n`validation_data`\u2019"
+          type: object
+          writeOnly: true
+          additionalProperties: false
+          properties:
+            checksum:
+              type: string
+              minLength: 32
+              maxLength: 32
+            os_hash_algo:
+              type: string
+              maxLength: 64
+            os_hash_value:
+              type: string
+              maxLength: 128
+          required:
+          - os_hash_algo
+          - os_hash_value
+      required:
+      - url
+      - metadata
+    ImagesMembersCreateResponse:
+      type: object
+      properties:
+        member_id:
+          type: string
+          description: "The ID of the image member. An image member is usually a project\
+            \ (also\ncalled the \u201Ctenant\u201D) with whom the image is shared."
+        image_id:
+          type: string
+          description: The UUID of the image.
+          pattern: ^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$
+        created_at:
+          type: string
+          description: "The date and time when the resource was created.\n\nThe date\
+            \ and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601):\n\
+            \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\n\
+            \nThe `\xB1hh:mm` value, if included, is the time zone as an offset\n\
+            from UTC."
+        updated_at:
+          type: string
+          description: "The date and time when the resource was updated.\n\nThe date\
+            \ and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601):\n\
+            \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\n\
+            \nThe `\xB1hh:mm` value, if included, is the time zone as an offset\n\
+            from UTC. In the previous example, the offset value is `-05:00`.\n\nIf\
+            \ the `updated_at` date and time stamp is not set, its value is\n`null`."
+        status:
+          type: string
+          description: 'The status of this image member. Value is one of `pending`,
+
+            `accepted`, `rejected`.'
+          enum:
+          - pending
+          - accepted
+          - rejected
+        schema:
+          readOnly: true
+          type: string
+          description: The URL for the schema describing an image member.
+      additionalProperties: false
+    ImagesMembersCreateRequest:
+      type: object
+      description: Request of the images/image_id/members:post operation
+    TasksCreateResponse:
+      type: object
+      properties:
+        id:
+          description: The UUID of the task.
+          pattern: ^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$
+          type: string
+        type:
+          description: The type of task represented by this content.
+          enum:
+          - import
+          - api_image_import
+          - location_import
+          type: string
+        status:
+          description: 'The current status of this task. The value can be `pending`,
+
+            `processing`, `success` or `failure`.'
+          enum:
+          - pending
+          - processing
+          - success
+          - failure
+          type: string
+        input:
+          description: "A JSON object specifying the input parameters to the task.\
+            \ Consult your\ncloud provider\u2019s documentation for details."
+          type:
+          - 'null'
+          - object
+        result:
+          description: "A JSON object specifying information about the ultimate outcome\
+            \ of the\ntask. Consult your cloud provider\u2019s documentation for details."
+          type:
+          - 'null'
+          - object
+        owner:
+          description: An identifier for the owner of the task, usually the tenant
+            ID.
+          type: string
+        message:
+          description: 'Human-readable text, possibly an empty string, usually displayed
+            in an
+
+            error situation to provide more information about what has occurred.'
+          type: string
+        image_id:
+          description: Image associated with the task
+          type: string
+        request_id:
+          description: Human-readable informative request-id
+          type: string
+        user_id:
+          description: User associated with the task
+          type: string
+        expires_at:
+          description: Datetime when this resource would be subject to removal
+          type:
+          - 'null'
+          - string
+        created_at:
+          description: 'The date and time when the task was created.
+
+
+            The date and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).'
+          type: string
+        updated_at:
+          description: 'The date and time when the task was updated.
+
+
+            The date and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601).
+
+
+            If the `updated_at` date and time stamp is not set, its value is
+
+            `null`.'
+          type: string
+        self:
+          readOnly: true
+          type: string
+          description: A URI for this task.
+        schema:
+          readOnly: true
+          type: string
+          description: The URI for the schema describing an image task.
+      additionalProperties: false
+    TasksCreateRequest:
+      type: object
+      properties:
+        id:
+          description: An identifier for the task
+          pattern: ^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$
+          type: string
+        type:
+          description: The type of task represented by this content.
+          enum:
+          - import
+          - api_image_import
+          - location_import
+          type: string
+        status:
+          description: The current status of this task
+          enum:
+          - pending
+          - processing
+          - success
+          - failure
+          type: string
+        input:
+          description: "A JSON object specifying the input parameters to the task.\
+            \ Consult your\ncloud provider\u2019s documentation for details."
+          type:
+          - 'null'
+          - object
+        result:
+          description: The result of current task, JSON blob
+          type:
+          - 'null'
+          - object
+        owner:
+          description: An identifier for the owner of this task
+          type: string
+        message:
+          description: Human-readable informative message only included when appropriate
+            (usually on failure)
+          type: string
+        image_id:
+          description: Image associated with the task
+          type: string
+        request_id:
+          description: Human-readable informative request-id
+          type: string
+        user_id:
+          description: User associated with the task
+          type: string
+        expires_at:
+          description: Datetime when this resource would be subject to removal
+          type:
+          - 'null'
+          - string
+        created_at:
+          description: Datetime when this resource was created
+          type: string
+        updated_at:
+          description: Datetime when this resource was updated
+          type: string
+        self:
+          readOnly: true
+          type: string
+        schema:
+          readOnly: true
+          type: string
+      additionalProperties: false
+  parameters:
+    metadefs_namespaces_resource_types_namespace_name:
+      in: path
+      name: namespace_name
+      description: namespace_name parameter for /v2/metadefs/namespaces/{namespace_name}/resource_types/{resource_type}
+        API
+      schema:
+        type: string
+      required: true
+    metadefs_namespaces_properties_namespace_name:
+      in: path
+      name: namespace_name
+      description: namespace_name parameter for /v2/metadefs/namespaces/{namespace_name}/properties/{property_name}
+        API
+      schema:
+        type: string
+      required: true
+    metadefs_namespaces_objects_namespace_name:
+      in: path
+      name: namespace_name
+      description: namespace_name parameter for /v2/metadefs/namespaces/{namespace_name}/objects/{object_name}
+        API
+      schema:
+        type: string
+      required: true
+    metadefs_namespaces_tags_namespace_name:
+      in: path
+      name: namespace_name
+      description: namespace_name parameter for /v2/metadefs/namespaces/{namespace_name}/tags/{tag_name}
+        API
+      schema:
+        type: string
+      required: true
+    metadefs_namespaces_tags_tag_name:
+      in: path
+      name: tag_name
+      description: tag_name parameter for /v2/metadefs/namespaces/{namespace_name}/tags/{tag_name}
+        API
+      schema:
+        type: string
+      required: true
+    images_import_image_id:
+      in: path
+      name: image_id
+      description: image_id parameter for /v2/images/{image_id}/import API
+      schema:
+        type: string
+      required: true
+    images_actions_deactivate_image_id:
+      in: path
+      name: image_id
+      description: image_id parameter for /v2/images/{image_id}/actions/deactivate
+        API
+      schema:
+        type: string
+      required: true
+    images_actions_reactivate_image_id:
+      in: path
+      name: image_id
+      description: image_id parameter for /v2/images/{image_id}/actions/reactivate
+        API
+      schema:
+        type: string
+      required: true
+    images_locations_image_id:
+      in: path
+      name: image_id
+      description: image_id parameter for /v2/images/{image_id}/locations API
+      schema:
+        type: string
+      required: true
+    images_members_image_id:
+      in: path
+      name: image_id
+      description: image_id parameter for /v2/images/{image_id}/members/{member_id}
+        API
+      schema:
+        type: string
+      required: true
+  headers:
+    OpenStack-image-store-ids:
+      description: list of available stores
+      schema:
+        type: array
+        items:
+          type: string

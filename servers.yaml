@@ -1,0 +1,66 @@
+servers:
+  - namespace: compute
+    name: c
+    use_prefix: True
+    tool_name_length: 64
+    url: file://../openstack-openapi/nova-get.yaml
+    base_url: <NOVA_PUBLIC_URL>
+    certificate: False
+    use_cache: False
+    forward_headers:
+      - X-Auth-Token
+    paths:
+      - /v2.1/flavors$
+      - /v2.1/flavors/detail$
+      - /v2.1/flavors/{id}$
+      - /v2.1/os-hosts$
+      - /v2.1/os-hosts/{id}$
+      - /v2.1/os-hypervisors$
+      - /v2.1/os-hypervisors/detail$
+      - /v2.1/os-hypervisors/statistics$
+      - /v2.1/os-hypervisors/{id}$
+      - /v2.1/os-networks$
+      - /v2.1/os-networks/{id}$
+      - /v2.1/servers$
+      - /v2.1/servers/detail$
+      - /v2.1/servers/{id}$
+  - namespace: block-storage
+    name: b
+    use_prefix: True
+    url: file://../openstack-openapi/cinder-get.yaml
+    base_url: <CINDER_PUBLIC_URL>
+    certificate: False
+    use_cache: False
+    forward_headers:
+      - X-Auth-Token
+    paths:
+      - /v3/volumes/detail
+      - /v3/volumes
+      - /v3/volumes/{id}
+      - /v3/types
+      - /v3/types/{id}
+      - /v3/snapshots/detail
+      - /v3/snapshots
+      - /v3/snapshots/{id}
+      - /v3/scheduler-stats/get_pools
+      - /v3/os-services
+  - namespace: image
+    name: i
+    use_prefix: True
+    url: file://../openstack-openapi/glance-get.yaml
+    base_url: <GLANCE_PUBLIC_URL>
+    certificate: False
+    use_cache: False
+    forward_headers:
+      - X-Auth-Token
+    paths:
+      - /v2/images
+      - /v2/images/{image_id}
+      - /v2/images/{image_id}/tasks
+      - /v2/images/{image_id}/file
+      - /v2/images/{image_id}/locations
+      - /v2/images/{image_id}/members
+      - /v2/images/{image_id}/members/{member_id}
+      - /v2/info/stores
+      - /v2/info/usage
+      - /v2/info/stores/detail

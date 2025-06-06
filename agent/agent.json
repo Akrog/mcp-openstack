@@ -1,0 +1,28 @@
+{
+	"base_url": "<LLM_URL>",
+	"model": "<MODEL>",
+	"api_key": "open/llm.token",
+	"servers": [
+		{
+			"type": "sse",
+			"config": {
+				"url": "http://localhost:8000/compute/sse",
+				"timeout": 20
+			}
+		},
+		{
+			"type": "sse",
+			"config": {
+				"url": "http://localhost:8000/image/sse",
+				"timeout": 20
+			}
+		},
+		{
+			"type": "sse",
+			"config": {
+				"url": "http://localhost:8000/block-storage/sse",
+				"timeout": 20
+			}
+		}
+	]
+}

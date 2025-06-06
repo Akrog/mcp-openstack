@@ -1,0 +1,4 @@
+clouds:
+    default:
+        auth:
+            password: "12345678"

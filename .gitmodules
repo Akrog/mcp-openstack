@@ -1,0 +1,19 @@
+[submodule "openstack-code-generator"]
+	path = openstack-code-generator
+	url = https://github.com/Akrog/openstack-code-generator.git
+[submodule "openstack-components/cinder"]
+	path = openstack-components/cinder
+	url = https://opendev.org/openstack/cinder
+[submodule "openstack-components/glance"]
+	path = openstack-components/glance
+	url = https://opendev.org/openstack/glance
+[submodule "openstack-components/nova"]
+	path = openstack-components/nova
+	url = https://opendev.org/openstack/nova
+[submodule "openstack-components/placement"]
+	path = openstack-components/placement
+	url = https://opendev.org/openstack/placement
+[submodule "mcp-openapi"]
+	path = mcp-openapi
+	url = https://github.com/Akrog/mcp-openapi.git
+	branch = mcp

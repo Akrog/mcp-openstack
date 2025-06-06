@@ -1,0 +1,401 @@
+openapi: 3.1.0
+info:
+  title: OpenStack Image API
+  description: Image API provided by Glance service
+  version: '2.16'
+paths:
+  /v2/images/{image_id}:
+    parameters:
+    - $ref: '#/components/parameters/images_image_id'
+    patch:
+      description: 'Updates an image.
+
+        *(Since Image API v2.0)*
+
+
+        Conceptually, you update an image record by patching the JSON representation
+        of
+
+        the image, passing a request body conforming to one of the following media
+
+        types:
+
+
+        Attempting to make a PATCH call using some other media type will provoke a
+
+        response code of 415 (Unsupported media type).
+
+
+        The `application/openstack-images-v2.1-json-patch` media type provides a
+
+        useful and compatible subset of the functionality defined in JavaScript Object
+
+        Notation (JSON) Patch [RFC6902](http://tools.ietf.org/html/rfc6902), which
+
+        defines the `application/json-patch+json` media type.
+
+
+        For information about the PATCH method and the available media types, see
+
+        [Image API v2 HTTP PATCH media types](http://specs.openstack.org/openstack/glance-specs/specs/api/v2/http-patch-image-api-v2.html).
+
+
+        Attempting to modify some image properties will cause the entire request to
+
+        fail with a 403 (Forbidden) response code:
+
+
+        Attempting to add a location path to an image that is not in `queued` or
+
+        `active` state will result in a 409 (Conflict) response code
+
+        *(since Image API v2.4)*.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: 400, 401, 403, 404, 409, 413, 415'
+      operationId: images/image_id:patch
+      requestBody:
+        content:
+          application/openstack-images-v2.1-json-patch:
+            schema:
+              $ref: '#/components/schemas/ImageUpdateRequest'
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageUpdateResponse'
+      tags:
+      - images
+      summary: Update image
+components:
+  schemas:
+    ImageUpdateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 'A unique, user-defined image UUID, in the format:
+
+
+            ```
+
+            nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn
+
+
+            ```
+
+
+            Where **n** is a hexadecimal digit from 0 to f, or F.
+
+
+            For example:
+
+
+            ```
+
+            b2173dd3-7ad6-4362-baa6-a68bce3565cb
+
+
+            ```
+
+
+            If you omit this value, the API generates a UUID for the image.'
+          pattern: ^([0-9a-fA-F]){8}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){4}-([0-9a-fA-F]){12}$
+        name:
+          type:
+          - 'null'
+          - string
+          description: The name of the image. Value might be `null` (JSON null data
+            type).
+          maxLength: 255
+        status:
+          type: string
+          readOnly: true
+          description: The image status.
+          enum:
+          - queued
+          - saving
+          - active
+          - killed
+          - deleted
+          - uploading
+          - importing
+          - pending_delete
+          - deactivated
+        visibility:
+          type: string
+          description: Image visibility, that is, the access permission for the image.
+          enum:
+          - community
+          - public
+          - private
+          - shared
+        protected:
+          type: boolean
+          description: A boolean value that must be `false` or the image cannot be
+            deleted.
+        os_hidden:
+          type: boolean
+          description: "This field controls whether an image is displayed in the default\n\
+            image-list response. A \u201Chidden\u201D image is out of date somehow\
+            \ (for\nexample, it may not have the latest updates applied) and hence\
+            \ should\nnot be a user\u2019s first choice, but it\u2019s not deleted\
+            \ because it may be\nneeded for server rebuilds. By hiding it from the\
+            \ default image list,\nit\u2019s easier for end users to find and use\
+            \ a more up-to-date version of\nthis image. *(Since Image API v2.7)*"
+        checksum:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: 'An MD5 hash over the image data. The value might be `null`
+            (JSON null data type),
+
+            as this field is no longer populated by the Image Service beginning with
+            the
+
+            Victoria release. It remains present for backward compatibility with legacy
+
+            images. To validate image data, instead use the secure multihash fields
+
+            `os_hash_algo` and `os_hash_value`.'
+          maxLength: 32
+        os_hash_algo:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: 'The algorithm used to compute a secure hash of the image data
+            for this
+
+            image. The result of the computation is displayed as the value of the
+
+            `os_hash_value` property. The value might be `null` (JSON null
+
+            data type). The algorithm used is chosen by the cloud operator; it
+
+            may not be configured by end users. *(Since Image API v2.7)*'
+          maxLength: 64
+        os_hash_value:
+          type:
+          - 'null'
+          - string
+          readOnly: true
+          description: 'The hexdigest of the secure hash of the image data computed
+            using the
+
+            algorithm whose name is the value of the `os_hash_algo` property.
+
+            The value might be `null` (JSON null data type) if data has not
+
+            yet been associated with this image, or if the image was created using
+
+            a version of the Image Service API prior to version 2.7.
+
+            *(Since Image API v2.7)*'
+          maxLength: 128
+        owner:
+          type:
+          - 'null'
+          - string
+          description: "An identifier for the owner of the image, usually the project\
+            \ (also\ncalled the \u201Ctenant\u201D) ID.\nThe value might be `null`\
+            \ (JSON null data type)."
+          maxLength: 255
+        size:
+          type:
+          - 'null'
+          - integer
+          readOnly: true
+          description: 'The size of the image data, in bytes. The value
+
+            might be `null` (JSON null data type).'
+          format: int64
+        virtual_size:
+          type:
+          - 'null'
+          - integer
+          readOnly: true
+          description: Virtual size of image in bytes
+          format: int64
+        container_format:
+          description: 'Format of the image container.
+
+
+            Values may vary based on the configuration available in a
+
+            particular OpenStack cloud. See the [Image Schema](#image-schema)
+
+            response from the cloud itself for the valid values available. See
+
+            [Container Format](https://docs.openstack.org/glance/latest/user/formats.html#container-format)
+
+            in the Glance documentation for more information.
+
+
+            Example formats are: `ami`, `ari`, `aki`, `bare`,
+
+            `ovf`, `ova`, `docker`, or `compressed`.
+
+
+            The value might be `null` (JSON null data type).
+
+
+            **Train changes**: The `compressed` container format is a supported
+
+            value.'
+          nullable: true
+          anyOf:
+          - enum:
+            - null
+            - ami
+            - ari
+            - aki
+            - bare
+            - ovf
+            - ova
+            - docker
+            - compressed
+          - type: string
+        disk_format:
+          nullable: true
+          description: "The format of the disk.\n\nValues may vary based on the configuration\
+            \ available in a\nparticular OpenStack cloud. See the [Image Schema](#image-schema)\n\
+            response from the cloud itself for the valid values available. See\n[Disk\
+            \ Format](https://docs.openstack.org/glance/latest/user/formats.html#disk-format)\n\
+            in the Glance documentation for more information.\n\nExample formats are:\
+            \ `ami`, `ari`, `aki`, `vhd`,\n`vhdx`, `vmdk`, `raw`, `qcow2`, `vdi`,\
+            \ `ploop` or\n`iso`.\n\nThe value might be `null` (JSON null data type).\n\
+            \n**Newton changes**: The `vhdx` disk format is a supported\nvalue.  \n\
+            **Ocata changes**: The `ploop` disk format is a supported\nvalue."
+          anyOf:
+          - enum:
+            - null
+            - ami
+            - ari
+            - aki
+            - vhd
+            - vhdx
+            - vmdk
+            - raw
+            - qcow2
+            - vdi
+            - iso
+            - ploop
+          - type: string
+        created_at:
+          type: string
+          readOnly: true
+          description: "The date and time when the resource was created.\n\nThe date\
+            \ and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601):\n\
+            \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\n\
+            \nThe `\xB1hh:mm` value, if included, is the time zone as an offset\n\
+            from UTC."
+        updated_at:
+          type: string
+          readOnly: true
+          description: "The date and time when the resource was updated.\n\nThe date\
+            \ and time stamp format is [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601):\n\
+            \n```\nCCYY-MM-DDThh:mm:ss\xB1hh:mm\n\n```\n\nFor example, `2015-08-27T09:49:58-05:00`.\n\
+            \nThe `\xB1hh:mm` value, if included, is the time zone as an offset\n\
+            from UTC. In the previous example, the offset value is `-05:00`.\n\nIf\
+            \ the `updated_at` date and time stamp is not set, its value is\n`null`."
+        tags:
+          type: array
+          description: List of tags for this image, possibly an empty list.
+          items:
+            type: string
+            maxLength: 255
+        direct_url:
+          type: string
+          readOnly: true
+          description: "The URL to access the image file kept in external store. *It\
+            \ is present\nonly if the* `show_image_direct_url` *option is* `true`\
+            \ *in the Image\nservice\u2019s configuration file.* **Because it presents\
+            \ a security risk, this\noption is disabled by default.**"
+        min_ram:
+          type: integer
+          description: 'Amount of RAM in MB that is required to boot the image.
+
+            The value might be `null` (JSON null data type).'
+        min_disk:
+          type: integer
+          description: 'Amount of disk space in GB that is required to boot the image.
+
+            The value might be `null` (JSON null data type).'
+        self:
+          type: string
+          readOnly: true
+          description: The URL for the virtual machine image.
+        file:
+          type: string
+          readOnly: true
+          description: The URL for the virtual machine image file.
+        stores:
+          type: string
+          readOnly: true
+          description: Store in which image data resides.  Only present when the operator
+            has enabled multiple stores.  May be a comma-separated list of store identifiers.
+        schema:
+          type: string
+          readOnly: true
+          description: The URL for the schema describing a virtual machine image.
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                maxLength: 255
+              metadata:
+                type: object
+              validation_data:
+                description: Values to be used to populate the corresponding image
+                  properties. If the image status is not 'queued', values must exactly
+                  match those already contained in the image properties.
+                type: object
+                writeOnly: true
+                additionalProperties: false
+                properties:
+                  checksum:
+                    type: string
+                    minLength: 32
+                    maxLength: 32
+                  os_hash_algo:
+                    type: string
+                    maxLength: 64
+                  os_hash_value:
+                    type: string
+                    maxLength: 128
+                required:
+                - os_hash_algo
+                - os_hash_value
+            required:
+            - url
+            - metadata
+          description: "A list of objects, each of which describes an image location.\
+            \ Each object\ncontains a `url` key, whose value is a URL specifying a\
+            \ location, and a\n`metadata` key, whose value is a dict of key:value\
+            \ pairs containing\ninformation appropriate to the use of whatever external\
+            \ store is indicated\nby the URL. *This list appears only if the* `show_multiple_locations`\n\
+            *option is set to* `true` *in the Image service\u2019s configuration file.*\n\
+            **Because it presents a security risk, this option is disabled by\ndefault.**"
+      additionalProperties:
+        type: string
+    ImageUpdateRequest:
+      type: string
+      format: RFC 6902
+  parameters:
+    images_image_id:
+      in: path
+      name: image_id
+      description: image_id parameter for /v2/images/{image_id} API
+      schema:
+        type: string
+      required: true

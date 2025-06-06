@@ -1,0 +1,1284 @@
+openapi: 3.1.0
+info:
+  title: OpenStack Compute API
+  description: 'This is a reference for the OpenStack Compute API which is provided
+    by the Nova
+
+    project. To learn more about the OpenStack Compute API concepts, please refer
+    to
+
+    the [API guide](https://docs.openstack.org/api-guide/compute/index.html).'
+  version: '2.100'
+paths:
+  /v2.1/flavors/{id}:
+    parameters:
+    - $ref: '#/components/parameters/flavors_id'
+    delete:
+      description: 'Deletes a flavor.
+
+
+        This is typically an admin only action. Deleting a flavor that is in use by
+
+        existing servers is not recommended as it can cause incorrect data to
+
+        be returned to the user under some operations.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: flavors/id:delete
+      responses:
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - flavors
+      summary: Delete Flavor
+  /v2.1/flavors/{flavor_id}/os-extra_specs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/flavors_os_extra_specs_flavor_id'
+    - $ref: '#/components/parameters/flavors_os_extra_specs_id'
+    delete:
+      description: 'Deletes an extra spec, by key, for a flavor, by ID.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: flavors/flavor_id/os-extra_specs/id:delete
+      responses:
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - flavors
+      summary: Delete An Extra Spec For A Flavor
+  /v2.1/images/{id}:
+    parameters:
+    - $ref: '#/components/parameters/images_id'
+    delete:
+      description: 'Deletes an image.
+
+
+        Normal response codes: 204
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: images/id:delete
+      responses:
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - images
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      summary: Delete Image
+  /v2.1/images/{image_id}/metadata/{id}:
+    parameters:
+    - $ref: '#/components/parameters/images_metadata_image_id'
+    - $ref: '#/components/parameters/images_metadata_id'
+    delete:
+      description: 'Deletes a metadata item, by key, for an image.
+
+
+        Normal response codes: 204
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: images/image_id/metadata/id:delete
+      responses:
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - images
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.38'
+      summary: Delete Image Metadata Item
+  /v2.1/os-agents/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_agents_id'
+    delete:
+      description: 'Deletes an existing agent build.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), gone(410)'
+      operationId: os-agents/id:delete
+      responses:
+        '410':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-agents
+      deprecated: true
+      summary: Delete Agent Build
+  /v2.1/os-aggregates/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_aggregates_id'
+    delete:
+      description: 'Deletes an aggregate.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404)'
+      operationId: os-aggregates/id:delete
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-aggregates
+      summary: Delete Aggregate
+  /v2.1/os-assisted-volume-snapshots/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_assisted_volume_snapshots_id'
+    delete:
+      parameters:
+      - $ref: '#/components/parameters/os_assisted_volume_snapshot_delete_info'
+      description: "Deletes an assisted volume snapshot.\n\nTo make this request,\
+        \ add the `delete_info` query parameter to the URI, as follows:\n\nDELETE\
+        \ /os-assisted-volume-snapshots/421752a6-acf6-4b2d-bc7a-119f9148cd8c?delete_info=\u2019\
+        {\u201Cvolume_id\u201D: \u201C521752a6-acf6-4b2d-bc7a-119f9148cd8c\u201D}\u2019\
+        \n\nNormal response codes: 204\n\nError response codes: badRequest(400), unauthorized(401),\
+        \ forbidden(403),\nitemNotFound(404)"
+      operationId: os-assisted-volume-snapshots/id:delete
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-assisted-volume-snapshots
+      summary: Delete Assisted Volume Snapshot
+  /v2.1/os-baremetal-nodes/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_baremetal_nodes_id'
+    delete:
+      operationId: os-baremetal-nodes/id:delete
+      responses:
+        '400':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-baremetal-nodes
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+  /v2.1/os-cells/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_cells_id'
+    delete:
+      description: 'Remove a cell.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), gone(410), notImplemented(501)'
+      operationId: os-cells/id:delete
+      responses:
+        '410':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-cells
+      deprecated: true
+      summary: Delete a Cell
+  /v2.1/os-floating-ip-dns/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_floating_ip_dns_id'
+    delete:
+      description: 'Deletes a DNS domain and all associated host entries.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404),
+
+        gone(410), notImplemented(501)'
+      operationId: os-floating-ip-dns/id:delete
+      responses:
+        '410':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-floating-ip-dns
+      deprecated: true
+      summary: Delete DNS Domain
+  /v2.1/os-floating-ip-dns/{domain_id}/entries/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_floating_ip_dns_entries_domain_id'
+    - $ref: '#/components/parameters/os_floating_ip_dns_entries_id'
+    delete:
+      description: 'Deletes a DNS entry.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404),
+
+        gone(410), notImplemented(501)'
+      operationId: os-floating-ip-dns/domain_id/entries/id:delete
+      responses:
+        '410':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-floating-ip-dns
+      deprecated: true
+      summary: Delete DNS Entry
+  /v2.1/os-floating-ips/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_floating_ips_id'
+    delete:
+      description: 'Deletes, or deallocates, a floating IP address from the current
+        project and
+
+        returns it to the pool from which it was allocated.
+
+
+        If the IP address is still associated with a running instance,
+
+        it is automatically disassociated from that instance.
+
+
+        Policy defaults enable only users with the administrative role or
+
+        the owner of the server to perform this operation. Cloud providers
+
+        can change these permissions through the `policy.json` file.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404)'
+      operationId: os-floating-ips/id:delete
+      responses:
+        '400':
+          description: Error
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-floating-ips
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      summary: Delete (Deallocate) Floating Ip Address
+  /v2.1/os-keypairs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_keypairs_id'
+    delete:
+      parameters:
+      - $ref: '#/components/parameters/os_keypair_user_id'
+      description: 'Deletes a keypair.
+
+
+        Normal response codes: 202, 204
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: os-keypairs/id:delete
+      responses:
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-keypairs
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.9'
+      summary: Delete Keypair
+  /v2.1/os-networks/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_networks_id'
+    delete:
+      description: 'Deletes a network.
+
+
+        Policy defaults enable only users with the administrative role or the
+
+        owner of the network to perform this operation. Cloud providers can change
+
+        these permissions through the `policy.json` file.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404),
+
+        conflict(409), gone(410)'
+      operationId: os-networks/id:delete
+      responses:
+        '410':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-networks
+      deprecated: true
+      summary: Delete Network
+  /v2.1/os-quota-sets/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_quota_sets_id'
+    delete:
+      parameters:
+      - $ref: '#/components/parameters/os_quota_set_user_id'
+      description: 'Reverts the quotas to default values for a project or a project
+        and a user.
+
+
+        To revert quotas for a project and a user, specify the `user_id` query parameter.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403)'
+      operationId: os-quota-sets/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - quota-sets-os-quota-sets
+      summary: Revert Quotas To Defaults
+  /v2.1/os-security-group-default-rules/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_security_group_default_rules_id'
+    delete:
+      description: 'Deletes a security group rule.
+
+
+        Normal response codes: 204
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+
+        itemNotFound(404), gone(410), notImplemented(501)'
+      operationId: os-security-group-default-rules/id:delete
+      responses:
+        '410':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-security-group-default-rules
+      deprecated: true
+      summary: Delete Default Security Group Rule
+  /v2.1/os-security-group-rules/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_security_group_rules_id'
+    delete:
+      description: 'Deletes a security group rule.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404), conflict(409)'
+      operationId: os-security-group-rules/id:delete
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-security-group-rules
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      summary: Delete Security Group Rule
+  /v2.1/os-security-groups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_security_groups_id'
+    delete:
+      description: 'Deletes a security group.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404)'
+      operationId: os-security-groups/id:delete
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-security-groups
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      summary: Delete Security Group
+  /v2.1/os-server-groups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_server_groups_id'
+    delete:
+      description: 'Deletes a server group.
+
+
+        Normal response codes: 204
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: os-server-groups/id:delete
+      responses:
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-server-groups
+      summary: Delete Server Group
+  /v2.1/os-services/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_services_id'
+    delete:
+      description: "Deletes a service. If it\u2019s a `nova-compute` service, then\
+        \ the\ncorresponding host will be removed from all the host aggregates as\
+        \ well.\n\nAttempts to delete a `nova-compute` service which is still hosting\
+        \ instances\nwill result in a 409 HTTPConflict response. The instances will\
+        \ need to be\nmigrated or deleted before a compute service can be deleted.\n\
+        \nSimilarly, attempts to delete a `nova-compute` service which is involved\
+        \ in\nin-progress migrations will result in a 409 HTTPConflict response. The\n\
+        migrations will need to be completed, for example confirming or reverting\
+        \ a\nresize, or the instances will need to be deleted before the compute service\
+        \ can\nbe deleted.\n\nNormal response codes: 204\n\nError response codes:\
+        \ badRequest(400), unauthorized(401), forbidden(403),\nitemNotFound(404),\
+        \ conflict(409)"
+      operationId: os-services/id:delete
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-services
+      summary: Delete Compute Service
+  /v2.1/os-snapshots/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_snapshots_id'
+    delete:
+      description: 'Deletes a snapshot from the account.
+
+
+        This operation is asynchronous. You must list snapshots repeatedly to determine
+        whether the snapshot was deleted.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: os-snapshots/id:delete
+      responses:
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-snapshots
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      summary: Delete Snapshot
+  /v2.1/os-tenant-networks/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_tenant_networks_id'
+    delete:
+      description: 'Deletes a project network.
+
+
+        Policy defaults enable only users with the administrative role or
+
+        the owner of the network to perform this operation. Cloud providers
+
+        can change these permissions through the `policy.json` file.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404),
+
+        conflict(409), gone(410)'
+      operationId: os-tenant-networks/id:delete
+      responses:
+        '410':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-tenant-networks
+      deprecated: true
+      summary: Delete Project Network
+  /v2.1/os-volumes/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_volumes_id'
+    delete:
+      description: 'Deletes a volume.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: os-volumes/id:delete
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-volumes
+      deprecated: true
+      x-openstack:
+        min-ver: '2.1'
+        max-ver: '2.35'
+      summary: Delete Volume
+  /v2.1/os-volumes_boot/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_volumes_boot_id'
+    delete:
+      description: Destroys a server.
+      operationId: os-volumes_boot/id:delete
+      responses:
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - os-volumes_boot
+  /v2.1/servers/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_id'
+    delete:
+      description: "Deletes a server.\n\nBy default, the instance is going to be (hard)\
+        \ deleted immediately from\nthe system, but you can set `reclaim_instance_interval`\
+        \ > 0 to make\nthe API soft delete the instance, so that the instance won\u2019\
+        t be\ndeleted until the `reclaim_instance_interval` has expired since the\n\
+        instance was soft deleted. The instance marked as `SOFT_DELETED` can\nbe recovered\
+        \ via `restore` action before it\u2019s really deleted from the\nsystem.\n\
+        \n**Preconditions**\n\n**Asynchronous postconditions**\n\n**Troubleshooting**\n\
+        \nNormal response codes: 204\n\nError response codes: unauthorized(401), forbidden(403),\n\
+        itemNotFound(404), conflict(409)"
+      operationId: servers/id:delete
+      responses:
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - servers
+      summary: Delete Server
+  /v2.1/servers/{server_id}/consoles/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_consoles_server_id'
+    - $ref: '#/components/parameters/servers_consoles_id'
+    delete:
+      description: 'Deletes a console for a server.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404),
+
+        gone(410)'
+      operationId: servers/server_id/consoles/id:delete
+      responses:
+        '410':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - servers
+      deprecated: true
+      summary: Delete Console
+  /v2.1/servers/{server_id}/metadata/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_metadata_server_id'
+    - $ref: '#/components/parameters/servers_metadata_id'
+    delete:
+      description: 'Deletes a metadata item, by key, from a server.
+
+
+        Policy defaults enable only users with the administrative role or the owner
+        of the server to perform this operation. Cloud providers can change these
+        permissions through the `policy.json` file.
+
+
+        Normal response codes: 204
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404),
+        conflict(409)'
+      operationId: servers/server_id/metadata/id:delete
+      responses:
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - servers
+      summary: Delete Metadata Item
+  /v2.1/servers/{server_id}/migrations/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_migrations_server_id'
+    - $ref: '#/components/parameters/servers_migrations_id'
+    delete:
+      description: 'Abort an in-progress live migration.
+
+
+        Policy defaults enable only users with the administrative role to perform
+
+        this operation. Cloud providers can change these permissions through the
+
+        `policy.json` file.
+
+
+        **Preconditions**
+
+
+        The server OS-EXT-STS:task_state value must be `migrating`.
+
+
+        If the server is locked, you must have administrator privileges to force the
+
+        completion of the server migration.
+
+
+        For microversions from 2.24 to 2.64 the migration status must be `running`,
+
+        for microversion 2.65 and greater, the migration status can also be `queued`
+
+        and `preparing`.
+
+
+        **Asynchronous Postconditions**
+
+
+        After you make this request, you typically must keep polling the server status
+
+        to determine whether the request succeeded. You may also monitor the migration
+
+        using:
+
+
+        **Troubleshooting**
+
+
+        If the server status remains `MIGRATING` for an inordinate amount of
+
+        time, the request may have failed. Ensure you meet the preconditions and run
+
+        the request again. If the request fails again, investigate the compute back
+
+        end.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404), conflict(409)'
+      operationId: servers/server_id/migrations/id:delete
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - server-migrations
+      x-openstack:
+        min-ver: '2.24'
+      summary: Delete (Abort) Migration
+  /v2.1/servers/{server_id}/os-interface/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_os_interface_server_id'
+    - $ref: '#/components/parameters/servers_os_interface_id'
+    delete:
+      description: 'Detaches a port interface from a server.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404),
+
+        conflict(409), NotImplemented(501)'
+      operationId: servers/server_id/os-interface/id:delete
+      responses:
+        '400':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '501':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - servers
+      summary: Detach Interface
+  /v2.1/servers/{server_id}/os-server-password:
+    parameters:
+    - $ref: '#/components/parameters/servers_os_server_password_server_id'
+    delete:
+      description: 'Clears the encrypted administrative password for a server, which
+        removes it
+
+        from the database.
+
+
+        This action does not actually change the instance server password.
+
+
+        Policy defaults enable only users with the administrative role or the owner
+
+        of the server to perform this operation. Cloud providers can change these
+
+        permissions through the `policy.json` file.
+
+
+        Normal response codes: 204
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: servers/server_id/os-server-password:delete
+      responses:
+        '404':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - servers
+      summary: Clear Admin Password
+  /v2.1/servers/{server_id}/os-volume_attachments/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_os_volume_attachments_server_id'
+    - $ref: '#/components/parameters/servers_os_volume_attachments_id'
+    delete:
+      description: 'Detach a volume from an instance.
+
+
+        Normal response codes: 202
+
+
+        Error response codes: badRequest(400), unauthorized(401), forbidden(403),
+        itemNotFound(404), conflict(409)'
+      operationId: servers/server_id/os-volume_attachments/id:delete
+      responses:
+        '400':
+          description: Error
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - servers
+      summary: Detach a volume from an instance
+  /v2.1/servers/{server_id}/shares/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_shares_server_id'
+    - $ref: '#/components/parameters/servers_shares_id'
+    delete:
+      description: 'Detach a share from an instance.
+
+
+        Normal response codes: 200
+
+
+        Error response codes: badRequest(400), forbidden(403), itemNotFound(404),
+        conflict(409)'
+      operationId: servers/server_id/shares/id:delete
+      responses:
+        '400':
+          description: Error
+        '403':
+          description: Error
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - servers
+      x-openstack:
+        min-ver: '2.97'
+      summary: Detach a share from an instance
+  /v2.1/servers/{server_id}/tags:
+    parameters:
+    - $ref: '#/components/parameters/servers_tags_server_id'
+    delete:
+      description: 'Deletes all tags from the specified server.
+
+
+        Normal response codes: 204
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: servers/server_id/tags:delete
+      responses:
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - server-tags
+      x-openstack:
+        min-ver: '2.26'
+      summary: Delete All Tags
+  /v2.1/servers/{server_id}/tags/{id}:
+    parameters:
+    - $ref: '#/components/parameters/servers_tags_server_id'
+    - $ref: '#/components/parameters/servers_tags_id'
+    delete:
+      description: 'Deletes a single tag from the specified server.
+
+
+        Normal response codes: 204
+
+
+        Error response codes: unauthorized(401), forbidden(403), itemNotFound(404)'
+      operationId: servers/server_id/tags/id:delete
+      responses:
+        '404':
+          description: Error
+        '409':
+          description: Error
+        '204':
+          description: Ok
+      tags:
+      - server-tags
+      x-openstack:
+        min-ver: '2.26'
+      summary: Delete a Single Tag
+components:
+  schemas: {}
+  parameters:
+    flavors_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/flavors/{id} API
+      schema:
+        type: string
+      required: true
+    flavors_os_extra_specs_flavor_id:
+      in: path
+      name: flavor_id
+      description: flavor_id parameter for /v2.1/flavors/{flavor_id}/os-extra_specs/{id}
+        API
+      schema:
+        type: string
+      required: true
+    flavors_os_extra_specs_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/flavors/{flavor_id}/os-extra_specs/{id}
+        API
+      schema:
+        type: string
+      required: true
+    images_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/images/{id} API
+      schema:
+        type: string
+      required: true
+    images_metadata_image_id:
+      in: path
+      name: image_id
+      description: image_id parameter for /v2.1/images/{image_id}/metadata/{id} API
+      schema:
+        type: string
+      required: true
+    images_metadata_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/images/{image_id}/metadata/{id} API
+      schema:
+        type: string
+      required: true
+    os_agents_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-agents/{id} API
+      schema:
+        type: string
+      required: true
+    os_aggregates_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-aggregates/{id} API
+      schema:
+        type: string
+      required: true
+    os_assisted_volume_snapshots_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-assisted-volume-snapshots/{id} API
+      schema:
+        type: string
+      required: true
+    os_assisted_volume_snapshot_delete_info:
+      in: query
+      name: delete_info
+      schema:
+        type: string
+      x-openstack:
+        min-ver: '2.0'
+    os_baremetal_nodes_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-baremetal-nodes/{id} API
+      schema:
+        type: string
+      required: true
+    os_cells_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-cells/{id} API
+      schema:
+        type: string
+      required: true
+    os_floating_ip_dns_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-floating-ip-dns/{id} API
+      schema:
+        type: string
+      required: true
+    os_floating_ip_dns_entries_domain_id:
+      in: path
+      name: domain_id
+      description: domain_id parameter for /v2.1/os-floating-ip-dns/{domain_id}/entries/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/domain.id
+    os_floating_ip_dns_entries_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-floating-ip-dns/{domain_id}/entries/{id}
+        API
+      schema:
+        type: string
+      required: true
+    os_floating_ips_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-floating-ips/{id} API
+      schema:
+        type: string
+      required: true
+    os_keypairs_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-keypairs/{id} API
+      schema:
+        type: string
+      required: true
+    os_keypair_user_id:
+      in: query
+      name: user_id
+      schema:
+        type: string
+      x-openstack:
+        min-ver: '2.10'
+        resource_link: identity/v3/user.id
+    os_networks_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-networks/{id} API
+      schema:
+        type: string
+      required: true
+    os_quota_sets_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-quota-sets/{id} API
+      schema:
+        type: string
+      required: true
+    os_quota_set_user_id:
+      in: query
+      name: user_id
+      description: ID of user to set the quotas for.
+      schema:
+        type: string
+      x-openstack:
+        min-ver: '2.0'
+        resource_link: identity/v3/user.id
+    os_security_group_default_rules_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-security-group-default-rules/{id} API
+      schema:
+        type: string
+      required: true
+    os_security_group_rules_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-security-group-rules/{id} API
+      schema:
+        type: string
+      required: true
+    os_security_groups_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-security-groups/{id} API
+      schema:
+        type: string
+      required: true
+    os_server_groups_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-server-groups/{id} API
+      schema:
+        type: string
+      required: true
+    os_services_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-services/{id} API
+      schema:
+        type: string
+      required: true
+    os_snapshots_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-snapshots/{id} API
+      schema:
+        type: string
+      required: true
+    os_tenant_networks_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-tenant-networks/{id} API
+      schema:
+        type: string
+      required: true
+    os_volumes_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-volumes/{id} API
+      schema:
+        type: string
+      required: true
+    os_volumes_boot_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/os-volumes_boot/{id} API
+      schema:
+        type: string
+      required: true
+    servers_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{id} API
+      schema:
+        type: string
+      required: true
+    servers_consoles_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/consoles/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_consoles_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/consoles/{id} API
+      schema:
+        type: string
+      required: true
+    servers_metadata_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/metadata/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_metadata_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/metadata/{id} API
+      schema:
+        type: string
+      required: true
+    servers_migrations_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/migrations/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_migrations_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/migrations/{id} API
+      schema:
+        type: string
+      required: true
+    servers_os_interface_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/os-interface/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_os_interface_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/os-interface/{id} API
+      schema:
+        type: string
+      required: true
+    servers_os_server_password_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/os-server-password
+        API
+      schema:
+        type: string
+      required: true
+    servers_os_volume_attachments_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/os-volume_attachments/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_os_volume_attachments_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/os-volume_attachments/{id}
+        API
+      schema:
+        type: string
+      required: true
+    servers_shares_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/shares/{id} API
+      schema:
+        type: string
+      required: true
+    servers_shares_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/shares/{id} API
+      schema:
+        type: string
+      required: true
+    servers_tags_server_id:
+      in: path
+      name: server_id
+      description: server_id parameter for /v2.1/servers/{server_id}/tags/{id} API
+      schema:
+        type: string
+      required: true
+    servers_tags_id:
+      in: path
+      name: id
+      description: id parameter for /v2.1/servers/{server_id}/tags/{id} API
+      schema:
+        type: string
+      required: true

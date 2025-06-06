@@ -1,0 +1,985 @@
+openapi: 3.1.0
+info:
+  title: OpenStack Block Storage API
+  description: Note
+  version: '3.71'
+paths:
+  /v3/{project_id}/volumes/{id}:
+    parameters:
+    - $ref: '#/components/parameters/volumes_project_id'
+    - $ref: '#/components/parameters/volumes_id'
+    delete:
+      description: Delete a volume.
+      operationId: project_id/volumes/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - volumes
+  /v3/volumes/{id}:
+    parameters:
+    - $ref: '#/components/parameters/volumes_id'
+    delete:
+      description: Delete a volume.
+      operationId: volumes/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - volumes
+  /v3/{project_id}/messages/{id}:
+    parameters:
+    - $ref: '#/components/parameters/messages_project_id'
+    - $ref: '#/components/parameters/messages_id'
+    delete:
+      description: Delete a message.
+      operationId: project_id/messages/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - messages
+      x-openstack:
+        min-ver: '3.3'
+  /v3/messages/{id}:
+    parameters:
+    - $ref: '#/components/parameters/messages_id'
+    delete:
+      description: Delete a message.
+      operationId: messages/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - messages
+      x-openstack:
+        min-ver: '3.3'
+  /v3/{project_id}/types/{id}:
+    parameters:
+    - $ref: '#/components/parameters/types_project_id'
+    - $ref: '#/components/parameters/types_id'
+    delete:
+      description: Deletes an existing volume type.
+      operationId: project_id/types/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - types
+  /v3/types/{id}:
+    parameters:
+    - $ref: '#/components/parameters/types_id'
+    delete:
+      description: Deletes an existing volume type.
+      operationId: types/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - types
+  /v3/{project_id}/group_types/{id}:
+    parameters:
+    - $ref: '#/components/parameters/group_types_project_id'
+    - $ref: '#/components/parameters/group_types_id'
+    delete:
+      description: Deletes an existing group type.
+      operationId: project_id/group_types/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - group_types
+      x-openstack:
+        min-ver: '3.11'
+  /v3/group_types/{id}:
+    parameters:
+    - $ref: '#/components/parameters/group_types_id'
+    delete:
+      description: Deletes an existing group type.
+      operationId: group_types/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - group_types
+      x-openstack:
+        min-ver: '3.11'
+  /v3/{project_id}/group_types/{group_type_id}/group_specs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/group_types_group_specs_project_id'
+    - $ref: '#/components/parameters/group_types_group_specs_group_type_id'
+    - $ref: '#/components/parameters/group_types_group_specs_id'
+    delete:
+      description: Deletes an existing group spec.
+      operationId: project_id/group_types/group_type_id/group_specs/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - group_types
+      x-openstack:
+        min-ver: '3.11'
+  /v3/group_types/{group_type_id}/group_specs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/group_types_group_specs_group_type_id'
+    - $ref: '#/components/parameters/group_types_group_specs_id'
+    delete:
+      description: Deletes an existing group spec.
+      operationId: group_types/group_type_id/group_specs/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - group_types
+      x-openstack:
+        min-ver: '3.11'
+  /v3/{project_id}/groups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/groups_project_id'
+    - $ref: '#/components/parameters/groups_id'
+    delete:
+      description: 'Select and call the matching version of the specified method.
+
+
+        Look for the method which matches the name supplied and version
+
+        constraints and calls it with the supplied arguments.
+
+
+        |  |  |
+
+        | --- | --- |
+
+        | returns: | Returns the result of the method called |
+
+        | raises VersionNotFoundForAPIMethod: | |
+
+        |  | if there is no method which matches the name and version constraints
+        |'
+      operationId: project_id/groups/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - groups
+  /v3/groups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/groups_id'
+    delete:
+      description: 'Select and call the matching version of the specified method.
+
+
+        Look for the method which matches the name supplied and version
+
+        constraints and calls it with the supplied arguments.
+
+
+        |  |  |
+
+        | --- | --- |
+
+        | returns: | Returns the result of the method called |
+
+        | raises VersionNotFoundForAPIMethod: | |
+
+        |  | if there is no method which matches the name and version constraints
+        |'
+      operationId: groups/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - groups
+  /v3/{project_id}/group_snapshots/{id}:
+    parameters:
+    - $ref: '#/components/parameters/group_snapshots_project_id'
+    - $ref: '#/components/parameters/group_snapshots_id'
+    delete:
+      description: Delete a group_snapshot.
+      operationId: project_id/group_snapshots/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - group_snapshots
+      x-openstack:
+        min-ver: '3.14'
+  /v3/group_snapshots/{id}:
+    parameters:
+    - $ref: '#/components/parameters/group_snapshots_id'
+    delete:
+      description: Delete a group_snapshot.
+      operationId: group_snapshots/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - group_snapshots
+      x-openstack:
+        min-ver: '3.14'
+  /v3/{project_id}/snapshots/{id}:
+    parameters:
+    - $ref: '#/components/parameters/snapshots_project_id'
+    - $ref: '#/components/parameters/snapshots_id'
+    delete:
+      description: Delete a snapshot.
+      operationId: project_id/snapshots/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - snapshots
+  /v3/snapshots/{id}:
+    parameters:
+    - $ref: '#/components/parameters/snapshots_id'
+    delete:
+      description: Delete a snapshot.
+      operationId: snapshots/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - snapshots
+  /v3/{project_id}/snapshots/{snapshot_id}/metadata/{id}:
+    parameters:
+    - $ref: '#/components/parameters/snapshots_metadata_project_id'
+    - $ref: '#/components/parameters/snapshots_metadata_snapshot_id'
+    - $ref: '#/components/parameters/snapshots_metadata_id'
+    delete:
+      description: Deletes an existing metadata.
+      operationId: project_id/snapshots/snapshot_id/metadata/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - snapshots
+  /v3/snapshots/{snapshot_id}/metadata/{id}:
+    parameters:
+    - $ref: '#/components/parameters/snapshots_metadata_snapshot_id'
+    - $ref: '#/components/parameters/snapshots_metadata_id'
+    delete:
+      description: Deletes an existing metadata.
+      operationId: snapshots/snapshot_id/metadata/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - snapshots
+  /v3/{project_id}/volumes/{volume_id}/metadata/{id}:
+    parameters:
+    - $ref: '#/components/parameters/volumes_metadata_project_id'
+    - $ref: '#/components/parameters/volumes_metadata_volume_id'
+    - $ref: '#/components/parameters/volumes_metadata_id'
+    delete:
+      description: Deletes an existing metadata.
+      operationId: project_id/volumes/volume_id/metadata/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - volumes
+  /v3/volumes/{volume_id}/metadata/{id}:
+    parameters:
+    - $ref: '#/components/parameters/volumes_metadata_volume_id'
+    - $ref: '#/components/parameters/volumes_metadata_id'
+    delete:
+      description: Deletes an existing metadata.
+      operationId: volumes/volume_id/metadata/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - volumes
+  /v3/{project_id}/consistencygroups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/consistencygroups_project_id'
+    - $ref: '#/components/parameters/consistencygroups_id'
+    delete:
+      description: Delete a consistency group.
+      operationId: project_id/consistencygroups/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - consistencygroups
+      deprecated: true
+  /v3/consistencygroups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/consistencygroups_id'
+    delete:
+      description: Delete a consistency group.
+      operationId: consistencygroups/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - consistencygroups
+      deprecated: true
+  /v3/{project_id}/backups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/backups_project_id'
+    - $ref: '#/components/parameters/backups_id'
+    delete:
+      description: Delete a backup.
+      operationId: project_id/backups/id:delete
+      responses:
+        '202':
+          description: Ok
+      tags:
+      - backups
+  /v3/backups/{id}:
+    parameters:
+    - $ref: '#/components/parameters/backups_id'
+    delete:
+      description: Delete a backup.
+      operationId: backups/id:delete
+      responses:
+        '202':
+          description: Ok
+      tags:
+      - backups
+  /v3/{project_id}/attachments/{id}:
+    parameters:
+    - $ref: '#/components/parameters/attachments_project_id'
+    - $ref: '#/components/parameters/attachments_id'
+    delete:
+      description: 'Delete an attachment.
+
+
+        Disconnects/Deletes the specified attachment, returns a list of any
+
+        known shared attachment-id''s for the effected backend device.
+
+
+        returns: A summary list of any attachments sharing this connection'
+      operationId: project_id/attachments/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - attachments
+      x-openstack:
+        min-ver: '3.27'
+  /v3/attachments/{id}:
+    parameters:
+    - $ref: '#/components/parameters/attachments_id'
+    delete:
+      description: 'Delete an attachment.
+
+
+        Disconnects/Deletes the specified attachment, returns a list of any
+
+        known shared attachment-id''s for the effected backend device.
+
+
+        returns: A summary list of any attachments sharing this connection'
+      operationId: attachments/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - attachments
+      x-openstack:
+        min-ver: '3.27'
+  /v3/{project_id}/volume-transfers/{id}:
+    parameters:
+    - $ref: '#/components/parameters/volume_transfers_project_id'
+    - $ref: '#/components/parameters/volume_transfers_id'
+    delete:
+      description: Delete a transfer.
+      operationId: project_id/volume-transfers/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - volume-transfers
+      x-openstack:
+        min-ver: '3.55'
+  /v3/volume-transfers/{id}:
+    parameters:
+    - $ref: '#/components/parameters/volume_transfers_id'
+    delete:
+      description: Delete a transfer.
+      operationId: volume-transfers/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - volume-transfers
+      x-openstack:
+        min-ver: '3.55'
+  /v3/{project_id}/default-types/{id}:
+    parameters:
+    - $ref: '#/components/parameters/default_types_project_id'
+    - $ref: '#/components/parameters/default_types_id'
+    delete:
+      description: Unset a default volume type for a project.
+      operationId: project_id/default-types/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - default-types
+      x-openstack:
+        min-ver: '3.62'
+  /v3/default-types/{id}:
+    parameters:
+    - $ref: '#/components/parameters/default_types_id'
+    delete:
+      description: Unset a default volume type for a project.
+      operationId: default-types/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - default-types
+      x-openstack:
+        min-ver: '3.62'
+  /v3/{project_id}/cgsnapshots/{id}:
+    parameters:
+    - $ref: '#/components/parameters/cgsnapshots_project_id'
+    - $ref: '#/components/parameters/cgsnapshots_id'
+    delete:
+      description: Delete a cgsnapshot.
+      operationId: project_id/cgsnapshots/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - cgsnapshots
+      deprecated: true
+  /v3/cgsnapshots/{id}:
+    parameters:
+    - $ref: '#/components/parameters/cgsnapshots_id'
+    delete:
+      description: Delete a cgsnapshot.
+      operationId: cgsnapshots/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - cgsnapshots
+      deprecated: true
+  /v3/{project_id}/qos-specs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/qos_specs_project_id'
+    - $ref: '#/components/parameters/qos_specs_id'
+    delete:
+      description: Deletes an existing qos specs.
+      operationId: project_id/qos-specs/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - qos-specs
+  /v3/qos-specs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/qos_specs_id'
+    delete:
+      description: Deletes an existing qos specs.
+      operationId: qos-specs/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - qos-specs
+  /v3/{project_id}/os-quota-sets/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_quota_sets_project_id'
+    - $ref: '#/components/parameters/os_quota_sets_id'
+    delete:
+      description: 'Delete Quota for a particular tenant.
+
+
+        |  |  |
+
+        | --- | --- |
+
+        | param req: | request |
+
+        | param id: | target project id that needs to be deleted |'
+      operationId: project_id/os-quota-sets/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - os-quota-sets
+  /v3/os-quota-sets/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_quota_sets_id'
+    delete:
+      description: 'Delete Quota for a particular tenant.
+
+
+        |  |  |
+
+        | --- | --- |
+
+        | param req: | request |
+
+        | param id: | target project id that needs to be deleted |'
+      operationId: os-quota-sets/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - os-quota-sets
+  /v3/{project_id}/types/{type_id}/extra_specs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/types_extra_specs_project_id'
+    - $ref: '#/components/parameters/types_extra_specs_type_id'
+    - $ref: '#/components/parameters/types_extra_specs_id'
+    delete:
+      description: Deletes an existing extra spec.
+      operationId: project_id/types/type_id/extra_specs/id:delete
+      responses:
+        '202':
+          description: Ok
+      tags:
+      - types
+  /v3/types/{type_id}/extra_specs/{id}:
+    parameters:
+    - $ref: '#/components/parameters/types_extra_specs_type_id'
+    - $ref: '#/components/parameters/types_extra_specs_id'
+    delete:
+      description: Deletes an existing extra spec.
+      operationId: types/type_id/extra_specs/id:delete
+      responses:
+        '202':
+          description: Ok
+      tags:
+      - types
+  /v3/{project_id}/os-volume-transfer/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_volume_transfer_project_id'
+    - $ref: '#/components/parameters/os_volume_transfer_id'
+    delete:
+      description: Delete a transfer.
+      operationId: project_id/os-volume-transfer/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - os-volume-transfer
+  /v3/os-volume-transfer/{id}:
+    parameters:
+    - $ref: '#/components/parameters/os_volume_transfer_id'
+    delete:
+      description: Delete a transfer.
+      operationId: os-volume-transfer/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - os-volume-transfer
+  /v3/{project_id}/types/{type_id}/encryption/{id}:
+    parameters:
+    - $ref: '#/components/parameters/types_encryption_project_id'
+    - $ref: '#/components/parameters/types_encryption_type_id'
+    - $ref: '#/components/parameters/types_encryption_id'
+    delete:
+      description: Delete encryption specs for a given volume type.
+      operationId: project_id/types/type_id/encryption/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - types
+  /v3/types/{type_id}/encryption/{id}:
+    parameters:
+    - $ref: '#/components/parameters/types_encryption_type_id'
+    - $ref: '#/components/parameters/types_encryption_id'
+    delete:
+      description: Delete encryption specs for a given volume type.
+      operationId: types/type_id/encryption/id:delete
+      responses:
+        '204':
+          description: Ok
+      tags:
+      - types
+components:
+  schemas: {}
+  parameters:
+    volumes_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/volumes/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    volumes_id:
+      in: path
+      name: id
+      description: id parameter for /v3/volumes/{id} API
+      schema:
+        type: string
+      required: true
+    messages_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/messages/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    messages_id:
+      in: path
+      name: id
+      description: id parameter for /v3/messages/{id} API
+      schema:
+        type: string
+      required: true
+    types_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/types/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    types_id:
+      in: path
+      name: id
+      description: id parameter for /v3/types/{id} API
+      schema:
+        type: string
+      required: true
+    group_types_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/group_types/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    group_types_id:
+      in: path
+      name: id
+      description: id parameter for /v3/group_types/{id} API
+      schema:
+        type: string
+      required: true
+    group_types_group_specs_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/group_types/{group_type_id}/group_specs/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    group_types_group_specs_group_type_id:
+      in: path
+      name: group_type_id
+      description: group_type_id parameter for /v3/group_types/{group_type_id}/group_specs/{id}
+        API
+      schema:
+        type: string
+      required: true
+    group_types_group_specs_id:
+      in: path
+      name: id
+      description: id parameter for /v3/group_types/{group_type_id}/group_specs/{id}
+        API
+      schema:
+        type: string
+      required: true
+    groups_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/groups/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    groups_id:
+      in: path
+      name: id
+      description: id parameter for /v3/groups/{id} API
+      schema:
+        type: string
+      required: true
+    group_snapshots_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/group_snapshots/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    group_snapshots_id:
+      in: path
+      name: id
+      description: id parameter for /v3/group_snapshots/{id} API
+      schema:
+        type: string
+      required: true
+    snapshots_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/snapshots/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    snapshots_id:
+      in: path
+      name: id
+      description: id parameter for /v3/snapshots/{id} API
+      schema:
+        type: string
+      required: true
+    snapshots_metadata_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/snapshots/{snapshot_id}/metadata
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    snapshots_metadata_snapshot_id:
+      in: path
+      name: snapshot_id
+      description: snapshot_id parameter for /v3/snapshots/{snapshot_id}/metadata
+        API
+      schema:
+        type: string
+      required: true
+    snapshots_metadata_id:
+      in: path
+      name: id
+      description: id parameter for /v3/snapshots/{snapshot_id}/metadata/{id} API
+      schema:
+        type: string
+      required: true
+    volumes_metadata_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/volumes/{volume_id}/metadata
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    volumes_metadata_volume_id:
+      in: path
+      name: volume_id
+      description: volume_id parameter for /v3/volumes/{volume_id}/metadata API
+      schema:
+        type: string
+      required: true
+    volumes_metadata_id:
+      in: path
+      name: id
+      description: id parameter for /v3/volumes/{volume_id}/metadata/{id} API
+      schema:
+        type: string
+      required: true
+    consistencygroups_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/consistencygroups/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    consistencygroups_id:
+      in: path
+      name: id
+      description: id parameter for /v3/consistencygroups/{id} API
+      schema:
+        type: string
+      required: true
+    backups_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/backups/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    backups_id:
+      in: path
+      name: id
+      description: id parameter for /v3/backups/{id} API
+      schema:
+        type: string
+      required: true
+    attachments_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/attachments/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    attachments_id:
+      in: path
+      name: id
+      description: id parameter for /v3/attachments/{id} API
+      schema:
+        type: string
+      required: true
+    volume_transfers_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/volume-transfers/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    volume_transfers_id:
+      in: path
+      name: id
+      description: id parameter for /v3/volume-transfers/{id} API
+      schema:
+        type: string
+      required: true
+    default_types_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/default-types/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    default_types_id:
+      in: path
+      name: id
+      description: id parameter for /v3/default-types/{id} API
+      schema:
+        type: string
+      required: true
+    cgsnapshots_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/cgsnapshots/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    cgsnapshots_id:
+      in: path
+      name: id
+      description: id parameter for /v3/cgsnapshots/{id} API
+      schema:
+        type: string
+      required: true
+    qos_specs_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/qos-specs/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    qos_specs_id:
+      in: path
+      name: id
+      description: id parameter for /v3/qos-specs/{id} API
+      schema:
+        type: string
+      required: true
+    os_quota_sets_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/os-quota-sets/{id} API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    os_quota_sets_id:
+      in: path
+      name: id
+      description: id parameter for /v3/os-quota-sets/{id} API
+      schema:
+        type: string
+      required: true
+    types_extra_specs_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/types/{type_id}/extra_specs/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    types_extra_specs_type_id:
+      in: path
+      name: type_id
+      description: type_id parameter for /v3/types/{type_id}/extra_specs/{id} API
+      schema:
+        type: string
+      required: true
+    types_extra_specs_id:
+      in: path
+      name: id
+      description: id parameter for /v3/types/{type_id}/extra_specs/{id} API
+      schema:
+        type: string
+      required: true
+    os_volume_transfer_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/os-volume-transfer/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    os_volume_transfer_id:
+      in: path
+      name: id
+      description: id parameter for /v3/os-volume-transfer/{id} API
+      schema:
+        type: string
+      required: true
+    types_encryption_project_id:
+      in: path
+      name: project_id
+      description: project_id parameter for /v3/{project_id}/types/{type_id}/encryption/{id}
+        API
+      schema:
+        type: string
+      required: true
+      x-openstack:
+        resource_link: identity/v3/project.id
+    types_encryption_type_id:
+      in: path
+      name: type_id
+      description: type_id parameter for /v3/types/{type_id}/encryption/{id} API
+      schema:
+        type: string
+      required: true
+    types_encryption_id:
+      in: path
+      name: id
+      description: id parameter for /v3/types/{type_id}/encryption/{id} API
+      schema:
+        type: string
+      required: true
